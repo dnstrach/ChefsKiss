@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-// API RECIPE DETAIL VIEW
-
 struct RecipeDetailView: View {
-    //@ObservedObject var vm: APIRecipeViewModel
     let recipe: APIRecipe
 
     var body: some View {
@@ -19,6 +16,17 @@ struct RecipeDetailView: View {
                 VStack {
                     Text(recipe.title)
                     Text("Duration: \(recipe.readyInMinutes) minutes")
+                    
+                    AsyncImage(url: URL(string: recipe.image), scale: 3) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                        Text(recipe.title)
+                    } placeholder: {
+                        ProgressView()
+                    }
+
+                    
                      Text(recipe.summary)
                     
                     ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
@@ -28,8 +36,6 @@ struct RecipeDetailView: View {
                         }
                     }
                     
-                    // analyzedInstructions = [Instruction[steps[step]]]
-                    // pulling out first object of steps because only object in steps containing all the steps for the recipe
                     ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
                         Text("\(step.number). \(step.step)")
                             .padding(.bottom, 5)

@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct SearchTerm {
-    let searchParam: String
-    let searchValue: String
-}
+//struct SearchTerm {
+//    let searchParam: String
+//    let searchValue: String
+//}
 
 @MainActor class CategoryViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
@@ -20,8 +20,18 @@ struct SearchTerm {
     
     private let searchTerm: SearchTerm
     
-    var navigationTitle: String {
-        searchTerm.searchValue.description.capitalized
+    var navigationTitle: String? {
+        switch searchTerm {
+        case let .searchParam(_, value):
+            return value.description.capitalized
+            
+        default:
+            return nil
+        }
+    }
+    
+    var unwrappedNavTitle: String {
+        navigationTitle ?? ""
     }
     
     init(searchTerm: SearchTerm) {

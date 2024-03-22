@@ -7,38 +7,20 @@
 
 import SwiftUI
 
-// clean up code with repetitive for each and labels
 struct CategoriesView: View {
     @StateObject var viewModel: CategoriesViewModel
     @State private var searchText: String = ""
     
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
-    
     var body: some View {
         NavigationStack {
             ScrollView {
-                // searchText needs to get updated - onChange?
                 SearchBarView(searchText: $searchText)
                 
                 ForEach(viewModel.categories, id: \.0) { category, searchParam in
                     
                     if !searchText.isEmpty {
-                        LazyVGrid(columns: columns) {
-                            ForEach(viewModel.recipes, id: \.id) { recipe in
-                                NavigationLink(destination: RecipeDetailView( recipe: recipe)) {
-                                    Text(recipe.title)
-                                    AsyncImage(url: URL(string: recipe.image), scale: 3) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFit()
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                }
-                            }
-                        }
+                        RecipeSearchGridView(recipes: viewModel.recipes)
+                        // alert is used twice - better way to write for reusable code? 
                         .alert(isPresented: $viewModel.showAlert) {
                             Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
                         }

@@ -9,7 +9,6 @@ import Foundation
 
 @MainActor class CategoriesViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
-    @Published var query: String = ""
     @Published var showAlert: Bool = false
     @Published var alertMessage = ""
     
@@ -19,22 +18,10 @@ import Foundation
         ("Diets", .diet),
         ("Intolerances", .intolerance)
     ]
-    
-//    init(query: String) {
-//        self.query = query
-//        
-//        Task {
-//            await self.searchRecipes(query: query)
-//        }
-//    }
-    
-    
-    func searchRecipes(query: String) async {
-        
-        do {
-             // let searchTerm = SearchTerm(searchParam: "", searchValue: "")
 
-            recipes = try await APIManager.loadSearchRecipes(query: query)
+    func searchRecipes(query: String) async {
+        do {
+            recipes = try await APIManager.loadRecipes(searchTerm: .query(query))
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {
                 showAlert = true

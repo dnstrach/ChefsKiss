@@ -55,6 +55,100 @@ struct APIRecipe: Codable {
             Instruction(steps: [Step(number: 1, step: "Step 1", ingredients: [Ingredient(id: 1, name: "Ingredient 1", image: "ingredient_image")])])
         ]
     )
+    
+    static let dummyRecipeArray = [
+        APIRecipe(
+            id: 1,
+            title: "Sample Recipe",
+            summary: "This is a sample recipe summary",
+            image: "https://spoonacular.com/recipeImages/794538-312x231.jpg",
+            imageType: "jpg",
+            vegetarian: true,
+            vegan: false,
+            glutenFree: true,
+            dairyFree: false,
+            veryHealthy: false,
+            sustainable: true,
+            readyInMinutes: 30,
+            servings: 4,
+            sourceUrl: "https://sampleurl.com",
+            cuisines: ["Italian"],
+            dishTypes: ["Main Course"],
+            sideDish: nil, diets: nil,
+            analyzedInstructions: [
+                Instruction(steps: [Step(number: 1, step: "Step 1", ingredients: [Ingredient(id: 1, name: "Ingredient 1", image: "ingredient_image")])])
+            ]
+        ),
+        
+       APIRecipe(
+            id: 2,
+            title: "Sample Recipe Long Text Sample Recipe",
+            summary: "This is a sample recipe summary",
+            image: "https://spoonacular.com/recipeImages/794538-312x231.jpg",
+            imageType: "jpg",
+            vegetarian: true,
+            vegan: false,
+            glutenFree: true,
+            dairyFree: false,
+            veryHealthy: false,
+            sustainable: true,
+            readyInMinutes: 30,
+            servings: 4,
+            sourceUrl: "https://sampleurl.com",
+            cuisines: ["Italian"],
+            dishTypes: ["Main Course"],
+            sideDish: nil, diets: nil,
+            analyzedInstructions: [
+                Instruction(steps: [Step(number: 1, step: "Step 1", ingredients: [Ingredient(id: 1, name: "Ingredient 1", image: "ingredient_image")])])
+            ]
+        ),
+        
+        APIRecipe(
+             id: 3,
+             title: "Sample Recipe Long Text Sample Recipe",
+             summary: "This is a sample recipe summary",
+             image: "https://spoonacular.com/recipeImages/794538-312x231.jpg",
+             imageType: "jpg",
+             vegetarian: true,
+             vegan: false,
+             glutenFree: true,
+             dairyFree: false,
+             veryHealthy: false,
+             sustainable: true,
+             readyInMinutes: 30,
+             servings: 4,
+             sourceUrl: "https://sampleurl.com",
+             cuisines: ["Italian"],
+             dishTypes: ["Main Course"],
+             sideDish: nil, diets: nil,
+             analyzedInstructions: [
+                 Instruction(steps: [Step(number: 1, step: "Step 1", ingredients: [Ingredient(id: 1, name: "Ingredient 1", image: "ingredient_image")])])
+             ]
+         ),
+        
+        APIRecipe(
+            id: 4,
+            title: "Sample Recipe",
+            summary: "This is a sample recipe summary",
+            image: "https://spoonacular.com/recipeImages/794538-312x231.jpg",
+            imageType: "jpg",
+            vegetarian: true,
+            vegan: false,
+            glutenFree: true,
+            dairyFree: false,
+            veryHealthy: false,
+            sustainable: true,
+            readyInMinutes: 30,
+            servings: 4,
+            sourceUrl: "https://sampleurl.com",
+            cuisines: ["Italian"],
+            dishTypes: ["Main Course"],
+            sideDish: nil, diets: nil,
+            analyzedInstructions: [
+                Instruction(steps: [Step(number: 1, step: "Step 1", ingredients: [Ingredient(id: 1, name: "Ingredient 1", image: "ingredient_image")])])
+            ]
+        )
+    ]
 }
 
 struct Instruction: Codable {
