@@ -1,31 +1,30 @@
 //
-//  RecipesGridView.swift
+//  SavedRecipesView.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 3/18/24.
+//  Created by Dominique Strachan on 4/7/24.
 //
 
+import SwiftData
 import SwiftUI
 
-struct CategoryGridView: View {
-    @EnvironmentObject var favorites: Favorites
+struct SavedRecipesView: View {
+    
+    @EnvironmentObject var favoritess: Favorites
     
     let columns = [
-        GridItem(.adaptive(minimum: 150))
+        GridItem(.adaptive(minimum: 150), spacing: 30)
     ]
     
-    var recipes: [APIRecipe]
-    
-    var shouldShowSpinner: Bool
-    
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            // use condition or change to switch to add a view when exceeded daily call limit
-            if shouldShowSpinner {
-                ProgressView()
-            } else {
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                // use condition or change to switch to add a view when exceeded daily call limit
+                //                if shouldShowSpinner {
+                //                    ProgressView()
+                //     } else {
                 LazyVGrid(columns: columns) {
-                    ForEach(recipes, id: \.id) { recipe in
+                    ForEach(Array(favoritess.savedRecipes), id: \.id) { recipe in
                         NavigationLink(destination: APIRecipeDetailView( recipe: recipe)) {
                             VStack {
                                 GeometryReader { geometry in
@@ -35,20 +34,18 @@ struct CategoryGridView: View {
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
-                                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                                .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favorites.contains(recipe) {
-                                                            favorites.remove(recipe)
+                                                        if favoritess.contains(recipe) {
+                                                            favoritess.remove(recipe)
                                                         } else {
-                                                            favorites.add(recipe)
+                                                            favoritess.add(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favorites.contains(recipe) ? "heart.fill" : "heart")
+                                                        Image(systemName: favoritess.contains(recipe) ? "heart.fill" : "heart")
                                                     }
-                                                 //   .offset(x: 10, y: -5)
+                                                    .offset(x: 10, y: -5)
 
                                                 }
                                             
@@ -57,8 +54,6 @@ struct CategoryGridView: View {
                                                 .lineLimit(2)
                                             //  .frame(width: 200)
                                                 .fixedSize(horizontal: false, vertical: true)
-                                                .font(.title3)
-                                                .foregroundStyle(Color.primary)
                                         } else if phase.error != nil {
                                             // Display a placeholder when loading failed
                                             Image(systemName: "questionmark.diamond")
@@ -66,14 +61,14 @@ struct CategoryGridView: View {
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favorites.contains(recipe) {
-                                                            favorites.remove(recipe)
+                                                        if favoritess.contains(recipe) {
+                                                            favoritess.remove(recipe)
                                                         } else {
-                                                            favorites.add(recipe)
+                                                            favoritess.add(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favorites.contains(recipe) ? "heart.fill" : "heart")
+                                                        Image(systemName: favoritess.contains(recipe) ? "heart.fill" : "heart")
                                                     }
                                                     .offset(x: 10, y: -5)
 
@@ -89,13 +84,11 @@ struct CategoryGridView: View {
                                         }
                                         
                                     }
-                                    
                                 }
+                                .aspectRatio(contentMode: .fit)
                             }
-                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 150, height: 200)
                         }
-                        .frame(width: 175, height: 225)
-                        .padding(.bottom)
                     }
                 }
                 .padding(.bottom, UIApplication.shared.connectedScenes
@@ -105,11 +98,12 @@ struct CategoryGridView: View {
                     .first { $0.isKeyWindow }?
                     .safeAreaInsets.bottom ?? 0)
             }
+            .navigationTitle("Saved Recipes")
         }
     }
 }
 
 #Preview {
-    CategoryGridView(recipes: APIRecipe.dummyRecipes, shouldShowSpinner: false)
+    SavedRecipesView()
         .environmentObject(Favorites())
 }

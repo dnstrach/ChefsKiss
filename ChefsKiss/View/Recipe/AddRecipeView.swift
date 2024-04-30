@@ -1,76 +1,97 @@
 //
-//  EditRecipeView.swift
+//  AddRecipeView.swift
 //  ChefsKiss
 //
 //  Created by Dominique Strachan on 4/3/24.
 //
 
-import PhotosUI
 import SwiftUI
+import PhotosUI
 
-struct EditRecipeView: View {
+struct AddRecipeView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @Bindable var recipe: Recipe
+    @State private var title: String = ""
+    @State private var summary: String = ""
     
-    @StateObject private var viewModel = EditRecipeViewModel()
+    @StateObject private var viewModel = AddRecipeViewModel()
     
-    @State private var uiImageDisplayed: UIImage? = nil
-    @State private var showNewImage: Bool = false
+    @State private var servings: Double = 4
     
+    @State private var prepHrTime: Int = 0
+    @State private var prepMinTime: Int = 0
+    let prepHrRange = 0..<24
+    let prepMinRange = 0..<60
+    
+    @State private var cookHrTime: Int = 0
+    @State private var cookMinTime: Int = 0
+    let cookHrRange = 0..<24
+    let cookMinRange = 0..<60
+    
+    @State private var ingredients: [Recipe.Ingredient] = []
     @State private var ingredientName: String = ""
     @State private var measureAmount: Double = 0
     @State private var amountDouble: Double?
     @State private var measurement: String = ""
+    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
     
+    @State private var steps: [Recipe.Step] = []
     @State private var stepNumber: Int = 0
     @State private var step: String = ""
-    
-    let prepHrRange = 0..<24
-    let prepMinRange = 0..<60
-    let cookHrRange = 0..<24
-    let cookMinRange = 0..<60
-    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Title", text: $recipe.title)
-                    TextField("Summary", text: $recipe.summary, axis: .vertical)
+                    TextField("Title", text: $title)
+                    TextField("Summary", text: $summary, axis: .vertical)
                 }
                 
-                PhotosPicker(selection: $viewModel.selectedImage, matching: .images) {
-                    if let processedImage = viewModel.processedImage {
-                        Image(uiImage: processedImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 200)
-                    } else if let savedImage = recipe.image,
-                        let uiSavedImage = UIImage(data: savedImage) {
-                        Image(uiImage: uiSavedImage)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 200, height: 200)
-                    } else {
-                        ContentUnavailableView("No picture", systemImage: "photo.badge.plus", description: Text("Tap to import photo"))
+                Section() {
+                    //                    if let image = viewModel.processedImage {
+                    //                        Image(uiImage: image)
+                    //                            .resizable()
+                    //                            .scaledToFit()
+                    //                            .frame(width: 200, height: 200)
+                    //                    }
+                    
+                    Section {
+                        VStack {
+                            
+                            HStack {
+                                Spacer()
+                                
+                                PhotosPicker(selection: $viewModel.selectedImage, matching: .images) {
+                                    if let image = viewModel.processedImage {
+                                        Image(uiImage: image)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 200, height: 200)
+                                    } else {
+                                        ContentUnavailableView("No picture", systemImage: "photo.badge.plus", description: Text("Tap to import photo"))
+                                    }
+                                }
+                                
+                                Spacer()
+                            }
+                        }
                     }
                 }
                 
-                Section {
-                    Stepper("Serves \(recipe.servings.formatted())", value: $recipe.servings, in: 1...100, step: 0.5)
+                Section("Servings") {
+                    Stepper("Serves \(servings.formatted())", value: $servings, in: 1...100, step: 0.5)
                 }
                 
                 Section("Prep Time") {
                     HStack {
-                        Picker("Hours", selection: $recipe.prepHrTime) {
+                        Picker("Hours", selection: $prepHrTime) {
                             ForEach(prepHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
-                        Picker("Minutes", selection: $recipe.prepMinTime) {
+                        Picker("Minutes", selection: $prepMinTime) {
                             ForEach(prepMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
@@ -80,13 +101,13 @@ struct EditRecipeView: View {
                 
                 Section("Cook Time") {
                     HStack {
-                        Picker("Hours", selection: $recipe.cookHrTime) {
+                        Picker("Hours", selection: $cookHrTime) {
                             ForEach(cookHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
-                        Picker("Minutes", selection: $recipe.cookMinTime) {
+                        Picker("Minutes", selection: $cookMinTime) {
                             ForEach(cookMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
@@ -97,7 +118,7 @@ struct EditRecipeView: View {
                 Section("Ingredients") {
                     
                     List {
-                        ForEach(recipe.ingredients, id: \.self) { ingredient in
+                        ForEach(ingredients, id: \.self) { ingredient in
                             HStack {
                                 Text(ingredient.measurement, format: .number)
                                     .fontWeight(.light)
@@ -114,13 +135,18 @@ struct EditRecipeView: View {
                     VStack {
                         HStack {
                             TextField("Amount", value: $measureAmount, format: .number)
-                                .keyboardType(.decimalPad)
                                 .textFieldStyle(.roundedBorder)
+                                .keyboardType(.decimalPad)
                                 .frame(width: 50)
                             
                             TextField("Ingredient", text: $ingredientName)
                                 .textFieldStyle(.roundedBorder)
+                            
                         }
+                        //                            .onChange(of: measureAmount) { _, newValue in
+                        //                                let formatter = NumberFormatter()
+                        //                                amountDouble = formatter.number(from: newValue ?? "")?.doubleValue
+                        //                            }
                         
                         ScrollView(.horizontal) {
                             HStack {
@@ -142,61 +168,51 @@ struct EditRecipeView: View {
                 }
                 
                 Section("Instructions") {
+                    if !steps.isEmpty {
+                        EditButton()
+                    }
+                    
                     List {
-                        ForEach(Array(recipe.steps.enumerated()), id: \.offset) { index, step in
+                        ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
                             Text("\(index + 1). \(step.stepDetail)")
                         }
                         .onDelete(perform: deleteStep)
                     }
                     
-                    
                     VStack {
-                        TextField("Step", text: $step, axis: .vertical)
-                            .textFieldStyle(.roundedBorder)
+                        HStack {
+                            // step # depends on position in array
+                            // List 0...array.count
+                            TextField("Step", text: $step, axis: .vertical)
+                                .textFieldStyle(.roundedBorder)
+                        }
                         
                         Button("Add Step", systemImage: "plus.circle") {
-                            addStep(at: recipe.steps.count)
+                            addStep(at: steps.count)
                         }
                     }
                 }
-                
             }
-            .navigationTitle(recipe.title)
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("New Recipe")
             .toolbar {
+                
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
-                        do {
-                            _ = Recipe(
-                                title: recipe.title,
-                                summary: recipe.summary,
-                                image: recipe.image,
-                                servings: recipe.servings,
-                                prepHrTime: recipe.prepHrTime,
-                                prepMinTime: recipe.prepMinTime,
-                                cookHrTime: recipe.cookHrTime,
-                                cookMinTime: recipe.cookMinTime,
-                                ingredients: [
-                                    Recipe.Ingredient(
-                                        name: "water",
-                                        measurement: 1,
-                                        measurementType: "cup"
-                                    )],
-                                steps: [
-                                    Recipe.Step(
-                                        stepDetail: "boil"
-                                    )
-                                ]
-                            )
-                            
-                            viewModel.storeImageInRecipe(recipe)
-                            
-                            try modelContext.save()
-                            
-                        } catch {
-                            fatalError("Failed to edit recipe.")
-                        }
+                    Button("Save") {
+                        let newRecipe = Recipe(
+                            title: title,
+                            summary: summary,
+                            // image:
+                            servings: servings,
+                            prepHrTime: prepHrTime,
+                            prepMinTime: prepMinTime,
+                            cookHrTime: cookHrTime,
+                            cookMinTime: cookMinTime,
+                            ingredients: ingredients,
+                            steps: steps
+                        )
                         
+                        viewModel.storeImageInRecipe(newRecipe)
+                        modelContext.insert(newRecipe)
                         dismiss()
                     }
                 }
@@ -212,34 +228,30 @@ struct EditRecipeView: View {
     
     func addIngredient() {
         let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measureAmount, measurementType: measurement)
-        recipe.ingredients.append(newIngredient)
+        ingredients.append(newIngredient)
         ingredientName = ""
         measureAmount = 0
         measurement = ""
     }
     
     func deleteIngredient(at offsets: IndexSet) {
-        recipe.ingredients.remove(atOffsets: offsets)
+        for offset in offsets {
+            ingredients.remove(at: offset)
+        }
     }
     
     func addStep(at index: Int) {
         let newStep = Recipe.Step(stepDetail: step)
-        recipe.steps.append(newStep)
+        steps.append(newStep)
         step = ""
     }
     
     func deleteStep(at offsets: IndexSet) {
-        recipe.steps.remove(atOffsets: offsets)
+        steps.remove(atOffsets: offsets)
     }
 }
 
 #Preview {
-    do {
-        let previewer = try Previewer()
-        
-        return EditRecipeView(recipe: previewer.recipe)
-            .modelContainer(previewer.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
+    AddRecipeView()
+        .modelContainer(for: Recipe.self, inMemory: true)
 }

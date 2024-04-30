@@ -39,5 +39,6 @@ struct CategoriesView: View {
 
 #Preview {
     CategoriesView(viewModel: CategoriesViewModel())
+        .environmentObject(Favorites())
 }
 

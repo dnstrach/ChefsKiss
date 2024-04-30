@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct TabBarView: View {
     
@@ -16,7 +17,7 @@ struct TabBarView: View {
                     Label("Explore", systemImage: "magnifyingglass.circle")
                 }
             
-            SavedRecipes()
+            SavedRecipesView()
                 .tabItem {
                     Label("Saved", systemImage: "heart.fill")
                 }
@@ -31,17 +32,6 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
-     //   .modelContainer(for: Recipe.self, inMemory: true)
+        .environmentObject(Favorites())
 }
 
-/*
- do {
-     let previewer = try Previewer()
-     
-     return ContentView()
-         .modelContainer(previewer.container)
-     
- } catch {
-     return Text("Failed to create preview: \(error.localizedDescription)")
- }
- */

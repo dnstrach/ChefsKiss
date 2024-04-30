@@ -7,27 +7,67 @@
 
 import Foundation
 import SwiftData
-
-// decide on how data will be inputted - stepper, picker, textfield
+import SwiftUI
 
 @Model
-// for cloudkit will need all optionals or defaults
-class Recipe: ObservableObject {
+class Recipe {
     var id = UUID()
     var title: String = ""
-    var instructions: String = ""
-  //  @Attribute(.externalStorage) var photo: Data?
-    // var servings: Double // stepper
-    // var duration: Int // sliders. picker, or text field for hour and minute
-        // maybe include prep time
+    var summary: String = ""
+    var image: Data? = nil
+    var servings: Double = 0
+    var prepHrTime: Int = 0
+    var prepMinTime: Int = 0
+    var cookHrTime: Int = 0
+    var cookMinTime: Int = 0
+    var ingredients: [Ingredient]
+    var steps: [Step]
     
-    
-    init(id: UUID = UUID(), title: String, instructions: String) {
-        self.id = id
-        self.title = title
-        self.instructions = instructions
-       // self.photo = photo
+    var sortedIngredients: [Recipe.Ingredient] {
+        ingredients.sorted(by: {$0.name < $1.name} )
     }
     
-    // static let dummyRecipe = Recipe(title: "test", instructions: "test")
+    init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Step]) {
+        self.id = id
+        self.title = title
+        self.summary = summary
+        self.image = image
+        self.servings = servings
+        self.prepHrTime = prepHrTime
+        self.prepMinTime = prepMinTime
+        self.cookHrTime = cookHrTime
+        self.cookMinTime = cookMinTime
+        self.ingredients = ingredients
+        self.steps = steps
+    }
+
+    // added as relationship to recipe
+    @Model
+    class Ingredient {
+        var id = UUID()
+        var name: String
+        var measurement: Double
+        var measurementType: String
+        
+        init(id: UUID = UUID(), name: String, measurement: Double, measurementType: String) {
+            self.id = id
+            self.name = name
+            self.measurement = measurement
+            self.measurementType = measurementType
+        }
+    }
+    
+    // added as relationship to recipe
+    @Model
+    class Step {
+        var id = UUID()
+        var stepDetail: String
+        
+        init(id: UUID = UUID(), stepDetail: String) {
+            self.id = id
+            self.stepDetail = stepDetail
+        }
+    }
 }
+
+

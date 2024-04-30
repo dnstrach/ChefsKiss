@@ -64,7 +64,8 @@ struct CategoriesGridView: View {
                 }
             }
         }
-        .padding()
+        .padding(.leading)
+        .padding(.bottom)
     }
 }
 
@@ -82,6 +83,7 @@ struct CategoryLabel: View {
                    // .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.primary))
+                    .shadow(radius: 5)
            // }
             .aspectRatio(contentMode: .fit)
            // .frame(width: 200, height: 200)

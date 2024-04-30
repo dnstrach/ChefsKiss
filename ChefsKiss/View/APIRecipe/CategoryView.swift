@@ -21,6 +21,7 @@ struct CategoryView: View {
         NavigationStack {
             CategoryGridView(recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
                 .navigationTitle(viewModel.unwrappedNavTitle)
+                .navigationBarTitleDisplayMode(.inline)
                 .alert(isPresented: $viewModel.showAlert) {
                     Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
                 }
@@ -30,5 +31,6 @@ struct CategoryView: View {
 
 #Preview {
     CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "type", value: "appetizer")))
+        .environmentObject(Favorites())
 }
 
