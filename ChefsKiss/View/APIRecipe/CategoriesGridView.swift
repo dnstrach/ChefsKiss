@@ -82,7 +82,7 @@ struct CategoryLabel: View {
                     .frame(width: 200, height: 200)
                    // .frame(width: geometry.size.width, height: geometry.size.height)
                     .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.primary))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                     .shadow(radius: 5)
            // }
             .aspectRatio(contentMode: .fit)

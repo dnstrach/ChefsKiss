@@ -9,11 +9,17 @@ import SwiftData
 import SwiftUI
 
 struct SavedRecipesView: View {
+    @Environment(\.modelContext) var modelContext
     
-    @EnvironmentObject var favoritess: Favorites
+    @Query(
+        sort: \APIRecipe.title,
+        order: .forward
+    ) var savedRecipes: [APIRecipe]
+    
+    @EnvironmentObject var viewModel: SavedRecipesViewModel
     
     let columns = [
-        GridItem(.adaptive(minimum: 150), spacing: 30)
+        GridItem(.adaptive(minimum: 150))
     ]
     
     var body: some View {
@@ -24,8 +30,8 @@ struct SavedRecipesView: View {
                 //                    ProgressView()
                 //     } else {
                 LazyVGrid(columns: columns) {
-                    ForEach(Array(favoritess.savedRecipes), id: \.id) { recipe in
-                        NavigationLink(destination: APIRecipeDetailView( recipe: recipe)) {
+                    ForEach(savedRecipes, id: \.id) { recipe in
+                        NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
                             VStack {
                                 GeometryReader { geometry in
                                     AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
@@ -34,19 +40,33 @@ struct SavedRecipesView: View {
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favoritess.contains(recipe) {
-                                                            favoritess.remove(recipe)
+                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        if recipes.contains(where: { $0.id == recipe.id }) {
+                                                            modelContext.delete(recipe)
                                                         } else {
-                                                            favoritess.add(recipe)
+                                                            modelContext.insert(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favoritess.contains(recipe) ? "heart.fill" : "heart")
+                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        ZStack {
+                                                            Image(systemName: "circle.fill")
+                                                                .resizable()
+                                                                .foregroundStyle(.accent)
+                                                                .frame(width: 35, height: 35)
+                                                                .opacity(0.3)
+                                                            
+                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                                                                .imageScale(.large)
+                                                        }
                                                     }
-                                                    .offset(x: 10, y: -5)
-
+                                                    .offset(x: -5, y: -10)
                                                 }
                                             
                                             Text(recipe.title)
@@ -54,6 +74,9 @@ struct SavedRecipesView: View {
                                                 .lineLimit(2)
                                             //  .frame(width: 200)
                                                 .fixedSize(horizontal: false, vertical: true)
+                                                .font(.title3)
+                                                .foregroundStyle(Color.primary)
+                                            
                                         } else if phase.error != nil {
                                             // Display a placeholder when loading failed
                                             Image(systemName: "questionmark.diamond")
@@ -61,23 +84,39 @@ struct SavedRecipesView: View {
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favoritess.contains(recipe) {
-                                                            favoritess.remove(recipe)
+                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        if recipes.contains(where: { $0.id == recipe.id }) {
+                                                            modelContext.delete(recipe)
                                                         } else {
-                                                            favoritess.add(recipe)
+                                                            modelContext.insert(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favoritess.contains(recipe) ? "heart.fill" : "heart")
+                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        ZStack {
+                                                            Image(systemName: "circle.fill")
+                                                                .resizable()
+                                                                .foregroundStyle(.accent)
+                                                                .frame(width: 35, height: 35)
+                                                                .opacity(0.3)
+                                                            
+                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                                                                .imageScale(.large)
+                                                        }
                                                     }
-                                                    .offset(x: 10, y: -5)
-
+                                                    .offset(x: -5, y: -10)
                                                 }
                                             
                                             Text(recipe.title)
                                                 .multilineTextAlignment(.center)
                                                 .lineLimit(2)
+                                            //  .frame(width: 200)
                                                 .fixedSize(horizontal: false, vertical: true)
+                                                .font(.title3)
+                                                .foregroundStyle(Color.primary)
+                                            
                                         } else {
                                             ProgressView()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
@@ -87,7 +126,8 @@ struct SavedRecipesView: View {
                                 }
                                 .aspectRatio(contentMode: .fit)
                             }
-                            .frame(width: 150, height: 200)
+                            .frame(width: 175, height: 225)
+                            .padding(.bottom)
                         }
                     }
                 }
@@ -105,5 +145,5 @@ struct SavedRecipesView: View {
 
 #Preview {
     SavedRecipesView()
-        .environmentObject(Favorites())
 }
+

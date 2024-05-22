@@ -31,6 +31,6 @@ struct CategoryView: View {
 
 #Preview {
     CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "type", value: "appetizer")))
-        .environmentObject(Favorites())
+       // .environmentObject(Favorites())
 }
 

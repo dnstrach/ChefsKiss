@@ -11,45 +11,26 @@ import PhotosUI
 struct AddRecipeView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
-    
-    @State private var title: String = ""
-    @State private var summary: String = ""
+    @Environment(\.editMode) var editMode
     
     @StateObject private var viewModel = AddRecipeViewModel()
-    
-    @State private var servings: Double = 4
-    
-    @State private var prepHrTime: Int = 0
-    @State private var prepMinTime: Int = 0
-    let prepHrRange = 0..<24
-    let prepMinRange = 0..<60
-    
-    @State private var cookHrTime: Int = 0
-    @State private var cookMinTime: Int = 0
-    let cookHrRange = 0..<24
-    let cookMinRange = 0..<60
-    
-    @State private var ingredients: [Recipe.Ingredient] = []
-    @State private var ingredientName: String = ""
-    @State private var measureAmount: Double? = nil
-    @State private var amountDouble: Double?
-    @State private var measurement: String = ""
-    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
-    
-    @State private var steps: [Recipe.Step] = []
-    @State private var stepNumber: Int = 0
-    @State private var step: String = ""
     
     var body: some View {
         NavigationStack {
             Form {
                 Section {
-                    TextField("Title", text: $title)
-                    TextField("Summary", text: $summary, axis: .vertical)
+                    TextField("Title", text: $viewModel.title)
+                    TextField("Summary", text: $viewModel.summary, axis: .vertical)
                 }
                 
                 Section {
                     HStack {
+                        Button {
+                            
+                        } label: {
+                            Image(systemName: "camera.fill")
+                        }
+
                         Spacer()
                         
                         switch viewModel.imageState {
@@ -83,19 +64,19 @@ struct AddRecipeView: View {
                 }
                 
                 Section("Servings") {
-                    Stepper("Serves \(servings.formatted())", value: $servings, in: 1...100, step: 0.5)
+                    Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 1...100, step: 0.5)
                 }
                 
                 Section("Prep Time") {
                     HStack {
-                        Picker("Hours", selection: $prepHrTime) {
-                            ForEach(prepHrRange, id: \.self) { hour in
+                        Picker("Hours", selection: $viewModel.prepHrTime) {
+                            ForEach(viewModel.prepHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
-                        Picker("Minutes", selection: $prepMinTime) {
-                            ForEach(prepMinRange, id: \.self) { minute in
+                        Picker("Minutes", selection: $viewModel.prepMinTime) {
+                            ForEach(viewModel.prepMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
                         }
@@ -104,14 +85,14 @@ struct AddRecipeView: View {
                 
                 Section("Cook Time") {
                     HStack {
-                        Picker("Hours", selection: $cookHrTime) {
-                            ForEach(cookHrRange, id: \.self) { hour in
+                        Picker("Hours", selection: $viewModel.cookHrTime) {
+                            ForEach(viewModel.cookHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
-                        Picker("Minutes", selection: $cookMinTime) {
-                            ForEach(cookMinRange, id: \.self) { minute in
+                        Picker("Minutes", selection: $viewModel.cookMinTime) {
+                            ForEach(viewModel.cookMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
                         }
@@ -119,93 +100,140 @@ struct AddRecipeView: View {
                 }
                 
                 Section("Ingredients") {
-                    
                     List {
-                        ForEach(ingredients, id: \.self) { ingredient in
+                        ForEach(viewModel.sortedIngredients, id: \.id) { ingredient in
                             HStack {
-                                Text(ingredient.measurement, format: .number)
-                                    .fontWeight(.light)
+                                if ingredient.measurement == 0 {
+                                    EmptyView()
+                                } else {
+                                    Text(ingredient.measurement, format: .number)
+                                        .fontWeight(.light)
+                                }
                                 
                                 Text(ingredient.measurementType)
                                     .fontWeight(.light)
                                 
                                 Text(ingredient.name)
                             }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    viewModel.deleteIngredient(ingredient)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
-                        .onDelete(perform: deleteIngredient)
+                      //  .onDelete(perform: viewModel.deleteIngredient)
                     }
                     
                     VStack {
                         HStack {
-                            TextField("Qty", value: $measureAmount, format: .number)
+                            TextField("Qty", value: $viewModel.measureAmount, format: .number)
                                 .textFieldStyle(.roundedBorder)
                                 .keyboardType(.decimalPad)
                                 .frame(width: 50)
                             
-                            TextField("Ingredient", text: $ingredientName)
+                            TextField("Ingredient", text: $viewModel.ingredientName)
                                 .textFieldStyle(.roundedBorder)
                             
                         }
                         
                         ScrollView(.horizontal, showsIndicators: true) {
                             HStack {
-                                Picker("Metric", selection: $measurement) {
-                                    ForEach(measureTypes, id: \.self) { measure in
+                                Picker("Metric", selection: $viewModel.measurement) {
+                                    ForEach(viewModel.measureTypes, id: \.self) { measure in
                                         Text(measure)
                                     }
                                 }
                                 .pickerStyle(.segmented)
                             }
-                            
-                                .padding(.top, 10)
-                                .padding(.bottom, 20)
+                            .padding(.top, 10)
+                            .padding(.bottom, 20)
                         }
                         
                         Button("Add Ingredient", systemImage: "plus.circle") {
-                            addIngredient()
+                            viewModel.addIngredient()
                         }
+                        .disabled(viewModel.disableIngred)
+                    }
+                }
+                
+                Section("Equipment") {
+                    List {
+                        ForEach(viewModel.sortedEquipment, id: \.id) { equipment in
+                            Text(equipment.name)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        viewModel.deleteEquipment(equipment)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                        }
+                        // .onDelete(perform: viewModel.deleteEquipment)
+                    }
+                    
+                    VStack {
+                        TextField("Equipment", text: $viewModel.equipmentName)
+                            .textFieldStyle(.roundedBorder)
+                        
+                        Button("Add Equipment", systemImage: "plus.circle") {
+                            viewModel.addEquipment()
+                        }
+                        .disabled(viewModel.disableEquip)
                     }
                 }
                 
                 Section("Instructions") {
-                    if !steps.isEmpty {
-                        EditButton()
-                    }
-                    
                     List {
-                        ForEach(Array(steps.enumerated()), id: \.offset) { index, step in
-                            Text("\(index + 1). \(step.stepDetail)")
+                        if !viewModel.steps.isEmpty {
+                            EditButton()
+                                
                         }
-                        .onDelete(perform: deleteStep)
+                        
+                        ForEach(Array(viewModel.sortedSteps.enumerated()), id: \.offset) { index, step in
+                            Text("\(index + 1). \(step.stepDetail)")
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        viewModel.deleteStep(step)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+
+                        }
+                        .onMove(perform: viewModel.moveStep)
+                      //  .onDelete(perform: deleteStep)
                     }
                     
                     VStack {
                         HStack {
-                            TextField("Step", text: $step, axis: .vertical)
+                            TextField("Step", text: $viewModel.step, axis: .vertical)
                                 .textFieldStyle(.roundedBorder)
                         }
                         
                         Button("Add Step", systemImage: "plus.circle") {
-                            addStep(at: steps.count)
+                            viewModel.addStep(at: viewModel.steps.count)
                         }
+                        .disabled(viewModel.disableStep)
                     }
                 }
             }
             .navigationTitle("New Recipe")
             .toolbar {
-                
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         let newRecipe = Recipe(
-                            title: title,
-                            summary: summary,
-                            servings: servings,
-                            prepHrTime: prepHrTime,
-                            prepMinTime: prepMinTime,
-                            cookHrTime: cookHrTime,
-                            cookMinTime: cookMinTime,
-                            ingredients: ingredients,
-                            steps: steps
+                            title: viewModel.title,
+                            summary: viewModel.summary,
+                            servings: viewModel.servings,
+                            prepHrTime: viewModel.prepHrTime,
+                            prepMinTime: viewModel.prepMinTime,
+                            cookHrTime: viewModel.cookHrTime,
+                            cookMinTime: viewModel.cookMinTime,
+                            ingredients: viewModel.ingredients,
+                            steps: viewModel.steps,
+                            appliances: viewModel.appliances
                         )
                         
                         viewModel.saveImage(newRecipe)
@@ -213,8 +241,8 @@ struct AddRecipeView: View {
                         modelContext.insert(newRecipe)
                         dismiss()
                     }
+                    .disabled(viewModel.disableForm)
                 }
-                
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         dismiss()
@@ -222,30 +250,6 @@ struct AddRecipeView: View {
                 }
             }
         }
-    }
-    
-    func addIngredient() {
-        let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measureAmount ?? 0, measurementType: measurement)
-        ingredients.append(newIngredient)
-        ingredientName = ""
-        measureAmount = nil
-        measurement = ""
-    }
-    
-    func deleteIngredient(at offsets: IndexSet) {
-        for offset in offsets {
-            ingredients.remove(at: offset)
-        }
-    }
-    
-    func addStep(at index: Int) {
-        let newStep = Recipe.Step(index: index, stepDetail: step)
-        steps.append(newStep)
-        step = ""
-    }
-    
-    func deleteStep(at offsets: IndexSet) {
-        steps.remove(atOffsets: offsets)
     }
 }
 

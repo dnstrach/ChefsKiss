@@ -1,15 +1,15 @@
 //
-//  SwiftDataPreview.swift
+//  RecipePreview.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 3/14/24.
+//  Created by Dominique Strachan on 5/15/24.
 //
 
 import Foundation
 import SwiftData
 
 @MainActor
-struct Previewer {
+struct RecipePreview {
     let container: ModelContainer
     let recipe: Recipe
 
@@ -35,10 +35,13 @@ struct Previewer {
                 Recipe.Step(
                     index: 0,
                     stepDetail: "chop basil leaves"
+                )],
+            appliances: [
+                Recipe.Equipment(
+                    name: "bowl"
                 )]
         )
 
         container.mainContext.insert(recipe)
     }
 }
-

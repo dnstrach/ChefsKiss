@@ -13,14 +13,15 @@ struct SearchBarView: View {
     var body: some View {
         HStack {
             Image(systemName: "magnifyingglass")
-                // .foregroundStyle(.yellow)
+                .foregroundStyle(.accent)
+                
             
             TextField("Search recipes", text: $searchText)
                 .overlay(
                     Image(systemName: "xmark.circle.fill")
                         .padding()
                         .offset(x: 10)
-                       // .foregroundStyle(.yellow)
+                        .foregroundStyle(.accent)
                         .opacity(searchText.isEmpty ? 0.0 : 1.0)
                         .padding(.trailing, 8)
                     , alignment: .trailing

@@ -10,13 +10,13 @@ import SwiftUI
 
 @main
 struct ChefsKissApp: App {
+    @StateObject var viewModel = SavedRecipesViewModel()
     
     var body: some Scene {
         WindowGroup {
             TabBarView()
-                .modelContainer(for: [Recipe.self])
-                // .modelContainer(for: [Recipe.self, Response.self])
-                .environmentObject(Favorites())
+                .modelContainer(for: [Recipe.self, APIRecipe.self])
+                .environmentObject(viewModel)
         }
     }
 }

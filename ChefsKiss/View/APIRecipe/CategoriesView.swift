@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoriesView: View {
     @StateObject var viewModel: CategoriesViewModel
+    
     @State private var searchText: String = ""
     
     var body: some View {
@@ -39,6 +40,5 @@ struct CategoriesView: View {
 
 #Preview {
     CategoriesView(viewModel: CategoriesViewModel())
-        .environmentObject(Favorites())
 }
 

@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct TabBarView: View {
-    
     var body: some View {
         TabView {
             CategoriesView(viewModel: CategoriesViewModel())
@@ -32,6 +31,5 @@ struct TabBarView: View {
 
 #Preview {
     TabBarView()
-        .environmentObject(Favorites())
 }
 

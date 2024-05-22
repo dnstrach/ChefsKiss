@@ -22,16 +22,21 @@ class Recipe {
     var cookMinTime: Int = 0
     var ingredients: [Ingredient]
     var steps: [Step]
+    var appliances: [Equipment]
     
     var sortedIngredients: [Recipe.Ingredient] {
         ingredients.sorted(by: {$0.name < $1.name} )
+    }
+    
+    var sortedEquipment: [Recipe.Equipment] {
+        appliances.sorted(by: {$0.name < $1.name} )
     }
     
     var sortedSteps: [Recipe.Step] {
         steps.sorted(by: {$0.index < $1.index} )
     }
     
-    init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Step]) {
+    init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Step], appliances: [Equipment]) {
         self.id = id
         self.title = title
         self.summary = summary
@@ -43,6 +48,7 @@ class Recipe {
         self.cookMinTime = cookMinTime
         self.ingredients = ingredients
         self.steps = steps
+        self.appliances = appliances
     }
 
     // added as relationship to recipe
@@ -72,6 +78,17 @@ class Recipe {
             self.id = id
             self.index = index
             self.stepDetail = stepDetail
+        }
+    }
+    
+    @Model
+    class Equipment {
+        var id = UUID()
+        var name: String
+        
+        init(id: UUID = UUID(), name: String) {
+            self.id = id
+            self.name = name
         }
     }
 }

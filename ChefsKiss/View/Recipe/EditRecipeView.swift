@@ -16,14 +16,41 @@ struct EditRecipeView: View {
     
     @StateObject private var viewModel = EditRecipeViewModel()
     
+    var disableForm: Bool {
+        recipe.title.isReallyEmpty
+    }
+    
+    var disableIngred: Bool {
+        ingredientName.isReallyEmpty
+    }
+    
+    var disableEquip: Bool {
+        equipmentName.isReallyEmpty
+    }
+    
+    var disableStep: Bool {
+        step.isReallyEmpty
+    }
+    
     @State private var uiImageDisplayed: UIImage? = nil
     @State private var showNewImage: Bool = false
     
+    var sortedIngredients: [Recipe.Ingredient] {
+        recipe.ingredients.sorted(by: {$0.name < $1.name} )
+    }
     @State private var ingredientName: String = ""
     @State private var measureAmount: Double? = nil
     @State private var amountDouble: Double?
     @State private var measurement: String = ""
     
+    var sortedEquipment: [Recipe.Equipment] {
+        recipe.appliances.sorted(by: {$0.name < $1.name} )
+    }
+    @State private var equipmentName: String = ""
+    
+    var sortedSteps: [Recipe.Step] {
+        recipe.steps.sorted(by: {$0.index < $1.index} )
+    }
     @State private var stepNumber: Int = 0
     @State private var step: String = ""
     
@@ -120,20 +147,30 @@ struct EditRecipeView: View {
                 }
                 
                 Section("Ingredients") {
-                    
                     List {
-                        ForEach(recipe.ingredients, id: \.self) { ingredient in
+                        ForEach(sortedIngredients, id: \.id) { ingredient in
                             HStack {
-                                Text(ingredient.measurement, format: .number)
-                                    .fontWeight(.light)
+                                if ingredient.measurement == 0 {
+                                    EmptyView()
+                                } else {
+                                    Text(ingredient.measurement, format: .number)
+                                        .fontWeight(.light)
+                                }
                                 
                                 Text(ingredient.measurementType)
                                     .fontWeight(.light)
                                 
                                 Text(ingredient.name)
                             }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    deleteIngredient(ingredient)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            }
                         }
-                        .onDelete(perform: deleteIngredient)
+                       // .onDelete(perform: deleteIngredient)
                     }
                     
                     VStack {
@@ -159,16 +196,46 @@ struct EditRecipeView: View {
                             .padding()
                         }
                         
-                        
                         Button("Add Ingredient", systemImage: "plus.circle") {
                             addIngredient()
                         }
+                        .disabled(disableIngred)
+                    }
+                }
+                
+                Section("Equipment") {
+                    List {
+                        ForEach(sortedEquipment, id: \.id) { equipment in
+                            Text(equipment.name)
+                                .swipeActions {
+                                    Button(role: .destructive) {
+                                        deleteEquipment(equipment)
+                                    } label: {
+                                        Label("Delete", systemImage: "trash")
+                                    }
+                                }
+                        }
+                      //  .onDelete(perform: deleteEquipment)
+                    }
+                    
+                    VStack {
+                        TextField("Equipment", text: $equipmentName)
+                            .textFieldStyle(.roundedBorder)
+                        
+                        Button("Add Equipment", systemImage: "plus.circle") {
+                            addEquipment()
+                        }
+                        .disabled(disableEquip)
                     }
                 }
                 
                 Section("Instructions") {
                     List {
-                        ForEach(sortedSteps(), id: \.id) { step in
+                        if !recipe.steps.isEmpty {
+                            EditButton()
+                        }
+                        
+                        ForEach(sortedSteps, id: \.id) { step in
                             Text("\(step.index + 1). \(step.stepDetail)")
                                 .swipeActions {
                                     Button(role: .destructive) {
@@ -178,7 +245,8 @@ struct EditRecipeView: View {
                                     }
                                 }
                         }
-                        //  .onDelete(perform: deleteStep)
+                        .onMove(perform: moveStep)
+                       // .onDelete(perform: deleteStep2)
                     }
                     
                     
@@ -190,6 +258,7 @@ struct EditRecipeView: View {
                             print(recipe.steps.count)
                             addStep()
                         }
+                        .disabled(disableStep)
                     }
                 }
                 
@@ -198,7 +267,7 @@ struct EditRecipeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") {
+                    Button("Save") {
                         do {
                             viewModel.saveImage(recipe)
 
@@ -209,6 +278,7 @@ struct EditRecipeView: View {
                         
                         dismiss()
                     }
+                    .disabled(disableForm)
                 }
                 
                 ToolbarItem(placement: .topBarLeading) {
@@ -234,42 +304,123 @@ struct EditRecipeView: View {
         measurement = ""
     }
     
-    func deleteIngredient(at offsets: IndexSet) {
-        recipe.ingredients.remove(atOffsets: offsets)
+    func deleteIngredient(_ ingredient: Recipe.Ingredient) {
+        var sorted = sortedIngredients
+        sorted.removeAll(where: { $0.id == ingredient.id })
+        recipe.ingredients = sorted
     }
     
-    func sortedSteps() -> [Recipe.Step] {
-        return recipe.steps.sorted { $0.index < $1.index }
+//    func deleteIngredient(at offsets: IndexSet) {
+//        var sorted = sortedIngredients
+//        sorted.remove(atOffsets: offsets)
+//        recipe.ingredients = sorted
+//    }
+    
+    func addEquipment() {
+        let newEquipment = Recipe.Equipment(name: equipmentName)
+        recipe.appliances.append(newEquipment)
+        equipmentName = ""
     }
+    
+    func deleteEquipment(_ equipment: Recipe.Equipment) {
+        var sorted = sortedEquipment
+        sorted.removeAll(where: { $0.id == equipment.id })
+        recipe.appliances = sorted
+    }
+    
+//    func deleteEquipment(at offsets: IndexSet) {
+//        var sorted = sortedEquipment
+//        sorted.remove(atOffsets: offsets)
+//        recipe.appliances = sorted
+//    }
     
     func addStep() {
-        stepNumber = recipe.steps.count
+        var sortedSteps = sortedSteps
+        
+        stepNumber = sortedSteps.count
         let newStep = Recipe.Step(index: stepNumber, stepDetail: step)
-        recipe.steps.append(newStep)
+        sortedSteps.append(newStep)
         step = ""
+        recipe.steps = sortedSteps
     }
     
+//    func deleteStep2(at offsets: IndexSet) {
+//        
+//        recipe.steps = sortedSteps()
+//        
+//       // editMode = .active
+//    }
+    
     func deleteStep(_ step: Recipe.Step) {
-        print("Deleting step with ID: \(step.id)")
-            
-            recipe.steps.removeAll(where: { $0.id == step.id })
-            
-         //   recipe.steps = sortedSteps()
-            
-            print("Recipe steps count after deletion: \(recipe.steps.count)")
-            
-            // Update step numbers for remaining steps
-        for i in step.index..<recipe.steps.count {
-                recipe.sortedSteps[i].index -= 1
-            }
-
-        recipe.steps = recipe.sortedSteps
+        var sortedSteps = sortedSteps
+        
+        for i in step.index..<sortedSteps.count {
+            sortedSteps[i].index -= 1
+        }
+        
+        sortedSteps.removeAll(where: { $0.id == step.id })
+        
+        recipe.steps = sortedSteps
     }
+    
+    // walk through code
+    func moveStep(index: IndexSet, destination: Int) {
+        var sortedSteps = sortedSteps
+        
+        print("old steps")
+        
+        for step in sortedSteps {
+            print("index: \(step.index) step: \(step.stepDetail)")
+        }
+        
+        sortedSteps.move(fromOffsets: index, toOffset: destination)
+        
+        print("steps with moved step")
+        
+        for step in sortedSteps {
+            print("index: \(step.index) step: \(step.stepDetail)")
+        }
+        
+        for index in index {
+            print("index: \(index)")
+            print("destination: \(destination)")
+            
+            if index - destination < 0 {
+                for i in index..<destination {
+                    print("index \(i) being changed -")
+                    sortedSteps[i].index -= 1
+                    }
+                
+                sortedSteps[destination - 1].index = destination - 1
+                
+            } else if index - destination > 0 {
+                for i in destination..<index + 1 {
+                    print("index \(i) being changed +")
+                    sortedSteps[i].index += 1
+                    }
+
+                sortedSteps[destination].index = destination
+                
+            }
+        }
+        
+        recipe.steps = sortedSteps
+        
+        print("new steps")
+        
+        for step in recipe.steps {
+            print("index: \(step.index) step: \(step.stepDetail)")
+        }
+        
+        print("end")
+
+    }
+
 }
 
 #Preview {
     do {
-        let previewer = try Previewer()
+        let previewer = try RecipePreview()
         
         return EditRecipeView(recipe: previewer.recipe)
             .modelContainer(previewer.container)

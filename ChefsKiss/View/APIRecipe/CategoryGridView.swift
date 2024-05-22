@@ -5,10 +5,13 @@
 //  Created by Dominique Strachan on 3/18/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct CategoryGridView: View {
-    @EnvironmentObject var favorites: Favorites
+    @Environment(\.modelContext) var modelContext
+    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+    @Query var savedRecipes: [APIRecipe]
     
     let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -26,7 +29,7 @@ struct CategoryGridView: View {
             } else {
                 LazyVGrid(columns: columns) {
                     ForEach(recipes, id: \.id) { recipe in
-                        NavigationLink(destination: APIRecipeDetailView( recipe: recipe)) {
+                        NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
                             VStack {
                                 GeometryReader { geometry in
                                     AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
@@ -39,17 +42,29 @@ struct CategoryGridView: View {
                                                 .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favorites.contains(recipe) {
-                                                            favorites.remove(recipe)
+                                                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        if recipes.contains(where: { $0.id == recipe.id }) {
+                                                            modelContext.delete(recipe)
                                                         } else {
-                                                            favorites.add(recipe)
+                                                            modelContext.insert(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favorites.contains(recipe) ? "heart.fill" : "heart")
+                                                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        ZStack {
+                                                            Image(systemName: "circle.fill")
+                                                                .resizable()
+                                                                .foregroundStyle(.accent)
+                                                                .frame(width: 35, height: 35)
+                                                                .opacity(0.3)
+                                                            
+                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                                                                .imageScale(.large)
+                                                        }
                                                     }
-                                                 //   .offset(x: 10, y: -5)
-
+                                                    .offset(x: -5, y: -10)
                                                 }
                                             
                                             Text(recipe.title)
@@ -66,17 +81,29 @@ struct CategoryGridView: View {
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     Button {
-                                                        if favorites.contains(recipe) {
-                                                            favorites.remove(recipe)
+                                                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        if recipes.contains(where: { $0.id == recipe.id }) {
+                                                            modelContext.delete(recipe)
                                                         } else {
-                                                            favorites.add(recipe)
+                                                            modelContext.insert(recipe)
                                                         }
                                                         
                                                     } label: {
-                                                        Image(systemName: favorites.contains(recipe) ? "heart.fill" : "heart")
+                                                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                                                        
+                                                        ZStack {
+                                                            Image(systemName: "circle.fill")
+                                                                .resizable()
+                                                                .foregroundStyle(.accent)
+                                                                .frame(width: 35, height: 35)
+                                                                .opacity(0.3)
+                                                            
+                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                                                                .imageScale(.large)
+                                                        }
                                                     }
-                                                    .offset(x: 10, y: -5)
-
+                                                    .offset(x: -5, y: -10)
                                                 }
                                             
                                             Text(recipe.title)
@@ -111,5 +138,4 @@ struct CategoryGridView: View {
 
 #Preview {
     CategoryGridView(recipes: APIRecipe.dummyRecipes, shouldShowSpinner: false)
-        .environmentObject(Favorites())
 }

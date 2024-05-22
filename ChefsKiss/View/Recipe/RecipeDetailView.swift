@@ -26,40 +26,88 @@ struct RecipeDetailView: View {
                                 .frame(width: geo.size.width, height: 300)
                                 .clipped()
                         }
-                        
                     }
-                    
                     
                     VStack {
                             Text(recipe.summary)
                             .padding()
                         
                             Text("Serves \(recipe.servings.formatted())")
+                            .padding(.bottom)
 
                         
-                        HStack {
-                            Text("Prep: \(recipe.prepHrTime) hr \(recipe.prepMinTime) min")
-                            
-                            Text("Cook: \(recipe.prepHrTime) hr \(recipe.prepMinTime) min")
-                        }
-                        .padding()
-                        
-                        VStack(alignment: .leading) {
-                            ForEach(recipe.sortedIngredients, id:\.id) { ingredient in
-                                Text("\(ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
-                            }
-                        }
-                        .padding()
-                        
-                        HStack {
-                            VStack(alignment: .leading) {
-                                ForEach(recipe.sortedSteps, id: \.id) { step in
-                                    Text("\(step.index + 1). \(step.stepDetail)")
+                        if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0 || recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                            HStack {
+                                HStack {
+                                    if recipe.prepHrTime != 0 || recipe.prepMinTime != 0 {
+                                        Text("Prep:")
+                                    }
+                                    
+                                    if recipe.prepHrTime != 0 {
+                                        Text("\(recipe.prepHrTime)")
+                                        Text(recipe.prepHrTime == 1 ? "hr" : "hrs")
+                                    }
+                                    
+                                    if recipe.prepMinTime != 0 {
+                                        Text("\(recipe.prepMinTime)")
+                                        Text(recipe.prepMinTime == 1 ? "min" : "mins")
+                                    }
+                                }
+                                
+                                if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0) && (recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                                    Spacer()
+                                }
+
+                                HStack {
+                                    if recipe.cookHrTime != 0 || recipe.cookMinTime != 0 {
+                                        Text("Cook:")
+                                    }
+                                    
+                                    if recipe.cookHrTime != 0 {
+                                        Text("\(recipe.cookHrTime)")
+                                        Text(recipe.cookHrTime == 1 ? "hr" : "hrs")
+                                    }
+                                    
+                                    if recipe.cookMinTime != 0 {
+                                        Text("\(recipe.cookMinTime)")
+                                        Text(recipe.cookMinTime == 1 ? "min" : "mins")
+                                    }
                                 }
                             }
-                            .padding()
+                            .padding(.bottom)
+                            .padding(.horizontal)
+                            .padding(.horizontal)
+                        }
+                        
+                        Section("Ingredients") {
+                            VStack(alignment: .leading) {
+                                ForEach(recipe.sortedIngredients, id:\.id) { ingredient in
+                                    Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
+                                }
+                            }
+                            .padding(.bottom)
+                        }
+                        
+                        Section("Equipment") {
+                            VStack(alignment: .leading) {
+                                ForEach(recipe.sortedEquipment, id:\.id) { equipment in
+                                    Text(equipment.name)
+                                }
+                            }
+                            .padding(.bottom)
+                        }
+                        
+                        Section("Steps") {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    ForEach(recipe.sortedSteps, id: \.id) { step in
+                                        Text("\(step.index + 1). \(step.stepDetail)")
+                                    }
+                                }
+                                .padding()
 
-                            Spacer()
+                                Spacer()
+                            }
                         }
                     }
                 }
@@ -82,7 +130,7 @@ struct RecipeDetailView: View {
 
 #Preview {
     do {
-        let previewer = try Previewer()
+        let previewer = try RecipePreview()
         
         return RecipeDetailView(recipe: previewer.recipe)
             .modelContainer(previewer.container)

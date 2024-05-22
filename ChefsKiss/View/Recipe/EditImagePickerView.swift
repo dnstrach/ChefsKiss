@@ -47,10 +47,12 @@ struct EditImagePickerView: View {
 
 #Preview {
     do {
-        let previewer = try Previewer()
-    
-        return EditImagePickerView(imageState: .empty, recipe: previewer.recipe)
-            .modelContainer(previewer.container)
+        let previewer = try RecipePreview()
+
+        return Form {
+            EditImagePickerView(imageState: .empty, recipe: previewer.recipe)
+        }
+        .modelContainer(previewer.container)
     } catch {
         fatalError("Failed to create preview container.")
     }

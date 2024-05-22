@@ -9,15 +9,28 @@ import SwiftData
 import SwiftUI
 
 struct APIRecipeDetailView: View {
+    @Environment(\.openURL) var openURL
+    @Environment(\.modelContext) var modelContext
+    
+    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+    @Query var savedRecipes: [APIRecipe]
+    
+    @StateObject var viewModel = APIRecipeDetailViewModel()
+    
     let recipe: APIRecipe
     
-    @Environment(\.openURL) var openURL
-    
-    @EnvironmentObject var favoritess: Favorites
-    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
+                VStack {
+                    HStack {
+                        Text(recipe.title)
+                            .font(.system(size: 34, weight: .bold))
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                }
                 
                 AsyncImage(url: URL(string: recipe.image), scale: 3) { image in
                     image
@@ -40,81 +53,122 @@ struct APIRecipeDetailView: View {
                 
                 Text(recipe.summary.stringByStrippingHTMLTags())
                     .padding(.horizontal)
-                
-                if !recipe.analyzedInstructions[0].steps[0].ingredients.isEmpty {
-                    VStack(alignment: .leading) {
-                        Text("Ingredients")
-                            .font(.title2)
-                        
-                        ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
-                            
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
-                                
-                                ForEach(step.ingredients, id: \.id) { ingredient in
-                                    Text(ingredient.name)
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                    .padding(.horizontal)
-                    
-                }
-
-                if !recipe.analyzedInstructions[0].steps[0].equipment.isEmpty {
-                    VStack(alignment: .leading) {
-                        Text("Equipment")
-                            .font(.title2)
-                        
-                        ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
-                            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 20) {
-                                
-                                ForEach(step.equipment, id: \.id) { equipment in
-                                    Text(equipment.name)
-                                }
-                            }
-                        }
-                    }
-                    .padding()
-                    .padding(.horizontal)
-                }
+                    .padding(.bottom)
                 
                 VStack(alignment: .leading) {
-                    Text("Steps")
+                    Text("Ingredients")
                         .font(.title2)
+                        .padding(.leading)
                     
-                    // analyzed instructions has more than one steps []
-                    ForEach(recipe.analyzedInstructions[0].steps, id: \.number) { step in
-                        Text("\(step.number). \(step.step)")
-                            .padding(.bottom, 5)
-                        
+                    let allIngredients = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.ingredients } }
+                    
+                    let uniqueIngredients = viewModel.removeDuplicateIngredients(from: allIngredients ?? [])
+                    
+                    if !uniqueIngredients.isEmpty {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
+                            ForEach(uniqueIngredients, id: \.id) { ingredient in
+                                Text(ingredient.name)
+                                    .padding(.bottom, 5)
+                                    .padding(.horizontal)
+                            }
+                        }
+                    } else {
+                        HStack {
+                            Text("No ingredients available")
+                                .foregroundColor(.gray)
+                                .padding(.leading)
+                            
+                            Spacer()
+                        }
                     }
                 }
-                .padding(.horizontal)
+                .padding(.bottom)
+
+                VStack(alignment: .leading) {
+                    Text("Equipment")
+                        .font(.title2)
+                        .padding(.leading)
+                    
+                    let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
+                    
+                    // Remove duplicates from all ingredients
+                    let uniqueEquipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
+                    
+                    if !uniqueEquipment.isEmpty {
+                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], alignment: .leading, spacing: 10) {
+                            ForEach(uniqueEquipment, id: \.id) { equipment in
+                                Text(equipment.name)
+                                    .padding(.bottom, 5)
+                                    .padding(.horizontal)
+                            }
+                        }
+                    } else {
+                        HStack {
+                            Text("No equipment available")
+                                .foregroundColor(.gray)
+                                .padding(.leading)
+                            
+                            Spacer()
+                        }
+                    }
+                }
                 .padding(.bottom)
                 
-//                Button("Link to Recipe") {
-//                    openURL(URL(string: recipe.sourceUrl)!)
-//                }
-//                .font(.system(.subheadline, design: .rounded))
-//                .fontWeight(.bold)
-//                .buttonStyle(.borderedProminent)
-//                .buttonBorderShape(.capsule)
-//                .controlSize(.large)
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Steps")
+                            .font(.title2)
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                    
+                    // analyzed instructions has more than one steps []
+                    if let instructions = recipe.analyzedInstructions, !instructions.isEmpty {
+                        ForEach(instructions.flatMap { $0.steps }, id: \.number) { step in
+                            Text("\(step.number). \(step.step)")
+                                .padding(.bottom, 5)
+                                .padding(.horizontal)
+                        }
+                    } else {
+                        HStack {
+                            Text("No instructions available")
+                                .foregroundColor(.gray)
+                                .padding(.leading)
+                            
+                            Spacer()
+                        }
+                    }
+                }
+                .padding(.bottom)
+                
+                Button("Link to Recipe") {
+                    openURL(URL(string: recipe.sourceUrl)!)
+                }
+                .font(.system(.subheadline, design: .rounded))
+                .fontWeight(.bold)
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                .controlSize(.large)
+                .padding(.bottom)
             }
-            .navigationTitle(recipe.title)
-            //   .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
-                        if favoritess.contains(recipe) {
-                            favoritess.remove(recipe)
+                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                        
+                        if recipes.contains(where: { $0.id == recipe.id }) {
+                            modelContext.delete(recipe)
                         } else {
-                            favoritess.add(recipe)
+                            modelContext.insert(recipe)
                         }
                         
                     } label: {
-                        Image(systemName: favoritess.contains(recipe) ? "heart.fill" : "heart")
+                        let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
+                        
+                        Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                            .imageScale(.large)
                     }
                 }
             }
@@ -124,6 +178,5 @@ struct APIRecipeDetailView: View {
 
 #Preview {
     APIRecipeDetailView(recipe: APIRecipe.dummyRecipes[1])
-        .environmentObject(Favorites())
 }
 
