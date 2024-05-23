@@ -8,7 +8,7 @@
 import SwiftData
 import SwiftUI
 
-struct RecipeSearchGridView: View {
+struct SearchGridView: View {
     @Environment(\.modelContext) var modelContext
     @Query var savedRecipes: [APIRecipe]
     @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
@@ -136,5 +136,5 @@ struct RecipeSearchGridView: View {
 }
 
 #Preview {
-    RecipeSearchGridView(recipes: APIRecipe.dummyRecipes)
+    SearchGridView(recipes: APIRecipe.dummyRecipes)
 }
