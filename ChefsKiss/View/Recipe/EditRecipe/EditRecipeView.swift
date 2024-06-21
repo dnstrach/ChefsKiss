@@ -342,7 +342,7 @@ struct EditRecipeView: View {
         for step in recipe.instructions {
             print(step.step)
         }
-        print("Recipe Steps")
+       // print("Recipe Steps")
         
     }
     
