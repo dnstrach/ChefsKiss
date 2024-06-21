@@ -48,7 +48,7 @@ struct EditRecipeView: View {
     }
     @State private var equipmentName: String = ""
     
-    var sortedSteps: [Recipe.Step] {
+    var sortedInstructions: [Recipe.Instruction] {
         recipe.steps.sorted(by: {$0.index < $1.index} )
     }
     @State private var stepNumber: Int = 0
@@ -235,8 +235,8 @@ struct EditRecipeView: View {
                             EditButton()
                         }
                         
-                        ForEach(sortedSteps, id: \.id) { step in
-                            Text("\(step.index + 1). \(step.stepDetail)")
+                        ForEach(sortedInstructions, id: \.id) { step in
+                            Text("\(step.index + 1). \(step.step)")
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteStep(step)
@@ -335,59 +335,64 @@ struct EditRecipeView: View {
 //    }
     
     func addStep() {
-        var sortedSteps = sortedSteps
+        var sortedSteps = sortedInstructions
         
         stepNumber = sortedSteps.count
-        let newStep = Recipe.Step(index: stepNumber, stepDetail: step)
+        let newStep = Recipe.Instruction(index: stepNumber, step: step)
         sortedSteps.append(newStep)
         step = ""
         recipe.steps = sortedSteps
     }
     
-//    func deleteStep2(at offsets: IndexSet) {
-//        
-//        recipe.steps = sortedSteps()
-//        
-//       // editMode = .active
-//    }
-    
-    func deleteStep(_ step: Recipe.Step) {
-        var sortedSteps = sortedSteps
+    func deleteStep(_ step: Recipe.Instruction) {
+        var sortedSteps = sortedInstructions
+        
+        sortedSteps.removeAll(where: { $0.id == step.id })
         
         for i in step.index..<sortedSteps.count {
             sortedSteps[i].index -= 1
         }
         
-        sortedSteps.removeAll(where: { $0.id == step.id })
+        print("Sorted Steps")
+        for step in sortedSteps {
+            print(step.step)
+        }
+        print("Sorted Steps")
         
         recipe.steps = sortedSteps
+        
+        print("Recipe Steps")
+        for step in recipe.steps {
+            print(step.step)
+        }
+        print("Recipe Steps")
+        
     }
     
-    // walk through code
     func moveStep(index: IndexSet, destination: Int) {
-        var sortedSteps = sortedSteps
+        var sortedSteps = sortedInstructions
         
-        print("old steps")
+      //  print("old steps")
         
-        for step in sortedSteps {
-            print("index: \(step.index) step: \(step.stepDetail)")
-        }
+//        for step in sortedSteps {
+//            print("index: \(step.index) step: \(step.stepDetail)")
+//        }
         
         sortedSteps.move(fromOffsets: index, toOffset: destination)
         
-        print("steps with moved step")
+//        print("steps with moved step")
         
-        for step in sortedSteps {
-            print("index: \(step.index) step: \(step.stepDetail)")
-        }
+//        for step in sortedSteps {
+//            print("index: \(step.index) step: \(step.stepDetail)")
+//        }
         
         for index in index {
-            print("index: \(index)")
-            print("destination: \(destination)")
+//            print("index: \(index)")
+//            print("destination: \(destination)")
             
             if index - destination < 0 {
                 for i in index..<destination {
-                    print("index \(i) being changed -")
+                  //  print("index \(i) being changed -")
                     sortedSteps[i].index -= 1
                     }
                 
@@ -395,7 +400,7 @@ struct EditRecipeView: View {
                 
             } else if index - destination > 0 {
                 for i in destination..<index + 1 {
-                    print("index \(i) being changed +")
+                  //  print("index \(i) being changed +")
                     sortedSteps[i].index += 1
                     }
 
@@ -406,13 +411,13 @@ struct EditRecipeView: View {
         
         recipe.steps = sortedSteps
         
-        print("new steps")
+      //  print("new steps")
         
-        for step in recipe.steps {
-            print("index: \(step.index) step: \(step.stepDetail)")
-        }
-        
-        print("end")
+//        for step in recipe.steps {
+//            print("index: \(step.index) step: \(step.stepDetail)")
+//        }
+//        
+//        print("end")
 
     }
 
