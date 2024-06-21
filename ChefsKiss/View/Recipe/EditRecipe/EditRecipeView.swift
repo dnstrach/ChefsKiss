@@ -209,8 +209,7 @@ struct EditRecipeView: View {
                         }
                         
                         ForEach(sortedInstructions, id: \.id) { step in
-                            Text(step.step)
-                          //  Text("\(step.index + 1). \(step.step)")
+                            Text("\(step.index + 1). \(step.step)")
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteStep(step)
@@ -319,31 +318,33 @@ struct EditRecipeView: View {
     }
     
     func deleteStep(_ step: Recipe.Instruction) {
-        let sortedSteps = sortedInstructions
+        // get the current sorted steps
+        var sortedSteps = sortedInstructions
         
-        recipe.instructions.removeAll(where: { $0.id == step.id })
+        sortedSteps.removeAll(where: { $0.id == step.id })
         
-        print("edit view")
-        for (index, step) in recipe.instructions.enumerated() {
-            step.index = index
-            
-            print("\(step.index) \(step.step)")
+        // reindex the remaining steps
+        for (index, step) in sortedSteps.enumerated() {
+            step.index = index 
         }
         
+        print("Sorted Steps")
+        for step in sortedSteps {
+            print(step.step)
+        }
+        print("Sorted Steps")
+        
+        // binding to instructions in AddRecipeViewModel?
+        // recipe.instructions not getting updated???
         recipe.instructions = sortedSteps
+        
+        print("Recipe Steps")
+        for step in recipe.instructions {
+            print(step.step)
+        }
+        print("Recipe Steps")
+        
     }
-    
-//    func deleteStep(_ step: Recipe.Step) {
-//        var sortedSteps = sortedSteps
-//        
-//        for i in step.index..<sortedSteps.count {
-//            sortedSteps[i].index -= 1
-//        }
-//        
-//        sortedSteps.removeAll(where: { $0.id == step.id })
-//        
-//        recipe.steps = sortedSteps
-//    }
     
     func moveStep(index: IndexSet, destination: Int) {
         var sortedSteps = sortedInstructions
