@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct ImageContainerView: View {
+    let image: Image
+    @State private var width: CGFloat = .zero
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        GeometryReader { proxy in
+            image
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(width: proxy.size.width, height: proxy.size.width * 0.75)
+                .onAppear {
+                    width = proxy.size.width
+                }
+        }
+        // .frame(maxWidth: .infinity, maxHeight: 250)
+        .clipped()
     }
 }
 
-#Preview {
-    ImageContainerView()
-}
+//#Preview {
+//    let image: Image
+//    
+//    ImageContainerView(image: image)
+//}

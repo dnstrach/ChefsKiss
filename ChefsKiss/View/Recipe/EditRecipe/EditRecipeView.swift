@@ -16,49 +16,21 @@ struct EditRecipeView: View {
     
     @StateObject private var viewModel = EditRecipeViewModel()
     
-    var disableForm: Bool {
-        recipe.title.isReallyEmpty
-    }
-    
-    var disableIngred: Bool {
-        ingredientName.isReallyEmpty
-    }
-    
-    var disableEquip: Bool {
-        equipmentName.isReallyEmpty
-    }
-    
-    var disableStep: Bool {
-        step.isReallyEmpty
-    }
-    
-    @State private var uiImageDisplayed: UIImage? = nil
-    @State private var showNewImage: Bool = false
-    
     var sortedIngredients: [Recipe.Ingredient] {
         recipe.ingredients.sorted(by: {$0.name < $1.name} )
     }
-    @State private var ingredientName: String = ""
-    @State private var measureAmount: Double? = nil
-    @State private var amountDouble: Double?
-    @State private var measurement: String = ""
     
     var sortedEquipment: [Recipe.Equipment] {
         recipe.appliances.sorted(by: {$0.name < $1.name} )
     }
-    @State private var equipmentName: String = ""
     
     var sortedInstructions: [Recipe.Instruction] {
-        recipe.steps.sorted(by: {$0.index < $1.index} )
+        recipe.instructions.sorted(by: {$0.index < $1.index} )
     }
-    @State private var stepNumber: Int = 0
-    @State private var step: String = ""
     
-    let prepHrRange = 0..<24
-    let prepMinRange = 0..<60
-    let cookHrRange = 0..<24
-    let cookMinRange = 0..<60
-    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
+    var disableForm: Bool {
+        recipe.title.isReallyEmpty
+    }
     
     var body: some View {
         NavigationStack {
@@ -90,6 +62,7 @@ struct EditRecipeView: View {
                         }
                     }
                     
+                    // Note: x button will not work if without HStack
                     HStack {
                         Spacer()
                         
@@ -117,13 +90,13 @@ struct EditRecipeView: View {
                 Section("Prep Time") {
                     HStack {
                         Picker("Hours", selection: $recipe.prepHrTime) {
-                            ForEach(prepHrRange, id: \.self) { hour in
+                            ForEach(viewModel.prepHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
                         Picker("Minutes", selection: $recipe.prepMinTime) {
-                            ForEach(prepMinRange, id: \.self) { minute in
+                            ForEach(viewModel.prepMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
                         }
@@ -133,13 +106,13 @@ struct EditRecipeView: View {
                 Section("Cook Time") {
                     HStack {
                         Picker("Hours", selection: $recipe.cookHrTime) {
-                            ForEach(cookHrRange, id: \.self) { hour in
+                            ForEach(viewModel.cookHrRange, id: \.self) { hour in
                                 Text("\(hour)")
                             }
                         }
                         
                         Picker("Minutes", selection: $recipe.cookMinTime) {
-                            ForEach(cookMinRange, id: \.self) { minute in
+                            ForEach(viewModel.cookMinRange, id: \.self) { minute in
                                 Text("\(minute)")
                             }
                         }
@@ -175,19 +148,19 @@ struct EditRecipeView: View {
                     
                     VStack {
                         HStack {
-                            TextField("Qty", value: $measureAmount, format: .number)
+                            TextField("Qty", value: $viewModel.measureAmount, format: .number)
                                 .keyboardType(.decimalPad)
                                 .textFieldStyle(.roundedBorder)
                                 .frame(width: 50)
                             
-                            TextField("Ingredient", text: $ingredientName)
+                            TextField("Ingredient", text: $viewModel.ingredientName)
                                 .textFieldStyle(.roundedBorder)
                         }
                         
                         ScrollView(.horizontal) {
                             HStack {
-                                Picker("Metric", selection: $measurement) {
-                                    ForEach(measureTypes, id: \.self) { measure in
+                                Picker("Metric", selection: $viewModel.measurement) {
+                                    ForEach(viewModel.measureTypes, id: \.self) { measure in
                                         Text(measure)
                                     }
                                 }
@@ -199,7 +172,7 @@ struct EditRecipeView: View {
                         Button("Add Ingredient", systemImage: "plus.circle") {
                             addIngredient()
                         }
-                        .disabled(disableIngred)
+                        .disabled(viewModel.disableIngredient)
                     }
                 }
                 
@@ -219,24 +192,25 @@ struct EditRecipeView: View {
                     }
                     
                     VStack {
-                        TextField("Equipment", text: $equipmentName)
+                        TextField("Equipment", text: $viewModel.equipmentName)
                             .textFieldStyle(.roundedBorder)
                         
                         Button("Add Equipment", systemImage: "plus.circle") {
                             addEquipment()
                         }
-                        .disabled(disableEquip)
+                        .disabled(viewModel.disableEquipment)
                     }
                 }
                 
                 Section("Instructions") {
                     List {
-                        if !recipe.steps.isEmpty {
+                        if !recipe.instructions.isEmpty {
                             EditButton()
                         }
                         
                         ForEach(sortedInstructions, id: \.id) { step in
-                            Text("\(step.index + 1). \(step.step)")
+                            Text(step.step)
+                          //  Text("\(step.index + 1). \(step.step)")
                                 .swipeActions {
                                     Button(role: .destructive) {
                                         deleteStep(step)
@@ -251,14 +225,14 @@ struct EditRecipeView: View {
                     
                     
                     VStack {
-                        TextField("Step", text: $step, axis: .vertical)
+                        TextField("Step", text: $viewModel.step, axis: .vertical)
                             .textFieldStyle(.roundedBorder)
                         
                         Button("Add Step", systemImage: "plus.circle") {
-                            print(recipe.steps.count)
+                            print(recipe.instructions.count)
                             addStep()
                         }
-                        .disabled(disableStep)
+                        .disabled(viewModel.disableStep)
                     }
                 }
                 
@@ -297,11 +271,11 @@ struct EditRecipeView: View {
     }
     
     func addIngredient() {
-        let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measureAmount ?? 0, measurementType: measurement)
+        let newIngredient = Recipe.Ingredient(name: viewModel.ingredientName, measurement: viewModel.measureAmount ?? 0, measurementType: viewModel.measurement)
         recipe.ingredients.append(newIngredient)
-        ingredientName = ""
-        measureAmount = nil
-        measurement = ""
+        viewModel.ingredientName = ""
+        viewModel.measureAmount = nil
+        viewModel.measurement = ""
     }
     
     func deleteIngredient(_ ingredient: Recipe.Ingredient) {
@@ -317,9 +291,9 @@ struct EditRecipeView: View {
 //    }
     
     func addEquipment() {
-        let newEquipment = Recipe.Equipment(name: equipmentName)
+        let newEquipment = Recipe.Equipment(name: viewModel.equipmentName)
         recipe.appliances.append(newEquipment)
-        equipmentName = ""
+        viewModel.equipmentName = ""
     }
     
     func deleteEquipment(_ equipment: Recipe.Equipment) {
@@ -337,58 +311,46 @@ struct EditRecipeView: View {
     func addStep() {
         var sortedSteps = sortedInstructions
         
-        stepNumber = sortedSteps.count
-        let newStep = Recipe.Instruction(index: stepNumber, step: step)
+        viewModel.stepNumber = sortedSteps.count
+        let newStep = Recipe.Instruction(index: viewModel.stepNumber, step: viewModel.step)
         sortedSteps.append(newStep)
-        step = ""
-        recipe.steps = sortedSteps
+        viewModel.step = ""
+        recipe.instructions = sortedSteps
     }
     
     func deleteStep(_ step: Recipe.Instruction) {
-        var sortedSteps = sortedInstructions
+        let sortedSteps = sortedInstructions
         
-        sortedSteps.removeAll(where: { $0.id == step.id })
+        recipe.instructions.removeAll(where: { $0.id == step.id })
         
-        for i in step.index..<sortedSteps.count {
-            sortedSteps[i].index -= 1
+        print("edit view")
+        for (index, step) in recipe.instructions.enumerated() {
+            step.index = index
+            
+            print("\(step.index) \(step.step)")
         }
         
-        print("Sorted Steps")
-        for step in sortedSteps {
-            print(step.step)
-        }
-        print("Sorted Steps")
-        
-        recipe.steps = sortedSteps
-        
-        print("Recipe Steps")
-        for step in recipe.steps {
-            print(step.step)
-        }
-        print("Recipe Steps")
-        
+        recipe.instructions = sortedSteps
     }
+    
+//    func deleteStep(_ step: Recipe.Step) {
+//        var sortedSteps = sortedSteps
+//        
+//        for i in step.index..<sortedSteps.count {
+//            sortedSteps[i].index -= 1
+//        }
+//        
+//        sortedSteps.removeAll(where: { $0.id == step.id })
+//        
+//        recipe.steps = sortedSteps
+//    }
     
     func moveStep(index: IndexSet, destination: Int) {
         var sortedSteps = sortedInstructions
         
-      //  print("old steps")
-        
-//        for step in sortedSteps {
-//            print("index: \(step.index) step: \(step.stepDetail)")
-//        }
-        
         sortedSteps.move(fromOffsets: index, toOffset: destination)
         
-//        print("steps with moved step")
-        
-//        for step in sortedSteps {
-//            print("index: \(step.index) step: \(step.stepDetail)")
-//        }
-        
         for index in index {
-//            print("index: \(index)")
-//            print("destination: \(destination)")
             
             if index - destination < 0 {
                 for i in index..<destination {
@@ -409,16 +371,7 @@ struct EditRecipeView: View {
             }
         }
         
-        recipe.steps = sortedSteps
-        
-      //  print("new steps")
-        
-//        for step in recipe.steps {
-//            print("index: \(step.index) step: \(step.stepDetail)")
-//        }
-//        
-//        print("end")
-
+        recipe.instructions = sortedSteps
     }
 
 }
