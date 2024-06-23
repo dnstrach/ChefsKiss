@@ -78,10 +78,10 @@ class Recipe: Identifiable {
     @Model
     class Instruction: Identifiable {
         var id = UUID()
-        var index: String
+        var index: Int
         var step: String
         
-        init(id: UUID = UUID(), index: String, step: String) {
+        init(id: UUID = UUID(), index: Int, step: String) {
             self.id = id
             self.index = index
             self.step = step

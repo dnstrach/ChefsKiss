@@ -33,6 +33,7 @@ struct RecipePreview {
                 )],
             steps: [
                 Recipe.Instruction(
+                    index: 0,
                     step: "chop basil leaves"
                 )],
             appliances: [
