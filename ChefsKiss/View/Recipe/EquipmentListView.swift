@@ -8,11 +8,19 @@
 import SwiftUI
 
 struct EquipmentListView: View {
+    @Binding var equipment: [Recipe.Equipment]
+    let deleteCallback: (IndexSet) -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(equipment, id: \.id) { equipment in
+                Text("\(equipment.name)")
+            }
+            .onDelete(perform: deleteCallback)
+        }
     }
 }
 
-#Preview {
-    EquipmentListView()
-}
+//#Preview {
+//    EquipmentListView()
+//}

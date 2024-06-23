@@ -100,12 +100,12 @@ struct RecipeDetailView: View {
                         Section("Instructions") {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    ForEach(recipe.sortedSteps, id: \.id) { step in
-                                        Text("\(step.index + 1). \(step.step)")
+                                    ForEach(recipe.instructions, id: \.id) { step in
+                                        Text(" \(step.step)")
+                                      //  Text("\(step.index + 1). \(step.step)")
                                     }
                                 }
                                 .padding()
-                                .onAppear(perform: printSteps)
 
                                 Spacer()
                             }
@@ -125,13 +125,6 @@ struct RecipeDetailView: View {
                     }
                 }
             }
-        }
-    }
-    
-    func printSteps() {
-        print("detail view")
-        for step in recipe.sortedSteps{
-            print("\(step.index) \(step.step)")
         }
     }
 }

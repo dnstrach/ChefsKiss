@@ -8,11 +8,26 @@
 import SwiftUI
 
 struct InstructionsListView: View {
+   @Binding var instructions: [Recipe.Instruction]
+    let deleteCallback: (IndexSet) -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(instructions, id: \.id) { step in
+                Text("\(step.step)")
+            }
+            .onDelete(perform: deleteCallback)
+        }
     }
 }
 
-#Preview {
-    InstructionsListView()
-}
+//#Preview {
+//    @State var sampleInstructions: [Recipe.Instruction] = [
+//        Recipe.Instruction(step: "Step 1"),
+//        Recipe.Instruction(step: "Step 2")
+//    ]
+//    
+//    let deleteCallback: (IndexSet) -> ()
+//    
+//    InstructionsListView(instructions: $sampleInstructions, deleteCallback: deleteCallback)
+//}

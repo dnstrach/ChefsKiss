@@ -7,12 +7,34 @@
 
 import SwiftUI
 
-struct IngredientsListView: View {
+struct IngredientListView: View {
+    @Binding var ingredients: [Recipe.Ingredient]
+    let deleteCallback: (IndexSet) -> ()
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+            ForEach(ingredients, id: \.id) { ingredient in
+                HStack {
+                    HStack {
+                        if ingredient.measurement == 0 {
+                            EmptyView()
+                        } else {
+                            Text(ingredient.measurement, format: .number)
+                                .fontWeight(.light)
+                        }
+                        
+                        Text(ingredient.measurementType)
+                            .fontWeight(.light)
+                        
+                        Text(ingredient.name)
+                    }
+                }
+            }
+            .onDelete(perform: deleteCallback)
+        }
     }
 }
 
-#Preview {
-    IngredientsListView()
-}
+//#Preview {
+//    IngredientsListView()
+//}

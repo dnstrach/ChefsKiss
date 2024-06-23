@@ -10,7 +10,7 @@ import SwiftData
 import SwiftUI
 
 @Model
-class Recipe {
+class Recipe: Identifiable {
     var id = UUID()
     var title: String = ""
     var summary: String = ""
@@ -32,10 +32,6 @@ class Recipe {
         appliances.sorted(by: {$0.name < $1.name} )
     }
     
-    var sortedSteps: [Recipe.Instruction] {
-        instructions.sorted(by: {$0.index < $1.index} )
-    }
-    
     init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Instruction], appliances: [Equipment]) {
         self.id = id
         self.title = title
@@ -53,7 +49,7 @@ class Recipe {
 
     // added as relationship to recipe
     @Model
-    class Ingredient {
+    class Ingredient: Identifiable {
         var id = UUID()
         var name: String
         var measurement: Double
@@ -67,28 +63,28 @@ class Recipe {
         }
     }
     
-    // added as relationship to recipe
     @Model
-    class Instruction {
-        var id = UUID()
-        var index: Int
-        var step: String
-        
-        init(id: UUID = UUID(), index: Int, step: String) {
-            self.id = id
-            self.index = index
-            self.step = step
-        }
-    }
-    
-    @Model
-    class Equipment {
+    class Equipment: Identifiable {
         var id = UUID()
         var name: String
         
         init(id: UUID = UUID(), name: String) {
             self.id = id
             self.name = name
+        }
+    }
+    
+    // added as relationship to recipe
+    @Model
+    class Instruction: Identifiable {
+        var id = UUID()
+        var index: String
+        var step: String
+        
+        init(id: UUID = UUID(), index: String, step: String) {
+            self.id = id
+            self.index = index
+            self.step = step
         }
     }
 }
