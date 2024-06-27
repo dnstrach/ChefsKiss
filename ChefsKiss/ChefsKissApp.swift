@@ -15,7 +15,10 @@ struct ChefsKissApp: App {
     var body: some Scene {
         WindowGroup {
             TabBarView()
-                .modelContainer(for: [Recipe.self, APIRecipe.self])
+                .modelContainer(for: [
+                    Recipe.self,
+                    APIRecipe.self
+                ])
                 .environmentObject(viewModel)
         }
     }

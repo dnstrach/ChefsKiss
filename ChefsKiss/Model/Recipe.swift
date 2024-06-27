@@ -32,6 +32,10 @@ class Recipe: Identifiable {
         appliances.sorted(by: {$0.name < $1.name} )
     }
     
+    var sortedInstructions: [Recipe.Instruction] {
+        instructions.sorted(by: {$0.index < $1.index} )
+    }
+    
     init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Instruction], appliances: [Equipment]) {
         self.id = id
         self.title = title

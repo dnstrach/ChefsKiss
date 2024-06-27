@@ -100,9 +100,8 @@ struct RecipeDetailView: View {
                         Section("Instructions") {
                             HStack {
                                 VStack(alignment: .leading) {
-                                    ForEach(recipe.instructions, id: \.id) { step in
-                                        Text(" \(step.step)")
-                                      //  Text("\(step.index + 1). \(step.step)")
+                                    ForEach(recipe.sortedInstructions, id: \.id) { step in
+                                        Text("\(step.index + 1). \(step.step)")
                                     }
                                 }
                                 .padding()
@@ -116,7 +115,8 @@ struct RecipeDetailView: View {
                 
             .navigationTitle(recipe.title)
             .sheet(isPresented: $isEditViewPresented) {
-                EditRecipeView(recipe: recipe)
+               // AddEditRecipeView(recipe: recipe)
+                 EditRecipeView(recipe: recipe)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

@@ -38,6 +38,8 @@
 		D87AC2032BE5787C0079569C /* KissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC2022BE5787C0079569C /* KissAnimation.swift */; };
 		D8AB487F2BE2C5050038B49A /* AddImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB487E2BE2C5050038B49A /* AddImagePickerView.swift */; };
 		D8AB48812BE453420038B49A /* EditImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8AB48802BE453420038B49A /* EditImagePickerView.swift */; };
+		D8C4A92C2C2CD2E40097BAA8 /* AddEditRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */; };
+		D8C4A92E2C2CE7DB0097BAA8 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */; };
 		D8D061A42BC3A3BF00B23350 /* SavedRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A32BC3A3BF00B23350 /* SavedRecipesView.swift */; };
 		D8D061A62BC4604F00B23350 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A52BC4604F00B23350 /* String.swift */; };
 		D8D061A82BC5AE6C00B23350 /* AddRecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A72BC5AE6C00B23350 /* AddRecipeViewModel.swift */; };
@@ -78,6 +80,8 @@
 		D87AC2042BE86C7C0079569C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D8AB487E2BE2C5050038B49A /* AddImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddImagePickerView.swift; sourceTree = "<group>"; };
 		D8AB48802BE453420038B49A /* EditImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditImagePickerView.swift; sourceTree = "<group>"; };
+		D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRecipeView.swift; sourceTree = "<group>"; };
+		D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		D8D061A32BC3A3BF00B23350 /* SavedRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesView.swift; sourceTree = "<group>"; };
 		D8D061A52BC4604F00B23350 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D8D061A72BC5AE6C00B23350 /* AddRecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewModel.swift; sourceTree = "<group>"; };
@@ -172,6 +176,7 @@
 				D82FA4A42BBBCC2C00077128 /* APIRecipe */,
 				D82FA4992BBBCC2600077128 /* Recipe */,
 				D87AC2022BE5787C0079569C /* KissAnimation.swift */,
+				D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				D82FA4B12BBC6AEA00077128 /* RecipeRowView.swift */,
 				D8F3D5DE2C18D4420011AEDD /* AddRecipe */,
 				D8F3D5DF2C18D4660011AEDD /* EditRecipe */,
+				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				D82FA4BA2BBDCBC800077128 /* AddRecipeView.swift in Sources */,
 				D82FA48A2BBBCBD900077128 /* APIRecipe.swift in Sources */,
 				D82FA4882BBBCBBE00077128 /* APIManager.swift in Sources */,
+				D8C4A92E2C2CE7DB0097BAA8 /* ImagePickerView.swift in Sources */,
 				D8AB487F2BE2C5050038B49A /* AddImagePickerView.swift in Sources */,
 				D8D061A82BC5AE6C00B23350 /* AddRecipeViewModel.swift in Sources */,
 				D82FA48C2BBBCBE300077128 /* Categories.swift in Sources */,
@@ -350,6 +357,7 @@
 				D82FA4AC2BBBCC2C00077128 /* SearchBarView.swift in Sources */,
 				D8454CFD2BFD0A6000F449A8 /* APIRecipeDetailViewModel.swift in Sources */,
 				D82FA4812BBBCAE300077128 /* TabBarView.swift in Sources */,
+				D8C4A92C2C2CD2E40097BAA8 /* AddEditRecipeView.swift in Sources */,
 				D8454CF92BF5CAD700F449A8 /* APIRecipePreview.swift in Sources */,
 				D87AC2032BE5787C0079569C /* KissAnimation.swift in Sources */,
 				D8D061A62BC4604F00B23350 /* String.swift in Sources */,

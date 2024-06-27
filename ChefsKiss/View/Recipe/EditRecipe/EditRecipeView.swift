@@ -9,9 +9,10 @@ import PhotosUI
 import SwiftUI
 
 struct EditRecipeView: View {
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     
+    // how to move recipe into view model???
     @Bindable var recipe: Recipe
     
     @StateObject private var viewModel = EditRecipeViewModel()
@@ -242,9 +243,20 @@ struct EditRecipeView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
                         do {
-                            viewModel.saveImage(recipe)
+                            
+//                            recipe.title = viewModel.title
+//                            recipe.summary = viewModel.summary
+//                            recipe.servings = viewModel.servings
+//                            recipe.prepHrTime = viewModel.prepHrTime
+//                            recipe.prepMinTime = viewModel.prepMinTime
+//                            recipe.cookHrTime = viewModel.cookHrTime
+//                            recipe.cookMinTime = viewModel.cookMinTime
+//                            recipe.ingredients = viewModel.ingredients
+//                            recipe.instructions = viewModel.instructions
+//                            recipe.appliances = viewModel.appliances
+//                            viewModel.saveImage(recipe)
 
-                            try modelContext.save()
+                            try context.save()
                         } catch {
                             fatalError("Failed to edit recipe.")
                         }
@@ -321,12 +333,19 @@ struct EditRecipeView: View {
         // get the current sorted steps
         var sortedSteps = sortedInstructions
         
+      //   reindex the remaining steps
+//        for (index, step) in sortedSteps.enumerated() {
+//            step.index = index
+//        }
+        
+        for (index, sortedStep) in sortedSteps.enumerated() {
+            if index > step.index {
+                sortedStep.index -= 1
+            }
+        }
+        
         sortedSteps.removeAll(where: { $0.id == step.id })
         
-        // reindex the remaining steps
-        for (index, step) in sortedSteps.enumerated() {
-            step.index = index
-        }
         
         print("Sorted Steps")
         for step in sortedSteps {

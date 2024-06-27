@@ -9,9 +9,8 @@ import SwiftUI
 import PhotosUI
 
 struct AddRecipeView: View {
-    @Environment(\.modelContext) var modelContext
+    @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
-    @Environment(\.editMode) var editMode
     
     @StateObject private var viewModel = AddRecipeViewModel()
     
@@ -221,7 +220,7 @@ struct AddRecipeView: View {
             }
             .navigationTitle("New Recipe")
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         let newRecipe = Recipe(
                             title: viewModel.title,
@@ -237,14 +236,13 @@ struct AddRecipeView: View {
                         )
                         
                         viewModel.saveImage(newRecipe)
-                       // viewModel.storeImageInRecipe(newRecipe)
-                        modelContext.insert(newRecipe)
+                        context.insert(newRecipe)
                         dismiss()
                     }
                     .disabled(viewModel.disableForm)
                 }
-                ToolbarItem(placement: .topBarLeading) {
-                    Button("Cancel") {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel", role: .cancel) {
                         dismiss()
                     }
                 }
@@ -262,7 +260,6 @@ struct AddRecipeView: View {
  struct AddRecipeView: View {
      @Environment(\.modelContext) var modelContext
      @Environment(\.dismiss) var dismiss
-     @Environment(\.editMode) var editMode
      
      @StateObject private var viewModel = AddRecipeViewModel()
      

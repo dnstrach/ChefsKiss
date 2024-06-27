@@ -2,28 +2,15 @@
 //  ImagePickerView.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 5/1/24.
+//  Created by Dominique Strachan on 6/26/24.
 //
 
 import SwiftUI
 
-//struct ImageContainerView: View {
-//    let image: Image
-//    
-//    var body: some View {
-//        Color.clear
-//            .overlay {
-//                image
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//            }
-//            .clipped()
-//    }
-//}
-
-struct AddImagePickerView: View {
+struct ImagePickerView: View {
     let imageState: ImageState
-
+    let recipe: Recipe?
+    
     var body: some View {
         switch imageState {
         case .empty:
@@ -32,9 +19,18 @@ struct AddImagePickerView: View {
             
         case .loading:
             ProgressView()
-            
+           
+            // savedImage will show larger width/height because being shown from Data -> UIImage
         case .savedImage:
-            EmptyView()
+            if let recipe = recipe {
+                if let savedImage = recipe.image,
+                   let uiSavedImage = UIImage(data: savedImage) {
+                    Image(uiImage: uiSavedImage)
+                        .resizable()
+                        .scaledToFit()
+                }
+            }
+
            
             // selected image will show smaller width/height because being shown as Image
         case .success(let data):
@@ -57,4 +53,3 @@ struct AddImagePickerView: View {
         AddImagePickerView(imageState: .empty)
     }
 }
-

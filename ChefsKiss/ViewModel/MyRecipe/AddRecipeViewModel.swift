@@ -27,7 +27,7 @@ enum ImageState {
     var title: String = ""
     var summary: String = ""
     
-    private(set) var imageState: ImageState = .empty
+    var imageState: ImageState = .empty
 
     var selectedImage: PhotosPickerItem? {
         didSet {

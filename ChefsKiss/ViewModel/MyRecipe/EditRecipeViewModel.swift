@@ -11,6 +11,8 @@ import SwiftUI
 
 @MainActor
 @Observable final class EditRecipeViewModel: ObservableObject {
+   // @Bindable var recipe: Recipe
+    
     let prepHrRange = 0..<24
     let prepMinRange = 0..<60
     let cookHrRange = 0..<24
@@ -60,7 +62,6 @@ import SwiftUI
    private func loadTransferrable(from selectedImage: PhotosPickerItem) -> Progress {
         return selectedImage.loadTransferable(type: Data.self) { result in
             DispatchQueue.main.async {
-                // why self????
                 guard selectedImage == self.selectedImage else { return }
                 switch result {
                 case .success(let imageData?):
