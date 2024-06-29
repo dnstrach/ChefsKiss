@@ -48,7 +48,7 @@ struct EditImagePickerView: View {
 #Preview {
     do {
         let previewer = try RecipePreview()
-
+        
         return Form {
             EditImagePickerView(imageState: .empty, recipe: previewer.recipe)
         }

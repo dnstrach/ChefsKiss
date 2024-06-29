@@ -115,8 +115,7 @@ struct RecipeDetailView: View {
                 
             .navigationTitle(recipe.title)
             .sheet(isPresented: $isEditViewPresented) {
-               // AddEditRecipeView(recipe: recipe)
-                 EditRecipeView(recipe: recipe)
+                AddEditRecipeView(recipe: recipe)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
