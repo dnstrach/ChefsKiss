@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditImagePickerView: View {
     let imageState: ImageState
-    let recipe: Recipe
+    var recipe: Recipe
     
     var body: some View {
         switch imageState {

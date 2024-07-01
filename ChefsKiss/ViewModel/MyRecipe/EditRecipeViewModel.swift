@@ -16,6 +16,8 @@ import SwiftUI
     let cookHrRange = 0..<24
     let cookMinRange = 0..<60
     
+    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
+    
     var imageState: ImageState = .empty
     
     var selectedImage: PhotosPickerItem? {
@@ -29,40 +31,16 @@ import SwiftUI
         }
     }
     
-    var ingredientName: String = ""
-    var measureAmount: Double? = nil
-    var amountDouble: Double?
-    var measurement: String = ""
-    
-    let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
-    
-    var disableIngredient: Bool {
-        ingredientName.isReallyEmpty
-    }
-    
-    var equipmentName: String = ""
-    
-    var disableEquipment: Bool {
-        equipmentName.isReallyEmpty
-    }
-    
-    var stepNumber: Int = 0
-    var step: String = ""
-    
-    var disableStep: Bool {
-        step.isReallyEmpty
-    }
-    
    private func loadTransferrable(from selectedImage: PhotosPickerItem) -> Progress {
         return selectedImage.loadTransferable(type: Data.self) { result in
             DispatchQueue.main.async {
                 // why self????
                 guard selectedImage == self.selectedImage else { return }
                 switch result {
-                case .success(let imageData?):
-                    self.imageState = .success(imageData)
                 case .success(nil):
                     self.imageState = .empty
+                case .success(let imageData?):
+                    self.imageState = .success(imageData)
                 case .failure(let error):
                     self.imageState = .failure(error)
                 }
@@ -93,7 +71,9 @@ import SwiftUI
     }
 }
 
+
 /*
+ // recipe property in view model
  // @MainActor
  @Observable final class EditRecipeViewModel: ObservableObject {
      var recipe: Recipe
@@ -322,97 +302,7 @@ import SwiftUI
  */
 
 /*
- @MainActor
- @Observable final class EditRecipeViewModel: ObservableObject {
-    // @Bindable var recipe: Recipe
-     
-     let prepHrRange = 0..<24
-     let prepMinRange = 0..<60
-     let cookHrRange = 0..<24
-     let cookMinRange = 0..<60
-     
-     var imageState: ImageState = .empty
-     
-     var selectedImage: PhotosPickerItem? {
-         didSet {
-             if let selectedImage {
-                 let progress = loadTransferrable(from: selectedImage)
-                 imageState = .loading(progress)
-             } else {
-                 imageState = .empty
-             }
-         }
-     }
-     
-     var ingredientName: String = ""
-     var measureAmount: Double? = nil
-     var amountDouble: Double?
-     var measurement: String = ""
-     
-     let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
-     
-     var disableIngredient: Bool {
-         ingredientName.isReallyEmpty
-     }
-     
-     var equipmentName: String = ""
-     
-     var disableEquipment: Bool {
-         equipmentName.isReallyEmpty
-     }
-     
-     var stepNumber: Int = 0
-     var step: String = ""
-     
-     var disableStep: Bool {
-         step.isReallyEmpty
-     }
-     
-     func clearPhoto() {
-         imageState = .empty
-     }
-     
-    private func loadTransferrable(from selectedImage: PhotosPickerItem) -> Progress {
-         return selectedImage.loadTransferable(type: Data.self) { result in
-             DispatchQueue.main.async {
-                 guard selectedImage == self.selectedImage else { return }
-                 switch result {
-                 case .success(let imageData?):
-                     self.imageState = .success(imageData)
-                 case .success(nil):
-                     self.imageState = .empty
-                 case .failure(let error):
-                     self.imageState = .failure(error)
-                 }
-             }
-         }
-     }
-     
-     func saveImage(_ recipe: Recipe) {
-         guard let selectedImage else { return }
-         
-         Task {
-             do {
-                 let data = try await selectedImage.loadTransferable(type: Data.self)
-                 
-                 guard let data, let uiImage = UIImage(data: data) else {
-                     throw PhotoError.badConversion
-                 }
-                 
-                 if let imageData = uiImage.jpegData(compressionQuality: 0.8) {
-                     recipe.image = imageData
-                 }
-
-             } catch {
-                 print(error)
-             }
-         }
-         
-     }
- }
- */
-
-/*
+ // @Published instead of @Observable
  @MainActor
  final class EditRecipeViewModel: ObservableObject {
      let prepHrRange = 0..<24

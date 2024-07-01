@@ -99,6 +99,7 @@ enum ImageState {
     
     func clearPhoto() {
         imageState = .empty
+        selectedImage = nil
     }
     
     private func loadTransferable(from selectedImage: PhotosPickerItem) -> Progress {
@@ -106,10 +107,10 @@ enum ImageState {
             DispatchQueue.main.async {
                 guard selectedImage == self.selectedImage else { return }
                 switch result {
-                case .success(let imageData?):
-                    self.imageState = .success(imageData)
                 case .success(nil):
                     self.imageState = .empty
+                case .success(let imageData?):
+                    self.imageState = .success(imageData)
                 case .failure(let error):
                     self.imageState = .failure(error)
                 }
@@ -131,6 +132,7 @@ enum ImageState {
                 if let imageData = uiImage.jpegData(compressionQuality: 0.8) {
                     recipe.image = imageData
                 }
+                
             } catch {
                 print(error)
             }

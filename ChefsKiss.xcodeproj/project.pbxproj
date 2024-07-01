@@ -176,7 +176,6 @@
 				D82FA4A42BBBCC2C00077128 /* APIRecipe */,
 				D82FA4992BBBCC2600077128 /* Recipe */,
 				D87AC2022BE5787C0079569C /* KissAnimation.swift */,
-				D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -219,6 +218,7 @@
 				D8F3D5DE2C18D4420011AEDD /* AddRecipe */,
 				D8F3D5DF2C18D4660011AEDD /* EditRecipe */,
 				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
+				D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */,
 			);
 			path = Recipe;
 			sourceTree = "<group>";
