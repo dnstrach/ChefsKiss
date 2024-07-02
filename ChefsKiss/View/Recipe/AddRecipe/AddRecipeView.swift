@@ -161,14 +161,19 @@ struct AddRecipeView: View {
                 Section("Equipment") {
                     List {
                         ForEach(viewModel.sortedEquipment, id: \.id) { equipment in
-                            Text(equipment.name)
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        viewModel.deleteEquipment(equipment)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
+                            HStack {
+                                Text(equipment.name)
+                            }
+                            .onTapGesture {
+                                viewModel.selectedEquipment = equipment
+                            }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    viewModel.deleteEquipment(equipment)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
                                 }
+                            }
                         }
                     }
                     
@@ -219,6 +224,9 @@ struct AddRecipeView: View {
                 }
             }
             .navigationTitle("New Recipe")
+            .sheet(item: $viewModel.selectedEquipment) { equipment in
+                EquipmentSheetAddView(viewModel: viewModel, equipment: equipment)
+            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {

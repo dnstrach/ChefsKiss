@@ -112,7 +112,6 @@ struct RecipeDetailView: View {
                     }
                 }
             }
-                
             .navigationTitle(recipe.title)
             .sheet(isPresented: $isEditViewPresented) {
                EditRecipeView(recipe: recipe)

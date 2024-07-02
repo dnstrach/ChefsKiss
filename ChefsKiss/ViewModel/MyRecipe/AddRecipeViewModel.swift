@@ -24,6 +24,8 @@ enum ImageState {
 
 @MainActor
 @Observable final class AddRecipeViewModel: ObservableObject {
+    var selectedEquipment: Recipe.Equipment?
+    
     var title: String = ""
     var summary: String = ""
     
@@ -154,6 +156,11 @@ enum ImageState {
     func addEquipment() {
         let newEquipment = Recipe.Equipment(name: equipmentName)
         appliances.append(newEquipment)
+        equipmentName = ""
+    }
+    
+    func editEquipment(_ equipment: Recipe.Equipment) {
+        equipmentName = equipment.name
         equipmentName = ""
     }
     

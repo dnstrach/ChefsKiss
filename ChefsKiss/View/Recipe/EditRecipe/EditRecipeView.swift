@@ -8,49 +8,94 @@
 import PhotosUI
 import SwiftUI
 
+struct EquipmentSheetEditView2: View {
+    @Environment(\.dismiss) var dismiss
+    
+    @State var equipment: Recipe.Equipment
+    
+    @Binding var equipmentName: String
+    
+    var body: some View {
+        Form {
+            VStack {
+                TextField("Equipment", text: $equipment.name)
+                    .textFieldStyle(.roundedBorder)
+
+                Button("Add Equipment", systemImage: "plus.circle") {
+                    editEquipment(equipment)
+                    dismiss()
+                }
+               // .disabled(viewModel.disableEquip)
+            }
+        }
+    }
+    
+    func editEquipment(_ equipment: Recipe.Equipment) {
+        equipmentName = equipment.name
+        equipmentName = ""
+    }
+
+}
+
 struct EditRecipeView: View {
+    @State var selectedEquipment: Recipe.Equipment?
+    
+    // added items array
+        // append items in add functions
+        // if cancel then compare with recipe.model and remove items from model array
+    // deleted items array
+        // append deleted item to array
+        // if cancel then compare with recipe.model and append items model array
+//    @State private var initialIngredients: [Recipe.Ingredient] = []
+//    @State private var initialEquipment: [Recipe.Equipment] = []
+//    @State private var initialInstructions: [Recipe.Instruction] = []
+    
+    // editing item
+        // textfield
+        // ontap
+    
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
     @Bindable var recipe: Recipe
     
-    @StateObject private var viewModel = EditRecipeViewModel()
+    @StateObject var viewModel = EditRecipeViewModel()
     
-    @State var ingredientName: String = ""
-    @State var measureAmount: Double? = nil
-    @State var amountDouble: Double?
-    @State var measurement: String = ""
+    @State private var ingredientName: String = ""
+    @State private var measureAmount: Double? = nil
+    @State private var amountDouble: Double?
+    @State private var measurement: String = ""
 
-    var disableIngredient: Bool {
+    private var disableIngredient: Bool {
         ingredientName.isReallyEmpty
     }
     
-    @State var equipmentName: String = ""
+    @State private var equipmentName: String = ""
     
-    var disableEquipment: Bool {
+    private var disableEquipment: Bool {
         equipmentName.isReallyEmpty
     }
     
-    @State var stepNumber: Int = 0
-    @State var step: String = ""
+    @State private var stepNumber: Int = 0
+    @State private var step: String = ""
     
-    var disableStep: Bool {
+    private var disableStep: Bool {
         step.isReallyEmpty
     }
     
-    var sortedIngredients: [Recipe.Ingredient] {
+    private var sortedIngredients: [Recipe.Ingredient] {
         recipe.ingredients.sorted(by: {$0.name < $1.name} )
     }
     
-    var sortedEquipment: [Recipe.Equipment] {
+    private var sortedEquipment: [Recipe.Equipment] {
         recipe.appliances.sorted(by: {$0.name < $1.name} )
     }
     
-    var sortedInstructions: [Recipe.Instruction] {
+    private var sortedInstructions: [Recipe.Instruction] {
         recipe.instructions.sorted(by: {$0.index < $1.index} )
     }
     
-    var disableForm: Bool {
+    private var disableForm: Bool {
         recipe.title.isReallyEmpty
     }
     
@@ -165,7 +210,6 @@ struct EditRecipeView: View {
                                 }
                             }
                         }
-                       // .onDelete(perform: deleteIngredient)
                     }
                     
                     VStack {
@@ -201,16 +245,20 @@ struct EditRecipeView: View {
                 Section("Equipment") {
                     List {
                         ForEach(sortedEquipment, id: \.id) { equipment in
-                            Text(equipment.name)
-                                .swipeActions {
-                                    Button(role: .destructive) {
-                                        deleteEquipment(equipment)
-                                    } label: {
-                                        Label("Delete", systemImage: "trash")
-                                    }
+                            HStack {
+                                Text(equipment.name)
+                            }
+                            .onTapGesture {
+                                selectedEquipment = equipment
+                            }
+                            .swipeActions {
+                                Button(role: .destructive) {
+                                    deleteEquipment(equipment)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
                                 }
+                            }
                         }
-                      //  .onDelete(perform: deleteEquipment)
                     }
                     
                     VStack {
@@ -241,7 +289,6 @@ struct EditRecipeView: View {
                                 }
                         }
                         .onMove(perform: moveStep)
-                       // .onDelete(perform: deleteStep2)
                     }
                     
                     
@@ -260,6 +307,10 @@ struct EditRecipeView: View {
             }
             .navigationTitle(recipe.title)
             .navigationBarTitleDisplayMode(.inline)
+            .sheet(item: $selectedEquipment) { equipment in
+                EquipmentSheetEditView2(equipment: equipment, equipmentName: $equipmentName)
+            }
+          //  .onAppear(perform: storeInitialValues)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
@@ -282,6 +333,8 @@ struct EditRecipeView: View {
                 
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
+                     // restoreInitialValues()
+                        
                         dismiss()
                     }
                 }
@@ -316,12 +369,6 @@ struct EditRecipeView: View {
         recipe.ingredients = sorted
     }
     
-//    func deleteIngredient(at offsets: IndexSet) {
-//        var sorted = sortedIngredients
-//        sorted.remove(atOffsets: offsets)
-//        recipe.ingredients = sorted
-//    }
-    
     func addEquipment() {
         let newEquipment = Recipe.Equipment(name: equipmentName)
         recipe.appliances.append(newEquipment)
@@ -334,12 +381,6 @@ struct EditRecipeView: View {
         modelContext.delete(equipment)
         recipe.appliances = sorted
     }
-    
-//    func deleteEquipment(at offsets: IndexSet) {
-//        var sorted = sortedEquipment
-//        sorted.remove(atOffsets: offsets)
-//        recipe.appliances = sorted
-//    }
     
     func addStep() {
         var sortedSteps = sortedInstructions
@@ -410,6 +451,18 @@ struct EditRecipeView: View {
         
         recipe.instructions = sortedSteps
     }
+    
+//    func storeInitialValues() {
+//        initialIngredients = recipe.ingredients
+//        initialEquipment = recipe.appliances
+//        initialInstructions = recipe.instructions
+//    }
+//    
+//    func restoreInitialValues() {
+//        recipe.ingredients = initialIngredients
+//        recipe.appliances = initialEquipment
+//        recipe.instructions = initialInstructions
+//    }
 
 }
 

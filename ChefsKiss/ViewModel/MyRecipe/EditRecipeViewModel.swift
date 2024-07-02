@@ -74,6 +74,8 @@ import SwiftUI
 
 /*
  // recipe property in view model
+ // photo not working 
+ // not able to separate recipe into view model with current version deleting items from environment with model context
  // @MainActor
  @Observable final class EditRecipeViewModel: ObservableObject {
      var recipe: Recipe
