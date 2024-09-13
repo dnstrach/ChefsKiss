@@ -7,11 +7,6 @@
 
 import Foundation
 
-//struct SearchTerm {
-//    let searchParam: String
-//    let searchValue: String
-//}
-
 @MainActor class CategoryViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
     @Published var shouldShowSpinner: Bool = true

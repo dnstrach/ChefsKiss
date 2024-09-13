@@ -224,9 +224,6 @@ struct AddRecipeView: View {
                 }
             }
             .navigationTitle("New Recipe")
-            .sheet(item: $viewModel.selectedEquipment) { equipment in
-                EquipmentSheetAddView(viewModel: viewModel, equipment: equipment)
-            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {

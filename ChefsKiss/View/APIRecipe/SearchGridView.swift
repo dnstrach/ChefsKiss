@@ -8,6 +8,7 @@
 import SwiftData
 import SwiftUI
 
+// dismiss keyboard
 struct SearchGridView: View {
     @Environment(\.modelContext) var modelContext
     @Query var savedRecipes: [APIRecipe]

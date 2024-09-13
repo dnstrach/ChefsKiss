@@ -70,7 +70,6 @@ struct CategoryGridView: View {
                                             Text(recipe.title)
                                                 .multilineTextAlignment(.center)
                                                 .lineLimit(2)
-                                            //  .frame(width: 200)
                                                 .fixedSize(horizontal: false, vertical: true)
                                                 .font(.title3)
                                                 .foregroundStyle(Color.primary)

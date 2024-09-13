@@ -7,9 +7,6 @@
 
 import SwiftUI
 
-// ask Vala about cuisine recipes showing up in incorrect category
-// cuisine parameter shows empty array cuisines: []
-
 struct CategoryView: View {
     @StateObject var viewModel: CategoryViewModel
     
@@ -31,6 +28,5 @@ struct CategoryView: View {
 
 #Preview {
     CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "type", value: "appetizer")))
-       // .environmentObject(Favorites())
 }
 

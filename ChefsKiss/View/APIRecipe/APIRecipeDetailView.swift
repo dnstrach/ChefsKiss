@@ -41,68 +41,33 @@ struct APIRecipeDetailView: View {
                     ProgressView()
                 }
                 
-                ScrollView(.horizontal) {
-                    HStack {
-                        if let vegetarianIcon = viewModel.vegetarianIcon(recipe: recipe) {
-                            HStack {
-                                vegetarianIcon
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                
-                                Text("Vegetarian")
-                                // .font(.system(size: 15))
-                            }
-                            .padding()
-                        }
-                        
-                        if let veganIcon = viewModel.veganIcon(recipe: recipe) {
-                            HStack {
-                                veganIcon
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                
-                                Text("Vegan")
-                            }
-                            .padding()
-                        }
-                        
-                        if let dairyFreeIcon = viewModel.dairyFreeIcon(recipe: recipe) {
-                            HStack {
-                                dairyFreeIcon
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                
-                                Text("Dairy Free")
-                            }
-                            .padding()
-                        }
-                        
-                        if let glutenFreeIcon = viewModel.glutenFreeIcon(recipe: recipe) {
-                            HStack {
-                                glutenFreeIcon
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                
-                                Text("Gluten Free")
-                            }
-                            .padding()
-                        }
-                    }
-                }
+                IconView(recipe: recipe, viewModel: viewModel)
                 
                 HStack {
-                    Text("Servings: \(recipe.servings)")
+                    HStack {
+                        Text("Servings:")
+                            .fontWeight(.bold)
+                        Text("\(recipe.servings)")
+                    }
+                        
                     
                     Spacer()
                     
-                    Text("Duration: \(recipe.readyInMinutes) minutes")
+                    HStack {
+                        Text("Duration:")
+                            .fontWeight(.bold)
+                        Text("\(recipe.readyInMinutes) minutes")
+                    }
                 }
                 .padding(.horizontal, 50)
                 .padding(.bottom)
                 
-                Text(recipe.summary.stringByStrippingHTMLTags())
-                    .padding(.horizontal)
-                    .padding(.bottom)
+                ZStack(alignment: .bottomTrailing) {
+                    Text(recipe.summary.stringByStrippingHTMLTags())
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                        .padding(.bottom)
+                }
                 
                 VStack(alignment: .leading) {
                     Text("Ingredients")
@@ -164,29 +129,36 @@ struct APIRecipeDetailView: View {
                 .padding(.bottom)
                 
                 
-                VStack(alignment: .leading) {
+                VStack {
                     HStack {
                         Text("Steps")
                             .font(.title2)
                             .padding(.leading)
+                            .padding(.bottom)
                         
                         Spacer()
                     }
                     
-                    // analyzed instructions has more than one steps []
-                    if let instructions = recipe.analyzedInstructions, !instructions.isEmpty {
-                        ForEach(instructions.flatMap { $0.steps }, id: \.number) { step in
-                            Text("\(step.number). \(step.step)")
-                                .padding(.bottom, 5)
-                                .padding(.horizontal)
-                        }
-                    } else {
-                        HStack {
-                            Text("No instructions available")
-                                .foregroundColor(.gray)
-                                .padding(.leading)
-                            
-                            Spacer()
+                    VStack(alignment: .leading) {
+                        // analyzed instructions has more than one steps []
+                        if let instructions = recipe.analyzedInstructions, !instructions.isEmpty {
+                            ForEach(Array(instructions.flatMap { $0.steps }.enumerated()), id: \.element.step) { index, step in
+                                Text("\(index + 1). \(step.step)") // Dynamically generate the step number
+                                    .alignmentGuide(.leading) { dimension in
+                                        dimension[.leading]
+                                    }
+                                    .padding(.leading)
+                                    .padding(.trailing)
+                                    .padding(.bottom)
+                            }
+                        } else {
+                            HStack {
+                                Text("No instructions available")
+                                    .foregroundColor(.gray)
+                                    .padding(.leading)
+                                
+                                Spacer()
+                            }
                         }
                     }
                 }
@@ -221,11 +193,27 @@ struct APIRecipeDetailView: View {
                     }
                 }
             }
+            
         }
     }
 }
 
-#Preview {
-    APIRecipeDetailView(recipe: APIRecipe.dummyRecipes[1])
-}
 
+//#Preview {
+//    let iconName: IconNames
+//    
+//    APIRecipeDetailView(recipe: APIRecipe.dummyRecipes[1], iconName: iconName)
+//        .modelContainer(for: APIRecipe.self, inMemory: true)
+//}
+
+//#Preview {
+//    do {
+//        let modelConfig = ModelConfiguration(isStoredInMemoryOnly: true)
+//        let container = try ModelContainer(for: APIRecipe.self, configurations: modelConfig)
+//        
+//        return APIRecipeDetailView(recipe: APIRecipe.dummyRecipes[1])
+//            .modelContainer(container)
+//    } catch {
+//        return Text("Failed to create model container: \(error.localizedDescription)")
+//    }
+//}

@@ -16,6 +16,14 @@ struct RecipeDetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 ScrollView {
+                    HStack {
+                        Text(recipe.title)
+                            .font(.system(size: 34, weight: .bold))
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
+                    
                     VStack {
                         if let imageData = recipe.image,
                            let uiImage = UIImage(data: imageData) {
@@ -29,55 +37,57 @@ struct RecipeDetailView: View {
                     }
                     
                     VStack {
-                            Text(recipe.summary)
-                            .padding()
-                        
-                            Text("Serves \(recipe.servings.formatted())")
-                            .padding(.bottom)
+                        Text("Serves \(recipe.servings.formatted())")
+                        .padding(.bottom)
 
-                        
-                        if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0 || recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                    
+                    if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0 || recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                        HStack {
                             HStack {
-                                HStack {
-                                    if recipe.prepHrTime != 0 || recipe.prepMinTime != 0 {
-                                        Text("Prep:")
-                                    }
-                                    
-                                    if recipe.prepHrTime != 0 {
-                                        Text("\(recipe.prepHrTime)")
-                                        Text(recipe.prepHrTime == 1 ? "hr" : "hrs")
-                                    }
-                                    
-                                    if recipe.prepMinTime != 0 {
-                                        Text("\(recipe.prepMinTime)")
-                                        Text(recipe.prepMinTime == 1 ? "min" : "mins")
-                                    }
+                                if recipe.prepHrTime != 0 || recipe.prepMinTime != 0 {
+                                    Text("Prep:")
                                 }
                                 
-                                if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0) && (recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
-                                    Spacer()
+                                if recipe.prepHrTime != 0 {
+                                    Text("\(recipe.prepHrTime)")
+                                    Text(recipe.prepHrTime == 1 ? "hr" : "hrs")
                                 }
-
-                                HStack {
-                                    if recipe.cookHrTime != 0 || recipe.cookMinTime != 0 {
-                                        Text("Cook:")
-                                    }
-                                    
-                                    if recipe.cookHrTime != 0 {
-                                        Text("\(recipe.cookHrTime)")
-                                        Text(recipe.cookHrTime == 1 ? "hr" : "hrs")
-                                    }
-                                    
-                                    if recipe.cookMinTime != 0 {
-                                        Text("\(recipe.cookMinTime)")
-                                        Text(recipe.cookMinTime == 1 ? "min" : "mins")
-                                    }
+                                
+                                if recipe.prepMinTime != 0 {
+                                    Text("\(recipe.prepMinTime)")
+                                    Text(recipe.prepMinTime == 1 ? "min" : "mins")
                                 }
                             }
-                            .padding(.bottom)
-                            .padding(.horizontal)
-                            .padding(.horizontal)
+                            
+                            if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0) && (recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                                Spacer()
+                            }
+
+                            HStack {
+                                if recipe.cookHrTime != 0 || recipe.cookMinTime != 0 {
+                                    Text("Cook:")
+                                }
+                                
+                                if recipe.cookHrTime != 0 {
+                                    Text("\(recipe.cookHrTime)")
+                                    Text(recipe.cookHrTime == 1 ? "hr" : "hrs")
+                                }
+                                
+                                if recipe.cookMinTime != 0 {
+                                    Text("\(recipe.cookMinTime)")
+                                    Text(recipe.cookMinTime == 1 ? "min" : "mins")
+                                }
+                            }
                         }
+                        .padding(.bottom)
+                        .padding(.horizontal)
+                        .padding(.horizontal)
+                    }
+                    }
+                    
+                    VStack {
+                            Text(recipe.summary)
+                            .padding()
                         
                         Section("Ingredients") {
                             VStack(alignment: .leading) {
@@ -112,7 +122,6 @@ struct RecipeDetailView: View {
                     }
                 }
             }
-            .navigationTitle(recipe.title)
             .sheet(isPresented: $isEditViewPresented) {
                EditRecipeView(recipe: recipe)
                 // AddEditRecipeView(recipe: recipe)

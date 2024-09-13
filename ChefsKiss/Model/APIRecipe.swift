@@ -19,8 +19,8 @@ class Response: Codable {
         self.results = results
     }
     
-    // ??? manually write Decodable/Encodable because class instead of struct
-    // conform to Decodable
+    // manually write Decodable/Encodable because class instead of struct
+    // class for SwiftData saved recipes
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.results = try container.decode([APIRecipe].self, forKey: .results)
@@ -35,12 +35,12 @@ class Response: Codable {
 
 @Model
 class APIRecipe: Codable, Hashable {
-    // ??? used for saved recipes
+    // used for saved recipes
     static func == (lhs: APIRecipe, rhs: APIRecipe) -> Bool {
         lhs.id == rhs.id
     }
     
-    // ??? used for saved recipes
+    // used for saved recipes
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -50,12 +50,10 @@ class APIRecipe: Codable, Hashable {
     let summary: String
     let image: String
     let imageType: String
-    //// icons
     let isVegetarian: Bool
     let isVegan: Bool
     let isGlutenFree: Bool
     let isDairyFree: Bool
-   // //
     let readyInMinutes: Int
     let servings: Int
     let sourceUrl: String

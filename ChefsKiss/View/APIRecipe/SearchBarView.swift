@@ -51,9 +51,5 @@ struct SearchBarView: View {
         SearchBarView(searchText: .constant(""))
             .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
-        
-//        SearchBarView(searchText: .constant(""))
-//            .previewLayout(.sizeThatFits)
-//            .preferredColorScheme(.dark)
     }
 }

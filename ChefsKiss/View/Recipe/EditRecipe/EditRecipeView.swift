@@ -8,52 +8,7 @@
 import PhotosUI
 import SwiftUI
 
-struct EquipmentSheetEditView2: View {
-    @Environment(\.dismiss) var dismiss
-    
-    @State var equipment: Recipe.Equipment
-    
-    @Binding var equipmentName: String
-    
-    var body: some View {
-        Form {
-            VStack {
-                TextField("Equipment", text: $equipment.name)
-                    .textFieldStyle(.roundedBorder)
-
-                Button("Add Equipment", systemImage: "plus.circle") {
-                    editEquipment(equipment)
-                    dismiss()
-                }
-               // .disabled(viewModel.disableEquip)
-            }
-        }
-    }
-    
-    func editEquipment(_ equipment: Recipe.Equipment) {
-        equipmentName = equipment.name
-        equipmentName = ""
-    }
-
-}
-
 struct EditRecipeView: View {
-    @State var selectedEquipment: Recipe.Equipment?
-    
-    // added items array
-        // append items in add functions
-        // if cancel then compare with recipe.model and remove items from model array
-    // deleted items array
-        // append deleted item to array
-        // if cancel then compare with recipe.model and append items model array
-//    @State private var initialIngredients: [Recipe.Ingredient] = []
-//    @State private var initialEquipment: [Recipe.Equipment] = []
-//    @State private var initialInstructions: [Recipe.Instruction] = []
-    
-    // editing item
-        // textfield
-        // ontap
-    
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
@@ -63,7 +18,7 @@ struct EditRecipeView: View {
     
     @State private var ingredientName: String = ""
     @State private var measureAmount: Double? = nil
-    @State private var amountDouble: Double?
+   // @State private var amountDouble: Double?
     @State private var measurement: String = ""
 
     private var disableIngredient: Bool {
@@ -248,9 +203,6 @@ struct EditRecipeView: View {
                             HStack {
                                 Text(equipment.name)
                             }
-                            .onTapGesture {
-                                selectedEquipment = equipment
-                            }
                             .swipeActions {
                                 Button(role: .destructive) {
                                     deleteEquipment(equipment)
@@ -307,10 +259,6 @@ struct EditRecipeView: View {
             }
             .navigationTitle(recipe.title)
             .navigationBarTitleDisplayMode(.inline)
-            .sheet(item: $selectedEquipment) { equipment in
-                EquipmentSheetEditView2(equipment: equipment, equipmentName: $equipmentName)
-            }
-          //  .onAppear(perform: storeInitialValues)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Save") {
@@ -451,19 +399,6 @@ struct EditRecipeView: View {
         
         recipe.instructions = sortedSteps
     }
-    
-//    func storeInitialValues() {
-//        initialIngredients = recipe.ingredients
-//        initialEquipment = recipe.appliances
-//        initialInstructions = recipe.instructions
-//    }
-//    
-//    func restoreInitialValues() {
-//        recipe.ingredients = initialIngredients
-//        recipe.appliances = initialEquipment
-//        recipe.instructions = initialInstructions
-//    }
-
 }
 
 #Preview {
@@ -479,301 +414,3 @@ struct EditRecipeView: View {
 
 
 
-/*
- // .onDelete method
- // separate view with delete callback
- struct EditRecipeView: View {
-     @Environment(\.modelContext) var modelContext
-     @Environment(\.dismiss) var dismiss
-     
-     @Bindable var recipe: Recipe
-     
-     @StateObject private var viewModel = EditRecipeViewModel()
-     
-     var disableForm: Bool {
-         recipe.title.isReallyEmpty
-     }
-     
-     var body: some View {
-         NavigationStack {
-             Form {
-                 Section {
-                     TextField("Title", text: $recipe.title)
-                     TextField("Summary", text: $recipe.summary, axis: .vertical)
-                 }
-                 
-                 Section {
-                     HStack {
-                         Spacer()
-                         
-                         switch viewModel.imageState {
-                         case .savedImage:
-                             Button {
-                                 viewModel.clearPhoto()
-                             } label: {
-                                 Image(systemName: "x.circle")
-                             }
-                         case .success:
-                             Button {
-                                 viewModel.clearPhoto()
-                             } label: {
-                                 Image(systemName: "x.circle")
-                             }
-                         default:
-                             EmptyView()
-                         }
-                     }
-                     
-                     // Note: x button will not work if without HStack
-                     HStack {
-                         Spacer()
-                         
-                         EditImagePickerView(
-                             imageState: viewModel.imageState, recipe: recipe
-                         )
-                         .onAppear(perform: showSavedImage)
-                         .overlay {
-                             PhotosPicker(
-                                 "",
-                                 selection: $viewModel.selectedImage,
-                                 matching: .images,
-                                 photoLibrary: .shared()
-                             )
-                         }
-                         
-                         Spacer()
-                     }
-                 }
-                 
-                 Section {
-                     Stepper("Serves \(recipe.servings.formatted())", value: $recipe.servings, in: 1...100, step: 0.5)
-                 }
-                 
-                 Section("Prep Time") {
-                     HStack {
-                         Picker("Hours", selection: $recipe.prepHrTime) {
-                             ForEach(viewModel.prepHrRange, id: \.self) { hour in
-                                 Text("\(hour)")
-                             }
-                         }
-                         
-                         Picker("Minutes", selection: $recipe.prepMinTime) {
-                             ForEach(viewModel.prepMinRange, id: \.self) { minute in
-                                 Text("\(minute)")
-                             }
-                         }
-                     }
-                 }
-                 
-                 Section("Cook Time") {
-                     HStack {
-                         Picker("Hours", selection: $recipe.cookHrTime) {
-                             ForEach(viewModel.cookHrRange, id: \.self) { hour in
-                                 Text("\(hour)")
-                             }
-                         }
-                         
-                         Picker("Minutes", selection: $recipe.cookMinTime) {
-                             ForEach(viewModel.cookMinRange, id: \.self) { minute in
-                                 Text("\(minute)")
-                             }
-                         }
-                     }
-                 }
-                 
-                 Section("Ingredients") {
-                     IngredientListView2(ingredients: $recipe.ingredients, deleteCallback: deleteIngredient)
-                     
-                     VStack {
-                         HStack {
-                             TextField("Qty", value: $viewModel.measureAmount, format: .number)
-                                 .keyboardType(.decimalPad)
-                                 .textFieldStyle(.roundedBorder)
-                                 .frame(width: 50)
-                             
-                             TextField("Ingredient", text: $viewModel.ingredientName)
-                                 .textFieldStyle(.roundedBorder)
-                         }
-                         
-                         ScrollView(.horizontal) {
-                             HStack {
-                                 Picker("Metric", selection: $viewModel.measurement) {
-                                     ForEach(viewModel.measureTypes, id: \.self) { measure in
-                                         Text(measure)
-                                     }
-                                 }
-                                 .pickerStyle(.segmented)
-                             }
-                             .padding()
-                         }
-                         
-                         Button("Add Ingredient", systemImage: "plus.circle") {
-                             addIngredient()
-                         }
-                         .disabled(viewModel.disableIngredient)
-                     }
-                 }
-                 
-                 Section("Equipment") {
-                     EquipmentListView2(equipment: $recipe.appliances, deleteCallback: deleteEquipment)
-                     
-                     VStack {
-                         TextField("Equipment", text: $viewModel.equipmentName)
-                             .textFieldStyle(.roundedBorder)
-                         
-                         Button("Add Equipment", systemImage: "plus.circle") {
-                             addEquipment()
-                         }
-                         .disabled(viewModel.disableEquipment)
-                     }
-                 }
-                 
-                 Section("Instructions") {
-                     InstructionsListView2(instructions: $recipe.instructions, deleteCallback: deleteStep)
-                     
-                     VStack {
-                         TextField("Step", text: $viewModel.step, axis: .vertical)
-                             .textFieldStyle(.roundedBorder)
-                         
-                         Button("Add Step", systemImage: "plus.circle") {
-                             addStep()
-                         }
-                         .disabled(viewModel.disableStep)
-                     }
-                 }
-                 
-             }
-             .navigationTitle(recipe.title)
-             .navigationBarTitleDisplayMode(.inline)
-             .toolbar {
-                 ToolbarItem(placement: .topBarTrailing) {
-                     Button("Save") {
-                         do {
-                             viewModel.saveImage(recipe)
-
-                             try modelContext.save()
-                         } catch {
-                             fatalError("Failed to edit recipe.")
-                         }
-                         
-                         dismiss()
-                     }
-                     .disabled(disableForm)
-                 }
-                 
-                 ToolbarItem(placement: .topBarLeading) {
-                     Button("Cancel") {
-                         dismiss()
-                     }
-                 }
-             }
-         }
-     }
-     
-     func showSavedImage() {
-         if recipe.image != nil {
-             viewModel.imageState = .savedImage
-         }
-     }
-     
-     func addIngredient() {
-         let newIngredient = Recipe.Ingredient(name: viewModel.ingredientName, measurement: viewModel.measureAmount ?? 0, measurementType: viewModel.measurement)
-         recipe.ingredients.append(newIngredient)
-         viewModel.ingredientName = ""
-         viewModel.measureAmount = nil
-         viewModel.measurement = ""
-     }
-     
-     func deleteIngredient(at offsets: IndexSet) {
-         recipe.ingredients.remove(atOffsets: offsets)
-     }
-     
-     func addEquipment() {
-         let newEquipment = Recipe.Equipment(name: viewModel.equipmentName)
-         recipe.appliances.append(newEquipment)
-         viewModel.equipmentName = ""
-     }
-     
-     func deleteEquipment(at offsets: IndexSet) {
-         recipe.appliances.remove(atOffsets: offsets)
-     }
-     
-     func addStep() {
-         let newStep = Recipe.Instruction(step: viewModel.step)
-         recipe.instructions.append(newStep)
-         viewModel.step = ""
-     }
-     
-     func deleteStep(at offsets: IndexSet) {
-         recipe.instructions.remove(atOffsets: offsets)
-     }
- }
-
- struct IngredientListView2: View {
-     @Binding var ingredients: [Recipe.Ingredient]
-     let deleteCallback: (IndexSet) -> ()
-     
-     var body: some View {
-         List {
-             ForEach(ingredients, id: \.id) { ingredient in
-                 HStack {
-                     HStack {
-                         if ingredient.measurement == 0 {
-                             EmptyView()
-                         } else {
-                             Text(ingredient.measurement, format: .number)
-                                 .fontWeight(.light)
-                         }
-                         
-                         Text(ingredient.measurementType)
-                             .fontWeight(.light)
-                         
-                         Text(ingredient.name)
-                     }
-                 }
-             }
-             .onDelete(perform: deleteCallback)
-         }
-     }
- }
-
-
- struct EquipmentListView2: View {
-     @Binding var equipment: [Recipe.Equipment]
-     let deleteCallback: (IndexSet) -> ()
-     
-     var body: some View {
-         List {
-             ForEach(equipment, id: \.id) { equipment in
-                 Text("\(equipment.name)")
-             }
-             .onDelete(perform: deleteCallback)
-         }
-     }
- }
-
- struct InstructionsListView2: View {
-    @Binding var instructions: [Recipe.Instruction]
-     let deleteCallback: (IndexSet) -> ()
-     
-     var body: some View {
-         List {
-             ForEach(instructions, id: \.id) { step in
-                 Text("\(step.step)")
-             }
-             .onDelete(perform: deleteCallback)
-         }
-     }
- }
-
- #Preview {
-     do {
-         let previewer = try RecipePreview()
-         
-         return EditRecipeView(recipe: previewer.recipe)
-             .modelContainer(previewer.container)
-     } catch {
-         fatalError("Failed to create preview container.")
-     }
- }
- */

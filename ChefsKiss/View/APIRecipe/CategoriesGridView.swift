@@ -71,22 +71,17 @@ struct CategoriesGridView: View {
 
 struct CategoryLabel: View {
     var category: String
-
+    
     var body: some View {
-        // used fixed size instead for performance
         VStack {
-           // GeometryReader { geometry in
-                Image(category.lowercased())
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 200, height: 200)
-                   // .frame(width: geometry.size.width, height: geometry.size.height)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
-                    .shadow(radius: 5)
-           // }
-            .aspectRatio(contentMode: .fit)
-           // .frame(width: 200, height: 200)
+            Image(category.lowercased())
+                .resizable()
+                .scaledToFill()
+                .frame(width: 200, height: 200)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
+                .shadow(radius: 5)
+                .aspectRatio(contentMode: .fit)
             Text(category)
                 .font(.title3)
                 .foregroundStyle(Color.primary)
