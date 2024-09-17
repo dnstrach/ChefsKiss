@@ -23,11 +23,20 @@ struct RecipeRowView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                     .shadow(radius: 5)
-                
-                Text(recipe.title)
-                    .font(.title3)
-                    .lineLimit(2)
+            } else {
+                Image("Placeholder")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 150, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
+                    .shadow(radius: 5)
             }
+            
+            Text(recipe.title)
+                .padding()
+                .font(.title3)
+                .lineLimit(2)
         }
     }
 }

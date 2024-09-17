@@ -14,6 +14,8 @@ struct IconView: View {
     
     var body: some View {
         ScrollView(.horizontal) {
+            
+            
             HStack {
                 if recipe.isVegetarian {
                     iconAndLabel(imageName: "vegetarianIcon", label: "Vegetarian")

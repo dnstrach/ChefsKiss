@@ -1,15 +1,15 @@
 //
-//  EditImagePickerView.swift
+//  ImagePickerView.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 5/2/24.
+//  Created by Dominique Strachan on 6/26/24.
 //
 
 import SwiftUI
 
-struct EditImagePickerView: View {
+struct ImagePickerView: View {
     let imageState: ImageState
-    var recipe: Recipe
+    let recipe: Recipe?
     
     var body: some View {
         switch imageState {
@@ -22,12 +22,15 @@ struct EditImagePickerView: View {
            
             // savedImage will show larger width/height because being shown from Data -> UIImage
         case .savedImage:
-            if let savedImage = recipe.image,
-               let uiSavedImage = UIImage(data: savedImage) {
-                Image(uiImage: uiSavedImage)
-                    .resizable()
-                    .scaledToFit()
+            if let recipe = recipe {
+                if let savedImage = recipe.image,
+                   let uiSavedImage = UIImage(data: savedImage) {
+                    Image(uiImage: uiSavedImage)
+                        .resizable()
+                        .scaledToFit()
+                }
             }
+
            
             // selected image will show smaller width/height because being shown as Image
         case .success(let data):
@@ -47,12 +50,10 @@ struct EditImagePickerView: View {
 
 #Preview {
     do {
-        let previewer = try RecipePreview()
+        let preview = try RecipePreview()
         
-        return Form {
-            EditImagePickerView(imageState: .empty, recipe: previewer.recipe)
-        }
-        .modelContainer(previewer.container)
+        return ImagePickerView(imageState: .empty, recipe: preview.recipe)
+            .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")
     }

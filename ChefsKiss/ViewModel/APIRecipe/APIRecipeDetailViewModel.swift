@@ -65,5 +65,4 @@ class APIRecipeDetailViewModel: ObservableObject {
         return uniqueEquipment
     }
     
-    
 }

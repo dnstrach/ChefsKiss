@@ -22,7 +22,7 @@ struct RecipePreview {
         let imageData = image?.jpegData(compressionQuality: 1.0)
 
         recipe = Recipe(
-            title: "Pesto Pasta",
+            title: "Pesto Lemon Pasta with Vegetables",
             summary: "This is recipe summary.",
             image: imageData,
             servings: 6,

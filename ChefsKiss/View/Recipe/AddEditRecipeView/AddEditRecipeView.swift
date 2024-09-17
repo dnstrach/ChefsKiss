@@ -12,7 +12,7 @@ struct AddEditRecipeView: View {
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) var dismiss
     
-  @StateObject private var viewModel = AddRecipeViewModel()
+  @StateObject private var viewModel = AddEditRecipeViewModel()
     
     let recipe: Recipe?
     
@@ -57,7 +57,7 @@ struct AddEditRecipeView: View {
                         ImagePickerView(
                             imageState: viewModel.imageState, recipe: recipe
                         )
-                        .onAppear(perform: showSavedImage)
+                       // .onAppear(perform: showSavedImage)
                         .overlay {
                             PhotosPicker(
                                 "",
@@ -263,9 +263,9 @@ struct AddEditRecipeView: View {
         }
     }
     
-    func showSavedImage() {
-        viewModel.imageState = .savedImage
-    }
+//    func showSavedImage() {
+//        viewModel.imageState = .savedImage
+//    }
     
     private func save() {
         if let recipe {
@@ -306,7 +306,7 @@ struct AddEditRecipeView: View {
     do {
         let previewer = try RecipePreview()
         
-        return EditRecipeView(recipe: previewer.recipe)
+        return AddEditRecipeView(recipe: previewer.recipe)
             .modelContainer(previewer.container)
     } catch {
         fatalError("Failed to create preview container.")

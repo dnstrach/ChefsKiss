@@ -23,7 +23,7 @@ enum ImageState {
 }
 
 @MainActor
-@Observable final class AddRecipeViewModel: ObservableObject {
+@Observable final class AddEditRecipeViewModel: ObservableObject {
     var selectedEquipment: Recipe.Equipment?
     
     var title: String = ""
