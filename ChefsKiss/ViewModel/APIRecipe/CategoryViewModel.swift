@@ -13,6 +13,13 @@ import Foundation
     @Published var showAlert = false
     @Published var alertMessage = ""
     
+    let categories: [(String, CategoryParam)] = [
+        ("Cuisines", .cuisine),
+        ("Dish Types", .dishType),
+        ("Diets", .diet),
+        ("Intolerances", .intolerance)
+    ]
+    
     private let searchTerm: SearchTerm
     
     var navigationTitle: String? {
@@ -52,4 +59,20 @@ import Foundation
             }
         }
     }
+    
+    func searchRecipes(query: String) async {
+        do {
+            recipes = try await APIManager.loadRecipes(searchTerm: .query(query))
+            shouldShowSpinner = false
+        } catch {
+            if let apiError = error as? APIError, case.exceededCallLimit = apiError {
+                showAlert = true
+                alertMessage = APIError.exceededCallLimit.rawValue
+                print("Status code 402: \(error)")
+            } else {
+                print("Handle Error: \(error)")
+            }
+        }
+    }
+
 }

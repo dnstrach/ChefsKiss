@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import UIKit
 
 @MainActor
 struct RecipePreview {
@@ -16,10 +17,14 @@ struct RecipePreview {
     init() throws {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         container = try ModelContainer(for: Recipe.self, configurations: config)
+        
+        let image = UIImage(named: "italian")
+        let imageData = image?.jpegData(compressionQuality: 1.0)
 
         recipe = Recipe(
             title: "Pesto Pasta",
             summary: "This is recipe summary.",
+            image: imageData,
             servings: 6,
             prepHrTime: 30,
             prepMinTime: 30,

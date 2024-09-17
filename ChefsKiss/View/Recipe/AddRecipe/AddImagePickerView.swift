@@ -7,20 +7,6 @@
 
 import SwiftUI
 
-//struct ImageContainerView: View {
-//    let image: Image
-//    
-//    var body: some View {
-//        Color.clear
-//            .overlay {
-//                image
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//            }
-//            .clipped()
-//    }
-//}
-
 struct AddImagePickerView: View {
     let imageState: ImageState
 

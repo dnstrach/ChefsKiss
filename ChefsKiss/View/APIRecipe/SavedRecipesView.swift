@@ -25,10 +25,10 @@ struct SavedRecipesView: View {
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
-                // use condition or change to switch to add a view when exceeded daily call limit
-                //                if shouldShowSpinner {
-                //                    ProgressView()
-                //     } else {
+//                use condition or change to switch to add a view when exceeded daily call limit
+//                if shouldShowSpinner {
+//                    ProgressView()
+//                } else {
                 LazyVGrid(columns: columns) {
                     ForEach(savedRecipes, id: \.id) { recipe in
                         NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
@@ -43,79 +43,26 @@ struct SavedRecipesView: View {
                                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                                 .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    Button {
-                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
-                                                        
-                                                        if recipes.contains(where: { $0.id == recipe.id }) {
-                                                            modelContext.delete(recipe)
-                                                        } else {
-                                                            modelContext.insert(recipe)
-                                                        }
-                                                        
-                                                    } label: {
-                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
-                                                        
-                                                        ZStack {
-                                                            Image(systemName: "circle.fill")
-                                                                .resizable()
-                                                                .foregroundStyle(.accent)
-                                                                .frame(width: 35, height: 35)
-                                                                .opacity(0.3)
-                                                            
-                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
-                                                                .imageScale(.large)
-                                                        }
-                                                    }
-                                                    .offset(x: -5, y: -10)
+                                                    HeartButton(savedRecipesViewModel: viewModel, recipe: recipe)
                                                 }
                                             
                                             Text(recipe.title)
-                                                .multilineTextAlignment(.center)
-                                                .lineLimit(2)
-                                            //  .frame(width: 200)
-                                                .fixedSize(horizontal: false, vertical: true)
-                                                .font(.title3)
-                                                .foregroundStyle(Color.primary)
+                                                .titleStyle()
                                             
                                         } else if phase.error != nil {
                                             // Display a placeholder when loading failed
-                                            Image(systemName: "questionmark.diamond")
-                                                .imageScale(.large)
+                                            Image("Placeholder")
+                                                .resizable()
+                                                .scaledToFill()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    Button {
-                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
-                                                        
-                                                        if recipes.contains(where: { $0.id == recipe.id }) {
-                                                            modelContext.delete(recipe)
-                                                        } else {
-                                                            modelContext.insert(recipe)
-                                                        }
-                                                        
-                                                    } label: {
-                                                        let recipes = viewModel.querySavedRecipes(savedRecipes)
-                                                        
-                                                        ZStack {
-                                                            Image(systemName: "circle.fill")
-                                                                .resizable()
-                                                                .foregroundStyle(.accent)
-                                                                .frame(width: 35, height: 35)
-                                                                .opacity(0.3)
-                                                            
-                                                            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
-                                                                .imageScale(.large)
-                                                        }
-                                                    }
-                                                    .offset(x: -5, y: -10)
+                                                    HeartButton(savedRecipesViewModel: viewModel, recipe: recipe)
                                                 }
                                             
                                             Text(recipe.title)
-                                                .multilineTextAlignment(.center)
-                                                .lineLimit(2)
-                                            //  .frame(width: 200)
-                                                .fixedSize(horizontal: false, vertical: true)
-                                                .font(.title3)
-                                                .foregroundStyle(Color.primary)
+                                                .titleStyle()
                                             
                                         } else {
                                             ProgressView()

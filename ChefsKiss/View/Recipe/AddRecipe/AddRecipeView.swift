@@ -24,13 +24,6 @@ struct AddRecipeView: View {
                 
                 Section {
                     HStack {
-                        Button {
-                            
-                        } label: {
-                            Image(systemName: "camera.fill")
-                        }
-                        
-                        Spacer()
                         
                         switch viewModel.imageState {
                         case .success:

@@ -306,7 +306,7 @@ struct AddEditRecipeView: View {
     do {
         let previewer = try RecipePreview()
         
-        return AddEditRecipeView(recipe: previewer.recipe)
+        return EditRecipeView(recipe: previewer.recipe)
             .modelContainer(previewer.container)
     } catch {
         fatalError("Failed to create preview container.")

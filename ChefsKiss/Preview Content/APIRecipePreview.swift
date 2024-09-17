@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @MainActor
-struct APIRecipePreviewer {
+struct APIRecipePreview {
     let container: ModelContainer
     let recipe: APIRecipe
 
@@ -21,7 +21,7 @@ struct APIRecipePreviewer {
             id: 1,
             title: "Sample Recipe",
             summary: "This is a sample recipe summary",
-            image: "https",
+            image: "https://img.spoonacular.com/recipes/756814-312x231.jpg",
             imageType: "jpg",
             isVegetarian: true,
             isVegan: false,
@@ -33,15 +33,65 @@ struct APIRecipePreviewer {
             analyzedInstructions: [
                 Instruction(steps: [
                     Step(number: 1,
-                         step: "Step 1",
+                         step: "Lorem ipsum odor amet, consectetuer adipiscing elit. Phasellus dis egestas ornare interdum fermentum pretium eu rutrum.",
                          ingredients: [
-                            Ingredient(id: 1,
-                                       name: "Ingredient 1" //,
-                                      // image: "ingredient_image"
-                                      )],
-                         equipment: [Equipment(id: 0,
-                                               name: "pot"
-                                              )
+                            Ingredient(
+                                id: 1,
+                                name: "Ingredient 1"
+                            ),
+                            Ingredient(
+                                id: 2,
+                                name: "Ingredient 2"
+                            ),
+                            Ingredient(
+                                id: 3,
+                                name: "Ingredient 3"
+                            ),
+                            Ingredient(
+                                id: 4,
+                                name: "Ingredient 4"
+                            ),
+                            Ingredient(
+                                id: 5,
+                                name: "Ingredient 5"
+                            ),
+                            Ingredient(
+                                id: 6,
+                                name: "Ingredient 6"
+                            ),
+                            Ingredient(
+                                id: 7,
+                                name: "Ingredient 7"
+                            ),
+                            Ingredient(
+                                id: 8,
+                                name: "Ingredient 8"
+                            ),
+                            Ingredient(
+                                id: 9,
+                                name: "Ingredient 9"
+                            )],
+                         equipment: [
+                            Equipment(
+                                id: 0,
+                                name: "Equipment 1"
+                            ),
+                            Equipment(
+                                id: 1,
+                                name: "Equipment 2"
+                            ),
+                            Equipment(
+                                id: 2,
+                                name: "Equipment 3"
+                            ),
+                            Equipment(
+                                id: 3,
+                                name: "Equipment 4"
+                            ),
+                            Equipment(
+                                id: 4,
+                                name: "Equipment 5"
+                            )
                          ])
                 ])
             ]

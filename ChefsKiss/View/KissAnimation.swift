@@ -24,6 +24,7 @@ struct BackgroundView: View {
     }
 }
 
+// will replace placeholder view
 struct KissView: View {
     @Binding var kissing: Bool
 

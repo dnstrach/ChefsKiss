@@ -35,7 +35,7 @@ struct MyRecipeListView: View {
                             NavigationLink {
                                 RecipeDetailView(recipe: recipe)
                             } label: {
-                                Text(recipe.title)
+                                RecipeRowView(recipe: recipe)
                             }
                             
                         }
@@ -46,9 +46,16 @@ struct MyRecipeListView: View {
             .navigationTitle("My Recipes")
             .toolbar {
                 if !recipes.isEmpty {
-                    Button("Add") {
+                    Button {
                         isAddViewPresented.toggle()
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
                     }
+
+                    
+//                    Button("Add") {
+//                        isAddViewPresented.toggle()
+//                    }
                 }
             }
             .sheet(isPresented: $isAddViewPresented) {

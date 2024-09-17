@@ -5,6 +5,7 @@
 //  Created by Dominique Strachan on 4/3/24.
 //
 
+import SwiftData
 import SwiftUI
 
 struct RecipeDetailView: View {
@@ -37,87 +38,94 @@ struct RecipeDetailView: View {
                     }
                     
                     VStack {
-                        Text("Serves \(recipe.servings.formatted())")
-                        .padding(.bottom)
-
-                    
-                    if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0 || recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
-                        HStack {
+                        
+                        if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0 || recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
                             HStack {
-                                if recipe.prepHrTime != 0 || recipe.prepMinTime != 0 {
-                                    Text("Prep:")
+                                HStack {
+                                    if recipe.prepHrTime != 0 || recipe.prepMinTime != 0 {
+                                        Text("Prep:")
+                                    }
+                                    
+                                    if recipe.prepHrTime != 0 {
+                                        Text("\(recipe.prepHrTime)")
+                                        Text(recipe.prepHrTime == 1 ? "hr" : "hrs")
+                                    }
+                                    
+                                    if recipe.prepMinTime != 0 {
+                                        Text("\(recipe.prepMinTime)")
+                                        Text(recipe.prepMinTime == 1 ? "min" : "mins")
+                                    }
                                 }
                                 
-                                if recipe.prepHrTime != 0 {
-                                    Text("\(recipe.prepHrTime)")
-                                    Text(recipe.prepHrTime == 1 ? "hr" : "hrs")
+                                if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0) && (recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
+                                    Spacer()
                                 }
                                 
-                                if recipe.prepMinTime != 0 {
-                                    Text("\(recipe.prepMinTime)")
-                                    Text(recipe.prepMinTime == 1 ? "min" : "mins")
+                                HStack {
+                                    if recipe.cookHrTime != 0 || recipe.cookMinTime != 0 {
+                                        Text("Cook:")
+                                    }
+                                    
+                                    if recipe.cookHrTime != 0 {
+                                        Text("\(recipe.cookHrTime)")
+                                        Text(recipe.cookHrTime == 1 ? "hr" : "hrs")
+                                    }
+                                    
+                                    if recipe.cookMinTime != 0 {
+                                        Text("\(recipe.cookMinTime)")
+                                        Text(recipe.cookMinTime == 1 ? "min" : "mins")
+                                    }
                                 }
                             }
-                            
-                            if (recipe.prepHrTime != 0 || recipe.prepMinTime != 0) && (recipe.cookHrTime != 0 || recipe.cookMinTime != 0) {
-                                Spacer()
-                            }
-
-                            HStack {
-                                if recipe.cookHrTime != 0 || recipe.cookMinTime != 0 {
-                                    Text("Cook:")
-                                }
-                                
-                                if recipe.cookHrTime != 0 {
-                                    Text("\(recipe.cookHrTime)")
-                                    Text(recipe.cookHrTime == 1 ? "hr" : "hrs")
-                                }
-                                
-                                if recipe.cookMinTime != 0 {
-                                    Text("\(recipe.cookMinTime)")
-                                    Text(recipe.cookMinTime == 1 ? "min" : "mins")
-                                }
-                            }
+                            .padding(.bottom)
+                            .padding(.horizontal)
+                            .padding(.horizontal)
                         }
-                        .padding(.bottom)
-                        .padding(.horizontal)
-                        .padding(.horizontal)
-                    }
                     }
                     
                     VStack {
                             Text(recipe.summary)
                             .padding()
                         
-                        Section("Ingredients") {
-                            VStack(alignment: .leading) {
-                                ForEach(recipe.sortedIngredients, id:\.id) { ingredient in
-                                    Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
-                                }
-                            }
-                            .padding(.bottom)
-                        }
+                        Text("Serves \(recipe.servings.formatted())")
+                        .padding(.bottom)
                         
-                        Section("Equipment") {
-                            VStack(alignment: .leading) {
-                                ForEach(recipe.sortedEquipment, id:\.id) { equipment in
-                                    Text(equipment.name)
-                                }
+                        VStack(alignment: .leading) {
+                            Text("Ingredients")
+                                .font(.title2)
+                                .padding(.leading)
+                            
+                            ForEach(recipe.sortedIngredients, id:\.id) { ingredient in
+                                Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
                             }
-                            .padding(.bottom)
                         }
+                        .padding(.bottom)
                         
-                        Section("Instructions") {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    ForEach(recipe.sortedInstructions, id: \.id) { step in
-                                        Text("\(step.index + 1). \(step.step)")
-                                    }
-                                }
-                                .padding()
-
-                                Spacer()
+                        VStack(alignment: .leading) {
+                            Text("Equipment")
+                                .font(.title2)
+                                .padding(.leading)
+                            
+                            ForEach(recipe.sortedEquipment, id:\.id) { equipment in
+                                Text(equipment.name)
                             }
+                        }
+                        .padding(.bottom)
+                        
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("Instructions")
+                                    .font(.title2)
+                                    .padding(.leading)
+                                    .padding(.bottom)
+                                
+                                ForEach(recipe.sortedInstructions, id: \.id) { step in
+                                    Text("\(step.index + 1). \(step.step)")
+                                }
+                            }
+                            .padding()
+                            
+                            Spacer()
                         }
                     }
                 }
@@ -139,10 +147,10 @@ struct RecipeDetailView: View {
 
 #Preview {
     do {
-        let previewer = try RecipePreview()
+        let preview = try RecipePreview()
         
-        return RecipeDetailView(recipe: previewer.recipe)
-            .modelContainer(previewer.container)
+        return RecipeDetailView(recipe: preview.recipe)
+            .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")
     }

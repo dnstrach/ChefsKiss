@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CategoriesGridView: View {
+struct CategoryGridView: View {
     let category: String
     let searchParam: CategoryParam
     
@@ -28,7 +28,7 @@ struct CategoriesGridView: View {
                         ForEach(Cuisine.allCases, id: \.self) { cuisine in
                             NavigationLink {
                                 // initialized CategoryViewModel
-                                CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: cuisine.rawValue)))
+                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: cuisine.rawValue)))
                             } label: {
                                 CategoryLabel(category: cuisine.rawValue.capitalized)
                             }
@@ -37,7 +37,7 @@ struct CategoriesGridView: View {
                     case .dishType:
                         ForEach(DishType.allCases, id: \.self) { dish in
                             NavigationLink {
-                                CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: dish.rawValue)))
+                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: dish.rawValue)))
                             } label: {
                                 CategoryLabel(category: dish.rawValue.capitalized)
                             }
@@ -46,7 +46,7 @@ struct CategoriesGridView: View {
                     case .diet:
                         ForEach(Diet.allCases, id: \.self) { diet in
                             NavigationLink {
-                                CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: diet.rawValue)))
+                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: diet.rawValue)))
                             } label: {
                                 CategoryLabel(category: diet.rawValue)
                             }
@@ -55,7 +55,7 @@ struct CategoriesGridView: View {
                     case .intolerance:
                         ForEach(Intolerance.allCases, id: \.self) { intolerance in
                             NavigationLink {
-                                CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: intolerance.rawValue)))
+                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: intolerance.rawValue)))
                             } label: {
                                 CategoryLabel(category: intolerance.rawValue.capitalized)
                             }
@@ -92,10 +92,10 @@ struct CategoryLabel: View {
 #Preview {
     ScrollView {
         Group {
-            CategoriesGridView(category: "Cuisines", searchParam: .cuisine)
-            CategoriesGridView(category: "Dish Types", searchParam: .dishType)
-            CategoriesGridView(category: "Diets", searchParam: .diet)
-            CategoriesGridView(category: "Intolerances", searchParam: .intolerance)
+            CategoryGridView(category: "Cuisines", searchParam: .cuisine)
+            CategoryGridView(category: "Dish Types", searchParam: .dishType)
+            CategoryGridView(category: "Diets", searchParam: .diet)
+            CategoryGridView(category: "Intolerances", searchParam: .intolerance)
         }
         .previewLayout(.sizeThatFits)
     }

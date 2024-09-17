@@ -1,5 +1,5 @@
 //
-//  CategoryView.swift
+//  CategoriesView.swift
 //  ChefsKiss
 //
 //  Created by Dominique Strachan on 3/14/24.
@@ -10,23 +10,35 @@ import SwiftUI
 struct CategoryView: View {
     @StateObject var viewModel: CategoryViewModel
     
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
+    @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
-            CategoryGridView(recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
-                .navigationTitle(viewModel.unwrappedNavTitle)
-                .navigationBarTitleDisplayMode(.inline)
-                .alert(isPresented: $viewModel.showAlert) {
-                    Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
+            ScrollView {
+                SearchBarView(searchText: $searchText)
+                
+                if !searchText.isEmpty {
+                    SearchGridView(recipes: viewModel.recipes)
+                        .alert(isPresented: $viewModel.showAlert) {
+                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
+                        }
+                } else {
+                    ForEach(viewModel.categories, id: \.0) { category, searchParam in
+                        CategoryGridView(category: category, searchParam: searchParam)
+                    }
                 }
+            }
+            .navigationTitle("Recipe Finder")
+            .onChange(of: searchText) { _, newSearchText in
+                Task {
+                    await viewModel.searchRecipes(query: newSearchText)
+                }
+            }
         }
     }
 }
 
 #Preview {
-    CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "type", value: "appetizer")))
+    RecipesView(viewModel: CategoryViewModel(searchTerm: .query("")))
 }
 
