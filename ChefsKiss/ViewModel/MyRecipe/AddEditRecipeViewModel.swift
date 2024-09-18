@@ -99,9 +99,15 @@ enum ImageState {
         title.isReallyEmpty
     }
     
-    func clearPhoto() {
+    func clearAddViewPhoto() {
         imageState = .empty
         selectedImage = nil
+    }
+    
+    func clearPhoto(recipe: Recipe) {
+        imageState = .empty
+        selectedImage = nil
+        recipe.image = nil
     }
     
     private func loadTransferable(from selectedImage: PhotosPickerItem) -> Progress {

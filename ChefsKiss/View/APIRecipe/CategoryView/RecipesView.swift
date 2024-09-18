@@ -27,7 +27,8 @@ struct RecipesView: View {
 }
 
 //#Preview {
-//    CategoryView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "type", value: "appetizer")))
+//    RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "cuisine", value: "American")))
+//        .modelContainer(for: APIRecipe.self, inMemory: true)
 //}
 
 

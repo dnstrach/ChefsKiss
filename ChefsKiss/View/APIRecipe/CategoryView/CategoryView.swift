@@ -39,6 +39,7 @@ struct CategoryView: View {
 }
 
 #Preview {
-    RecipesView(viewModel: CategoryViewModel(searchTerm: .query("")))
+    CategoryView(viewModel: CategoryViewModel(searchTerm: .query("")))
+        .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 
