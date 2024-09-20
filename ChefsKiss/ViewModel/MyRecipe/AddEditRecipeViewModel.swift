@@ -24,7 +24,11 @@ enum ImageState {
 
 @MainActor
 @Observable final class AddEditRecipeViewModel: ObservableObject {
+    var selectedIngredient: Recipe.Ingredient?
+    
     var selectedEquipment: Recipe.Equipment?
+    
+    var selectedInstruction: Recipe.Instruction?
     
     var title: String = ""
     var summary: String = ""
@@ -58,9 +62,9 @@ enum ImageState {
     
     var ingredients: [Recipe.Ingredient] = []
     var ingredientName: String = ""
-    var measureAmount: Double? = nil
+    var measurement: Double? = nil
     var amountDouble: Double?
-    var measurement: String = ""
+    var measurementType: String = ""
     
     let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
     
@@ -148,11 +152,11 @@ enum ImageState {
     }
     
     func addIngredient() {
-        let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measureAmount ?? 0, measurementType: measurement)
+        let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measurement ?? 0, measurementType: measurementType)
         ingredients.append(newIngredient)
         ingredientName = ""
-        measureAmount = nil
-        measurement = ""
+        measurement = nil
+        measurementType = ""
     }
     
     func deleteIngredient(_ ingredient: Recipe.Ingredient) {
@@ -162,11 +166,6 @@ enum ImageState {
     func addEquipment() {
         let newEquipment = Recipe.Equipment(name: equipmentName)
         appliances.append(newEquipment)
-        equipmentName = ""
-    }
-    
-    func editEquipment(_ equipment: Recipe.Equipment) {
-        equipmentName = equipment.name
         equipmentName = ""
     }
     

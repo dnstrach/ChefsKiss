@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct APIEquipmentView: View {
-    let viewModel: APIRecipeDetailViewModel
+    @ObservedObject var viewModel: APIRecipeDetailViewModel
     
     let recipe: APIRecipe
     
@@ -21,14 +21,17 @@ struct APIEquipmentView: View {
             let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
             
             // Remove duplicates from all ingredients
-            let uniqueEquipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
+            let equipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
             
-            if !uniqueEquipment.isEmpty {
+            if !equipment.isEmpty {
                 LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                    ForEach(uniqueEquipment, id: \.id) { equipment in
+                    ForEach(equipment, id: \.id) { equipment in
                         Text(equipment.name)
+                            .frame(maxHeight: .infinity)
                             .padding(.bottom, 5)
                             .padding(.horizontal)
+                        
+
                     }
                 }
                 .padding(.leading)

@@ -52,7 +52,8 @@ struct ImagePickerView: View {
                         .foregroundStyle(.accent)
                     
                 case .loading:
-                    ProgressView()
+                    KissAnimation()
+                   // ProgressView()
                    
                     // savedImage will show larger width/height because being shown from Data -> UIImage
                 case .savedImage:

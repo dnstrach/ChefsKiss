@@ -22,11 +22,16 @@ struct RecipesGridView: View {
     var shouldShowSpinner: Bool
     
     var body: some View {
+        if shouldShowSpinner {
+                KissAnimation()
+            //  ProgressView()
+        } else {
         ScrollView(showsIndicators: false) {
             // use condition or change to switch to add a view when exceeded daily call limit
-            if shouldShowSpinner {
-                ProgressView()
-            } else {
+//            if shouldShowSpinner {
+//                    KissAnimation()
+//                //  ProgressView()
+//            } else {
                 LazyVGrid(columns: columns) {
                     ForEach(recipes, id: \.id) { recipe in
                         NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
@@ -37,9 +42,12 @@ struct RecipesGridView: View {
                                             image
                                                 .resizable()
                                                 .scaledToFill()
+                                               // .clipShape(RoundedRectangle(cornerRadius: 10))
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
-                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(radius: 5)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
+//                                                .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                         HeartButton(savedRecipesViewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
@@ -65,7 +73,8 @@ struct RecipesGridView: View {
                                             Text(recipe.title)
                                                 .titleStyle()
                                         } else {
-                                            ProgressView()
+                                            KissAnimation()
+                                           // ProgressView()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                         }
                                         

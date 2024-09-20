@@ -58,7 +58,8 @@ struct SearchGridView: View {
                                             .titleStyle()
                                         
                                     } else {
-                                        ProgressView()
+                                        KissAnimation()
+                                       // ProgressView()
                                             .frame(width: geometry.size.width, height: geometry.size.height)
                                     }
                                     
@@ -68,6 +69,9 @@ struct SearchGridView: View {
                         }
                         .frame(width: 175, height: 225)
                         .padding(.bottom)
+                        .onTapGesture {
+                            UIApplication.shared.endEditing()
+                        }
                     }
                 }
             }

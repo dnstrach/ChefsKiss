@@ -26,32 +26,6 @@ struct AddEditRecipeView: View {
                 TitleSummaryView(viewModel: viewModel)
                 
                 Section {
-//                    HStack {
-//                        Spacer()
-//                        
-//                        switch viewModel.imageState {
-//                        case .savedImage:
-//                            Button {
-//                                viewModel.clearPhoto(recipe: recipe)
-//                            } label: {
-//                                Image(systemName: "x.circle")
-//                            }
-//                        case .success:
-//                            Button {
-//                                if let recipe = recipe {
-//                                    viewModel.clearPhoto(recipe: recipe)
-//                                } else {
-//                                    viewModel.clearAddViewPhoto()
-//                                }
-//                            } label: {
-//                                Image(systemName: "x.circle")
-//                            }
-//                        default:
-//                            EmptyView()
-//                        }
-//                        
-//                    }
-                    
                         ImagePickerView(
                             imageState: viewModel.imageState, recipe: recipe, viewModel: viewModel
                         )

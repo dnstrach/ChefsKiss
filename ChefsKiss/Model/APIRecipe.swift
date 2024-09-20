@@ -178,7 +178,7 @@ class APIRecipe: Codable, Hashable {
             id: 4,
             title: "Sample Recipe",
             summary: "This is a sample recipe summary",
-            image: "https://spoonacular.com/recipeImages/794538-312x231.jpg",
+            image: "",
             imageType: "jpg",
             isVegetarian: true,
             isVegan: false,

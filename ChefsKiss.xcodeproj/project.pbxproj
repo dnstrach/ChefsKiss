@@ -65,6 +65,9 @@
 		D8D061A42BC3A3BF00B23350 /* SavedRecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A32BC3A3BF00B23350 /* SavedRecipesView.swift */; };
 		D8D061A62BC4604F00B23350 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A52BC4604F00B23350 /* String.swift */; };
 		D8D061A82BC5AE6C00B23350 /* AddEditRecipeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D061A72BC5AE6C00B23350 /* AddEditRecipeViewModel.swift */; };
+		D8D77F642C9BDB6B0017A85B /* EditEquipmentSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */; };
+		D8D77F662C9CE1700017A85B /* EditInstructionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */; };
+		D8D77F682C9CE5150017A85B /* EditIngredientSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +131,9 @@
 		D8D061A32BC3A3BF00B23350 /* SavedRecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedRecipesView.swift; sourceTree = "<group>"; };
 		D8D061A52BC4604F00B23350 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D8D061A72BC5AE6C00B23350 /* AddEditRecipeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditRecipeViewModel.swift; sourceTree = "<group>"; };
+		D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEquipmentSheetView.swift; sourceTree = "<group>"; };
+		D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditInstructionSheetView.swift; sourceTree = "<group>"; };
+		D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngredientSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +150,9 @@
 		D824A04F2C9A414600452EC7 /* AddEditRecipeView */ = {
 			isa = PBXGroup;
 			children = (
+				D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */,
+				D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */,
+				D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */,
 				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
 				D824A0582C9A92D600452EC7 /* CookTimePickerView.swift */,
 				D824A05C2C9A93D100452EC7 /* EquipmentListView.swift */,
@@ -479,10 +488,13 @@
 				D8C4A92C2C2CD2E40097BAA8 /* AddEditRecipeView.swift in Sources */,
 				D8454CF92BF5CAD700F449A8 /* APIRecipePreview.swift in Sources */,
 				D8BDBA692C98DEEF00AC5E52 /* APIServingsDurationView.swift in Sources */,
+				D8D77F642C9BDB6B0017A85B /* EditEquipmentSheetView.swift in Sources */,
 				D824A0592C9A92D600452EC7 /* CookTimePickerView.swift in Sources */,
 				D824A05D2C9A93D100452EC7 /* EquipmentListView.swift in Sources */,
 				D87AC2032BE5787C0079569C /* KissAnimation.swift in Sources */,
 				D8D061A62BC4604F00B23350 /* String.swift in Sources */,
+				D8D77F682C9CE5150017A85B /* EditIngredientSheetView.swift in Sources */,
+				D8D77F662C9CE1700017A85B /* EditInstructionSheetView.swift in Sources */,
 				D824A0422C9A32E200452EC7 /* ImageView.swift in Sources */,
 				D82FA4732BBBCA9D00077128 /* ChefsKissApp.swift in Sources */,
 				D82FA4922BBBCC0700077128 /* CategoriesViewModel.swift in Sources */,

@@ -65,4 +65,11 @@ class APIRecipeDetailViewModel: ObservableObject {
         return uniqueEquipment
     }
     
+    func removeDuplicateEquipment(recipe: APIRecipe) {
+        let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
+        
+        // Remove duplicates from all ingredients
+        let equipment = removeDuplicateEquipment(from: allEquipment ?? [])
+    }
+    
 }

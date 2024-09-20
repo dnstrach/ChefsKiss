@@ -11,46 +11,59 @@ struct KissAnimation: View {
     @State private var kissing = false
 
     var body: some View {
-        ZStack {
-            BackgroundView()
+        // ZStack  {
             KissView(kissing: $kissing)
-        }
-    }
-}
-
-struct BackgroundView: View {
-    var body: some View {
-        Color.white.edgesIgnoringSafeArea(.all)
+       // }
     }
 }
 
 // will replace placeholder view
 struct KissView: View {
     @Binding var kissing: Bool
+    @State private var isRotating: Bool = true
+    
+    @State private var degrees: Double = 0
 
     var body: some View {
         ZStack {
-            Color.accentColor
-                .ignoresSafeArea()
+            Color.clear.edgesIgnoringSafeArea(.all)
             
-           Image("Image")
-                .resizable()
-                .scaledToFill()
-                    .frame(width: 600, height: 400)
-            
-            Image(systemName: "heart.fill")
-                .resizable()
-                .frame(width: 50, height: 50)
-                .foregroundColor(.red)
-                .offset(x: 110, y: -60)
-                .rotationEffect(.degrees(90.0))
-                .scaleEffect(kissing ? 1.5 : 1)
-              //  .animation(Animation.spring(response: 0.5, dampingFraction: 0.5))
-                .onAppear() {
-                    withAnimation(Animation.spring(response: 0.5, dampingFraction: 0.8).repeatForever().delay(0.5)) {
-                        self.kissing.toggle()
+            Circle()
+                .fill(
+                    LinearGradient(colors: [.accent, .accent1, .accent2], startPoint: .top, endPoint: .bottom)
+                )
+               // .foregroundStyle(.accent)
+                .frame(width: 125, height: 125)
+                .rotationEffect(.degrees(degrees))
+                .onAppear(perform: {
+                    withAnimation(
+                        .linear(duration: 200.0).repeatForever()) {
+                            degrees += 36000
                     }
-                }
+                })
+            
+           // VStack {
+                Image("Loading")
+                     .resizable()
+                     .clipShape(Circle())
+                     .scaledToFill()
+                     .frame(width: 100, height: 50)
+                 
+                 Image(systemName: "heart.fill")
+                     .resizable()
+                     .frame(width: 30, height: 30)
+                     .foregroundColor(.red)
+                     .offset(x: 35, y: 35)
+                     .scaleEffect(kissing ? 2 : 0.7)
+                   //  .animation(Animation.spring(response: 0.5, dampingFraction: 0.5))
+                     .onAppear() {
+                         withAnimation(Animation.spring(response: 2.0, dampingFraction: 0.8).repeatForever().delay(0.2)) {
+                             self.kissing.toggle()
+                         }
+                 //    }
+                   //  .padding()
+
+            }
         }
     }
 }

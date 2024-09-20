@@ -41,6 +41,7 @@ struct SavedRecipesView: View {
                                                 .scaledToFill()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                     HeartButton(savedRecipesViewModel: viewModel, recipe: recipe)
@@ -65,7 +66,8 @@ struct SavedRecipesView: View {
                                                 .titleStyle()
                                             
                                         } else {
-                                            ProgressView()
+                                            KissAnimation()
+                                           // ProgressView()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                         }
                                         

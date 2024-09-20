@@ -28,6 +28,9 @@ struct CategoryView: View {
                     }
                 }
             }
+            .onTapGesture {
+                UIApplication.shared.endEditing()
+            }
             .navigationTitle("Recipe Finder")
             .onChange(of: searchText) { _, newSearchText in
                 Task {

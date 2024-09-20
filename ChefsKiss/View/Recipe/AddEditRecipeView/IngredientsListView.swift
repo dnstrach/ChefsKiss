@@ -26,6 +26,9 @@ struct IngredientsListView: View {
                     
                     Text(ingredient.name)
                 }
+                .onTapGesture {
+                    viewModel.selectedIngredient = ingredient
+                }
                 .swipeActions {
                     Button(role: .destructive) {
                         viewModel.deleteIngredient(ingredient)
@@ -35,10 +38,15 @@ struct IngredientsListView: View {
                 }
             }
         }
+        .sheet(item: $viewModel.selectedIngredient) { ingredient in
+            EditIngredientSheetView(viewModel: viewModel, ingredient: ingredient)
+                .presentationDetents([.fraction(0.25)])
+                .presentationDragIndicator(.hidden)
+        }
         
         VStack {
             HStack {
-                TextField("Qty", value: $viewModel.measureAmount, format: .number)
+                TextField("Qty", value: $viewModel.measurement, format: .number)
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.decimalPad)
                     .frame(width: 50)
@@ -50,7 +58,7 @@ struct IngredientsListView: View {
             
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack {
-                    Picker("Metric", selection: $viewModel.measurement) {
+                    Picker("Metric", selection: $viewModel.measurementType) {
                         ForEach(viewModel.measureTypes, id: \.self) { measure in
                             Text(measure)
                         }
@@ -63,6 +71,7 @@ struct IngredientsListView: View {
             
             Button("Add Ingredient", systemImage: "plus.circle") {
                 viewModel.addIngredient()
+                UIApplication.shared.endEditing()
             }
             .disabled(viewModel.disableIngredient)
         }
