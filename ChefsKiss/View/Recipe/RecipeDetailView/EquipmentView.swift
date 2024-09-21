@@ -8,16 +8,24 @@
 import SwiftUI
 
 struct EquipmentView: View {
+    @ObservedObject var viewModel: RecipeDetailViewModel
+    
     let recipe: Recipe
     
     var body: some View {
         VStack(alignment: .leading) {
             Text("Equipment")
                 .font(.title2)
-               // .padding(.leading)
+                .padding(.leading)
             
-            ForEach(recipe.sortedEquipment, id:\.id) { equipment in
-                Text(equipment.name)
+            LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
+                ForEach(recipe.sortedEquipment, id:\.id) { equipment in
+                    Text(equipment.name)
+                        .frame(maxHeight: .infinity)
+                        .padding(.leading)
+                        .padding(.bottom, 5)
+                        .padding(.horizontal)
+                }
             }
         }
         .padding(.bottom)
@@ -28,7 +36,7 @@ struct EquipmentView: View {
     do {
         let preview = try RecipePreview()
         
-        return EquipmentView(recipe: preview.recipe)
+        return EquipmentView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
             .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")

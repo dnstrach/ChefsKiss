@@ -11,9 +11,11 @@ struct SummaryView: View {
     let recipe: Recipe
     
     var body: some View {
-        VStack {
-            Text(recipe.summary)
-            .padding()
+        if !recipe.summary.isEmpty {
+            VStack {
+                Text(recipe.summary)
+                .padding()
+            }
         }
     }
 }

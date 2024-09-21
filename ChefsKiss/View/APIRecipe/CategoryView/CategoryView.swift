@@ -28,6 +28,7 @@ struct CategoryView: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.immediately)
             .onTapGesture {
                 UIApplication.shared.endEditing()
             }

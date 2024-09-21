@@ -39,7 +39,7 @@ struct ImageView: View {
         let preview = try RecipePreview()
         
         return 
-        GeometryReader { geo in
+            GeometryReader { geo in
             ImageView(recipe: preview.recipe, geo: geo)
                 .modelContainer(preview.container)
         }

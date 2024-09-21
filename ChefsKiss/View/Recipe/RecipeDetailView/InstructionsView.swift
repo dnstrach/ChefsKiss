@@ -15,14 +15,17 @@ struct InstructionsView: View {
             VStack(alignment: .leading) {
                 Text("Instructions")
                     .font(.title2)
-                   // .padding(.leading)
+                    .padding(.leading)
                     .padding(.bottom)
                 
                 ForEach(recipe.sortedInstructions, id: \.id) { step in
                     Text("\(step.index + 1). \(step.step)")
+                        .padding(.leading)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.bottom)
                 }
             }
-            .padding()
             
             Spacer()
         }

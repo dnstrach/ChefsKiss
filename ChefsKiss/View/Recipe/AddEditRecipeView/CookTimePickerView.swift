@@ -12,13 +12,13 @@ struct CookTimePickerView: View {
     
     var body: some View {
         HStack {
-            Picker("Hours", selection: $viewModel.prepHrTime) {
+            Picker("Hours", selection: $viewModel.cookHrTime) {
                 ForEach(viewModel.prepHrRange, id: \.self) { hour in
                     Text("\(hour)")
                 }
             }
             
-            Picker("Minutes", selection: $viewModel.prepMinTime) {
+            Picker("Minutes", selection: $viewModel.cookMinTime) {
                 ForEach(viewModel.prepMinRange, id: \.self) { minute in
                     Text("\(minute)")
                 }

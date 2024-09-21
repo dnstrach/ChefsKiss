@@ -25,13 +25,11 @@ struct APIEquipmentView: View {
             
             if !equipment.isEmpty {
                 LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                    ForEach(equipment, id: \.id) { equipment in
+                    ForEach(equipment, id: \.name) { equipment in
                         Text(equipment.name)
                             .frame(maxHeight: .infinity)
                             .padding(.bottom, 5)
                             .padding(.horizontal)
-                        
-
                     }
                 }
                 .padding(.leading)

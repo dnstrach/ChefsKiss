@@ -45,19 +45,19 @@ class APIRecipe: Codable, Hashable {
         hasher.combine(id)
     }
     
-    let id: Int
-    let title: String
-    let summary: String
-    let image: String
-    let imageType: String
-    let isVegetarian: Bool
-    let isVegan: Bool
-    let isGlutenFree: Bool
-    let isDairyFree: Bool
-    let readyInMinutes: Int
-    let servings: Int
-    let sourceUrl: String
-    let analyzedInstructions: [Instruction]?
+    var id: Int
+    var title: String
+    var summary: String
+    var image: String
+    var imageType: String
+    var isVegetarian: Bool
+    var isVegan: Bool
+    var isGlutenFree: Bool
+    var isDairyFree: Bool
+    var readyInMinutes: Int
+    var servings: Int
+    var sourceUrl: String
+    var analyzedInstructions: [Instruction]?
     
     static let dummyRecipes = [
         APIRecipe(

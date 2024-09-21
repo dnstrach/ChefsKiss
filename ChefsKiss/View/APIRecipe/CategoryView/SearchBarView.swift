@@ -14,7 +14,6 @@ struct SearchBarView: View {
         HStack {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(.accent)
-                
             
             TextField("Search recipes", text: $searchText)
                 .overlay(
@@ -24,12 +23,12 @@ struct SearchBarView: View {
                         .foregroundStyle(.accent)
                         .opacity(searchText.isEmpty ? 0.0 : 1.0)
                         .padding(.trailing, 8)
-                    , alignment: .trailing
+                        .onTapGesture {
+                           // UIApplication.shared.endEditing()
+                            searchText = ""
+                        },
+                    alignment: .trailing
                 )
-                .onTapGesture {
-                    UIApplication.shared.endEditing()
-                    searchText = ""
-                }
 
         }
         .font(.headline)
@@ -49,7 +48,7 @@ struct SearchBarView: View {
 #Preview {
     Group {
         SearchBarView(searchText: .constant(""))
-            .previewLayout(.sizeThatFits)
+          //  .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }
 }

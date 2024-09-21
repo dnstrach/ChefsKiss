@@ -24,8 +24,9 @@ struct APIIngredientsView: View {
             
             if !uniqueIngredients.isEmpty {
                 LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                    ForEach(uniqueIngredients, id: \.id) { ingredient in
+                    ForEach(uniqueIngredients, id: \.name) { ingredient in
                         Text(ingredient.name)
+                            .frame(maxHeight: .infinity)
                             .padding(.bottom, 5)
                             .padding(.horizontal)
                     }

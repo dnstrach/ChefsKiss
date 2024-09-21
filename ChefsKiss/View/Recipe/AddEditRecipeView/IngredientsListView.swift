@@ -46,12 +46,12 @@ struct IngredientsListView: View {
         
         VStack {
             HStack {
-                TextField("Qty", value: $viewModel.measurement, format: .number)
+                TextField("Qty", value: $viewModel.measurement, format: .number) 
                     .textFieldStyle(.roundedBorder)
                     .keyboardType(.decimalPad)
                     .frame(width: 50)
                 
-                TextField("Ingredient", text: $viewModel.ingredientName)
+                TextField("Ingredient", text: $viewModel.ingredientName) 
                     .textFieldStyle(.roundedBorder)
                 
             }

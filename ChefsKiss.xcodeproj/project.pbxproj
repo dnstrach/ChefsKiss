@@ -150,11 +150,11 @@
 		D824A04F2C9A414600452EC7 /* AddEditRecipeView */ = {
 			isa = PBXGroup;
 			children = (
+				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
+				D824A0582C9A92D600452EC7 /* CookTimePickerView.swift */,
 				D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */,
 				D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */,
 				D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */,
-				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
-				D824A0582C9A92D600452EC7 /* CookTimePickerView.swift */,
 				D824A05C2C9A93D100452EC7 /* EquipmentListView.swift */,
 				D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */,
 				D824A05A2C9A934400452EC7 /* IngredientsListView.swift */,

@@ -6,10 +6,15 @@
 //
 
 import Foundation
+import SwiftUI
 
 class RecipeDetailViewModel: ObservableObject {
     @Published var isEditViewPresented = false
     
+    let columns = [
+        GridItem(.flexible(minimum: 40, maximum: 200)),
+        GridItem(.flexible(minimum: 40, maximum: 200))
+    ]
     
     // characters instead
     func navigationTitle(recipe: Recipe) -> String {

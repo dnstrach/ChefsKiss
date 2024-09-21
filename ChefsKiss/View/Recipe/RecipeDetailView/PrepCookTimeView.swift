@@ -24,7 +24,7 @@ struct PrepCookTimeView: View {
     }
     
     var isCookHrZero: Bool {
-        recipe.cookMinTime == 0
+        recipe.cookHrTime == 0
     }
     
     var isCookMinZero: Bool {

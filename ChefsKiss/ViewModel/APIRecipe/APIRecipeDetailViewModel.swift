@@ -11,7 +11,10 @@ import SwiftUI
 
 @MainActor
 class APIRecipeDetailViewModel: ObservableObject {
-    let columns = Array(repeating: GridItem(.flexible(minimum: 40)), count: 2)
+    let columns = [
+        GridItem(.flexible(minimum: 40, maximum: 200)),
+        GridItem(.flexible(minimum: 40, maximum: 200))
+    ]
     
     func navigationTitle(recipe: APIRecipe) -> String {
         let title = recipe.title
@@ -65,11 +68,11 @@ class APIRecipeDetailViewModel: ObservableObject {
         return uniqueEquipment
     }
     
-    func removeDuplicateEquipment(recipe: APIRecipe) {
-        let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
-        
-        // Remove duplicates from all ingredients
-        let equipment = removeDuplicateEquipment(from: allEquipment ?? [])
-    }
+//    func removeDuplicateEquipment(recipe: APIRecipe) {
+//        let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
+//        
+//        // Remove duplicates from all ingredients
+//        let equipment = removeDuplicateEquipment(from: allEquipment ?? [])
+//    }
     
 }

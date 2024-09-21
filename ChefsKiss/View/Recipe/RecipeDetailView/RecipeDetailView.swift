@@ -28,9 +28,9 @@ struct RecipeDetailView: View {
                     
                     SummaryView(recipe: recipe)
                     
-                    IngredientsView(recipe: recipe)
+                    IngredientsView(viewModel: viewModel, recipe: recipe)
                     
-                    EquipmentView(recipe: recipe)
+                    EquipmentView(viewModel: viewModel, recipe: recipe)
                     
                     InstructionsView(recipe: recipe)
                 }

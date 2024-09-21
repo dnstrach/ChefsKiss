@@ -97,6 +97,6 @@ struct CategoryLabel: View {
             CategoryGridView(category: "Diets", searchParam: .diet)
             CategoryGridView(category: "Intolerances", searchParam: .intolerance)
         }
-        .previewLayout(.sizeThatFits)
+      //  .previewLayout(.sizeThatFits)
     }
 }
