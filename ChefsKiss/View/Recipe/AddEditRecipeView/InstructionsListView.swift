@@ -34,11 +34,6 @@ struct InstructionsListView: View {
             .onMove(perform: viewModel.moveStep)
             //  .onDelete(perform: deleteStep)
         }
-        .sheet(item: $viewModel.selectedInstruction) { instruction in
-            EditInstructionSheetView(viewModel: viewModel, instruction: instruction)
-                .presentationDetents([.fraction(0.25)])
-                .presentationDragIndicator(.hidden)
-        }
         
         VStack {
             HStack {

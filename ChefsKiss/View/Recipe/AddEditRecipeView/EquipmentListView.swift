@@ -15,7 +15,7 @@ enum SheetAction {
 struct EquipmentListView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
-    @State var isPresented: Bool = false
+   // @State var isPresented: Bool = false
     
     var body: some View {
         List {
@@ -23,7 +23,6 @@ struct EquipmentListView: View {
                 HStack {
                     Text(equipment.name)
                 }
-                
                 .onTapGesture {
                     viewModel.selectedEquipment = equipment
                 }
@@ -34,13 +33,13 @@ struct EquipmentListView: View {
                         Label("Delete", systemImage: "trash")
                     }
                 }
-                .sheet(item: $viewModel.selectedEquipment) { equipment in
-                    EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
-                        .presentationDetents([.fraction(0.25)])
-                        .presentationDragIndicator(.hidden)
-                }
             }
         }
+//        .sheet(item: $viewModel.selectedEquipment) { equipment in
+//            EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
+//                .presentationDetents([.fraction(0.25)])
+//                .presentationDragIndicator(.hidden)
+//        }
         
         VStack {
             TextField("Equipment", text: $viewModel.equipmentName)

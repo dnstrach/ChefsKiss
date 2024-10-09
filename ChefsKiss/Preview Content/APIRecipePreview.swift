@@ -21,7 +21,7 @@ struct APIRecipePreview {
             id: 1,
             title: "Sample Recipe",
             summary: "This is a sample recipe summary",
-            image: "https://img.spoonacular.com/recipes/756814-312x231.jpg",
+            image: "",
             imageType: "jpg",
             isVegetarian: true,
             isVegan: false,
@@ -37,7 +37,7 @@ struct APIRecipePreview {
                          ingredients: [
                             Ingredient(
                                 id: 1,
-                                name: "Ingredient 1"
+                                name: "Ingredient 1 Ingredient"
                             ),
                             Ingredient(
                                 id: 2,

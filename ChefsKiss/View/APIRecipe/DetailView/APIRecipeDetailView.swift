@@ -17,36 +17,56 @@ struct APIRecipeDetailView: View {
     
     @StateObject var viewModel = APIRecipeDetailViewModel()
     
+    @Environment(\.dismiss) private var dismiss
+    
     let recipe: APIRecipe
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                APITitleView(viewModel: viewModel, recipe: recipe)
+                // .sorted for NavTitle
+               // APITitleView(viewModel: viewModel, recipe: recipe)
                 
-                APIImageView(recipe: recipe)
+              //  APIImageView(recipe: recipe)
+                   // .ignoresSafeArea(.container, edges: .top)
+                   // .edgesIgnoringSafeArea(.top)
                 
-                IconView(recipe: recipe, viewModel: viewModel)
-                
-                APIServingsDurationView(recipe: recipe)
-                
-                APISummaryView(recipe: recipe)
-                
-                APIIngredientsView(viewModel: viewModel, recipe: recipe)
-                
-                APIEquipmentView(viewModel: viewModel, recipe: recipe)
-                
-                APIInstructionsView(recipe: recipe)
-                
-                LinkButtonView(recipe: recipe)
-            }
-            .navigationTitle(viewModel.navigationTitle(recipe: recipe)) // first 3 words
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    HeartToolbarButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+                VStack {
+                    APITitleView(viewModel: viewModel, recipe: recipe)
+                    
+                    IconView(recipe: recipe, viewModel: viewModel)
+                    
+                    APIServingsDurationView(recipe: recipe)
+                    
+                    APISummaryView(recipe: recipe)
+                    
+                    APIIngredientsView(viewModel: viewModel, recipe: recipe)
+                    
+                    APIEquipmentView(viewModel: viewModel, recipe: recipe)
+                    
+                    APIInstructionsView(recipe: recipe)
+                    
+                    LinkButtonView(recipe: recipe)
                 }
+                .safeAreaInset(edge: .top) {
+                    APIImageView(recipe: recipe)
+                        .overlay(alignment: .topLeading) {
+                            BackButtonView()
+                        }
+                }
+                .ignoresSafeArea(.all, edges: .all)
             }
+            .ignoresSafeArea(.all, edges: .top)
+            .toolbar(.hidden, for: .navigationBar)
+            .statusBarHidden(true)
+//            .navigationTitle(viewModel.navigationTitle(recipe: recipe)) // first 3 words
+//            .navigationBarTitleDisplayMode(.large)
+            
+//            .toolbar {
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    HeartToolbarButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+//                }
+//
         }
     }
 }

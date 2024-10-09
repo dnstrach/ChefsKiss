@@ -48,34 +48,15 @@ struct AddEditRecipeView: View {
                     Section("Ingredients") {
                         IngredientsListView(viewModel: viewModel)
                     }
-                    .id(1)
-                    .onChange(of: viewModel.ingredientName) { _, _ in
-                      //  viewModel.isIngredientTextFieldTapped = true
-                        value.scrollTo(1)
-                    }
                     
                     Section("Equipment") {
                         EquipmentListView(viewModel: viewModel)
-                    }
-                    .id(2)
-                    .onChange(of: viewModel.equipmentName) { _, _ in
-                      //  viewModel.isEquipmentTextFieldTapped = true
-                        value.scrollTo(2)
-                        
-                        (print("tapped equipment"))
                     }
                     
                     Section("Instructions") {
                         InstructionsListView(viewModel: viewModel)
                     }
-                    .id(3)
-                    .onChange(of: viewModel.step) { _, _ in
-                        print(viewModel.step)
-                        value.scrollTo(3)
-                    }
                     
-
-                
                 }
                 .onAppear {
                     if let recipe {
@@ -114,6 +95,21 @@ struct AddEditRecipeView: View {
                 }
             }
             .scrollDismissesKeyboard(.immediately)
+        }
+        .sheet(item: $viewModel.selectedEquipment) { equipment in
+            EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
+                .presentationDetents([.fraction(0.25)])
+                .presentationDragIndicator(.hidden)
+        }
+        .sheet(item: $viewModel.selectedInstruction) { instruction in
+            EditInstructionSheetView(viewModel: viewModel, instruction: instruction)
+                .presentationDetents([.fraction(0.25)])
+                .presentationDragIndicator(.hidden)
+        }
+        .sheet(item: $viewModel.selectedIngredient) { ingredient in
+            EditIngredientSheetView(viewModel: viewModel, ingredient: ingredient)
+                .presentationDetents([.fraction(0.25)])
+                .presentationDragIndicator(.hidden)
         }
     }
     

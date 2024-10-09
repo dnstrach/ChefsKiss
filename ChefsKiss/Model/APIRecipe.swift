@@ -82,7 +82,7 @@ class APIRecipe: Codable, Hashable {
                             ingredients: [
                                 Ingredient(
                                     id: 1,
-                                    name: "Ingredient 1" //,
+                                    name: "Ingredient 1 Ingredient" //,
                                     // image: "ingredient_image"
                                 )
                             ],

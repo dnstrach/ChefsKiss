@@ -38,11 +38,6 @@ struct IngredientsListView: View {
                 }
             }
         }
-        .sheet(item: $viewModel.selectedIngredient) { ingredient in
-            EditIngredientSheetView(viewModel: viewModel, ingredient: ingredient)
-                .presentationDetents([.fraction(0.25)])
-                .presentationDragIndicator(.hidden)
-        }
         
         VStack {
             HStack {

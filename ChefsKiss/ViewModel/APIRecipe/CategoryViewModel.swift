@@ -9,18 +9,21 @@ import Foundation
 
 @MainActor class CategoryViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
+    @Published var cachedRecipes: [APIRecipe] = []
     @Published var shouldShowSpinner: Bool = true
     @Published var showAlert = false
     @Published var alertMessage = ""
+    @Published var showSearchView = false
+    @Published var searchText: String = ""
     
+    private let searchTerm: SearchTerm
+    private let manager = CacheManager.instance
     let categories: [(String, CategoryParam)] = [
         ("Cuisines", .cuisine),
         ("Dish Types", .dishType),
         ("Diets", .diet),
         ("Intolerances", .intolerance)
     ]
-    
-    private let searchTerm: SearchTerm
     
     var navigationTitle: String? {
         switch searchTerm {
@@ -61,9 +64,17 @@ import Foundation
     }
     
     func searchRecipes(query: String) async {
+        
+        cachedRecipes.removeAll()
+        
         do {
-            recipes = try await APIManager.loadRecipes(searchTerm: .query(query))
+            let fetchedRecipes = try await APIManager.loadRecipes(searchTerm: .query(query))
             shouldShowSpinner = false
+            
+            manager.add(recipes: fetchedRecipes, search: query)
+            
+            cachedRecipes = manager.get(search: query) ?? []
+            
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {
                 showAlert = true
@@ -74,5 +85,4 @@ import Foundation
             }
         }
     }
-
 }

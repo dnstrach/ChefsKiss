@@ -16,15 +16,36 @@ struct InstructionsView: View {
                 Text("Instructions")
                     .font(.title2)
                     .padding(.leading)
-                    .padding(.bottom)
                 
-                ForEach(recipe.sortedInstructions, id: \.id) { step in
-                    Text("\(step.index + 1). \(step.step)")
+                Rectangle()
+                    .frame(height: 2)
+                    .foregroundStyle(Color.accent)
+                   // .opacity(0.2)
+                    .padding(.horizontal)
+                    .padding(.horizontal)
+                
+                if !recipe.sortedInstructions.isEmpty {
+                    ForEach(recipe.sortedInstructions, id: \.id) { step in
+                        Text("\(step.index + 1). \(step.step)")
+                            .padding(.leading)
+                            .padding(.leading)
+                            .padding(.trailing)
+                            .padding(.bottom)
+                        
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundStyle(Color.accent)
+                           // .opacity(0.2)
+                            .padding(.horizontal)
+                            .padding(.horizontal)
+                    }
+                } else {
+                    Text("No ingredients listed")
+                        .foregroundColor(.gray)
                         .padding(.leading)
                         .padding(.leading)
-                        .padding(.trailing)
-                        .padding(.bottom)
                 }
+                
             }
             
             Spacer()

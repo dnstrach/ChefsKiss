@@ -24,10 +24,6 @@ enum ImageState {
 
 @MainActor
 @Observable final class AddEditRecipeViewModel: ObservableObject {
-    var isIngredientTextFieldTapped: Bool = false
-    var isEquipmentTextFieldTapped: Bool = false
-    var isInstructionTextFieldTapped: Bool = false
-    
     var selectedIngredient: Recipe.Ingredient?
     
     var selectedEquipment: Recipe.Equipment?

@@ -34,11 +34,11 @@ struct SearchGridView: View {
                                             .scaledToFill()
                                             .frame(width: geometry.size.width, height: geometry.size.height)
                                             .clipShape(RoundedRectangle(cornerRadius: 10))
+                                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                             .shadow(radius: 5)
                                             .overlay(alignment: .bottomTrailing) {
                                                 HeartButton(savedRecipesViewModel: savedRecipesViewModel, recipe: recipe)
                                             }
-                                        
                                         
                                         Text(recipe.title)
                                             .titleStyle()
@@ -69,9 +69,6 @@ struct SearchGridView: View {
                         }
                         .frame(width: 175, height: 225)
                         .padding(.bottom)
-                        .onTapGesture {
-                            UIApplication.shared.endEditing()
-                        }
                     }
                 }
             }

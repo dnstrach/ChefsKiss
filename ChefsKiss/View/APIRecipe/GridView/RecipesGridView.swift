@@ -27,11 +27,6 @@ struct RecipesGridView: View {
             //  ProgressView()
         } else {
         ScrollView(showsIndicators: false) {
-            // use condition or change to switch to add a view when exceeded daily call limit
-//            if shouldShowSpinner {
-//                    KissAnimation()
-//                //  ProgressView()
-//            } else {
                 LazyVGrid(columns: columns) {
                     ForEach(recipes, id: \.id) { recipe in
                         NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
@@ -42,12 +37,10 @@ struct RecipesGridView: View {
                                             image
                                                 .resizable()
                                                 .scaledToFill()
-                                               // .clipShape(RoundedRectangle(cornerRadius: 10))
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
+                                                .clipShape(RoundedRectangle(cornerRadius: 10))
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(radius: 5)
-                                                .clipShape(RoundedRectangle(cornerRadius: 10))
-//                                                .shadow(radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
                                                         HeartButton(savedRecipesViewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
@@ -108,31 +101,8 @@ struct HeartButton: View {
     let recipe: APIRecipe
     
     var body: some View {
-        Button {
-            let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
-            
-            if recipes.contains(where: { $0.id == recipe.id }) {
-                modelContext.delete(recipe)
-            } else {
-                modelContext.insert(recipe)
-            }
-            
-        } label: {
-            let recipes = savedRecipesViewModel.querySavedRecipes(savedRecipes)
-            
-            ZStack {
-                Image(systemName: "circle.fill")
-                    .resizable()
-                    .foregroundStyle(.accent)
-                    .frame(width: 35, height: 35)
-                    .opacity(0.3)
-                
-                Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
-                    .foregroundStyle(.accent)
-                    .imageScale(.large)
-            }
-        }
-        .offset(x: -5, y: -10)
+        HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+            .offset(x: 5)
     }
 }
 

@@ -17,36 +17,52 @@ struct RecipeDetailView: View {
         NavigationStack {
             GeometryReader { geo in
                 ScrollView {
+                    VStack {
+                        TitleView(recipe: recipe)
+                        
+                      //  ImageView(recipe: recipe, geo: geo)
+                        
+                        ServingsView(recipe: recipe)
+                        
+                        PrepCookTimeView(recipe: recipe)
+                        
+                        SummaryView(recipe: recipe)
+                        
+                        IngredientsView(viewModel: viewModel, recipe: recipe)
+                        
+                        EquipmentView(viewModel: viewModel, recipe: recipe)
+                        
+                        InstructionsView(recipe: recipe)
 
-                    TitleView(viewModel: viewModel, recipe: recipe)
-                    
-                    ImageView(recipe: recipe, geo: geo)
-                    
-                    PrepCookTimeView(recipe: recipe)
-                    
-                    ServingsView(recipe: recipe)
-                    
-                    SummaryView(recipe: recipe)
-                    
-                    IngredientsView(viewModel: viewModel, recipe: recipe)
-                    
-                    EquipmentView(viewModel: viewModel, recipe: recipe)
-                    
-                    InstructionsView(recipe: recipe)
+                    }
+                    .safeAreaInset(edge: .top) {
+                        ImageView(recipe: recipe, geo: geo)
+                            .overlay(alignment: .topTrailing) {
+                                EditButtonView(viewModel: viewModel)
+                            }
+                            .overlay(alignment: .topLeading) {
+                                BackButtonView()
+                            }
+                    }
+                    .ignoresSafeArea(.container, edges: .top)
+
                 }
             }
-            .navigationTitle(viewModel.navigationTitle(recipe: recipe))
+            .ignoresSafeArea(.all, edges: .top)
+            .toolbar(.hidden, for: .navigationBar)
+            .statusBarHidden(true)
+          //  .navigationTitle(viewModel.navigationTitle(recipe: recipe))
             .sheet(isPresented: $viewModel.isEditViewPresented) {
 //               EditRecipeView(recipe: recipe)
                  AddEditRecipeView(recipe: recipe)
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Edit") {
-                        viewModel.isEditViewPresented.toggle()
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .topBarTrailing) {
+//                    Button("Edit") {
+//                        viewModel.isEditViewPresented.toggle()
+//                    }
+//                }
+//            }
         }
     }
 }

@@ -8,41 +8,39 @@
 import SwiftUI
 
 struct APIImageView: View {
+    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+    
     let recipe: APIRecipe
     
-    // add placeholder image when there's no image
     var body: some View {
-        AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
-            if let image = phase.image {
-                image
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity)
-            } else if phase.error != nil {
-                Image("Placeholder")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(maxWidth: .infinity, maxHeight: 300)
-            } else {
-                KissAnimation()
+      //  VStack {
+            AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
+                if let image = phase.image {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                } else if phase.error != nil {
+                    Image("Placeholder")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity)
+                } else {
+                    KissAnimation()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 400)
+
+                }
+                
             }
-            
-        }
-        
-//        AsyncImage(url: URL(string: recipe.image), scale: 3) { image in
-//            image
-//                .resizable()
-//                .scaledToFill()
-//                .frame(maxWidth: .infinity)
-//        } placeholder: {
-//            Image("Placeholder")
-//                .resizable()
-//                .scaledToFill()
-//                .frame(maxWidth: .infinity, maxHeight: 300)
-//           // KissAnimation()
-//           // ProgressView()
-//        }
-        
+           // .frame(height: 300)
+            .overlay(alignment: .bottomTrailing) {
+                HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+                    .scaleEffect(1.5)
+                    .padding(.trailing)
+            }
+     //   }
+     //   .ignoresSafeArea(.container, edges: .top)
     }
 }
 
@@ -53,6 +51,7 @@ struct APIImageView: View {
         return APIImageView(recipe: preview.recipe)
             .frame(width: 200, height: 200)
             .modelContainer(preview.container)
+            .environmentObject(SavedRecipesViewModel())
     } catch {
         fatalError("Failed to create preview container.")
     }

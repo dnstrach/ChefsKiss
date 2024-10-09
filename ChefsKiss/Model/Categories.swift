@@ -7,6 +7,8 @@
 
 import Foundation
 
+// reminder that finger food shows incorrect search
+// manipulate components with 2 words
 enum CategoryParam: String, CaseIterable {
     case cuisine = "cuisine"
     case dishType = "type"
@@ -22,7 +24,7 @@ enum Cuisine: String, CaseIterable {
     case cajun
     case caribbean
     case chinese
-    case easternEurope = "eastern europe"
+    case easternEurope = "eastern european"
     case european
     case french
     case german
@@ -52,7 +54,7 @@ enum DishType: String, CaseIterable {
     case dessert
     case dinner
     case drink
-    case fingerFood = "finger food"
+    case fingerfood
     case mainCourse = "main course"
     case marinade
     case sauce

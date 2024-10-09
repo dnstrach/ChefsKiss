@@ -14,40 +14,63 @@ struct IconView: View {
     
     var body: some View {
         ScrollView(.horizontal) {
-            
-            
-            HStack {
-                if recipe.isVegetarian {
-                    iconAndLabel(imageName: "vegetarianIcon", label: "Vegetarian")
-                }
-                
-                if recipe.isVegan {
-                    iconAndLabel(imageName: "veganIcon", label: "Vegan")
-                }
-                
-                if recipe.isDairyFree {
-                    iconAndLabel(imageName: "dairyFreeIcon", label: "Dairy Free")
-                }
-                
-                if recipe.isGlutenFree {
-                    iconAndLabel(imageName: "glutenFreeIcon", label: "Gluten Free")
+          //  ZStack {
+                HStack(spacing: 20) {
+                    if recipe.isVegetarian {
+                        iconAndLabel(imageName: "vegetarianIcon", label: "Vegetarian")
+                    }
                     
+                    if recipe.isVegan {
+                        iconAndLabel(imageName: "veganIcon", label: "Vegan")
+                    }
+                    
+                    if recipe.isDairyFree {
+                        iconAndLabel(imageName: "dairyFreeIcon", label: "Dairy Free")
+                    }
+                    
+                    if recipe.isGlutenFree {
+                        iconAndLabel(imageName: "glutenFreeIcon", label: "Gluten Free")
+                        
+                    }
                 }
-            }
+          //  }
         }
         .contentMargins(10, for: .scrollContent)
     }
     
     private func iconAndLabel(imageName: String, label: String) -> some View {
-        HStack {
-            Image(imageName)
-            .resizable()
-            .frame(width: 40, height: 40)
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.accent)
+               // .fill(LinearGradient(colors: [.accent, .accent3], startPoint: .top, endPoint: .bottom))
             
-            Text(label)
+//                .stroke(Color.accent, lineWidth: 2)
+//                .foregroundStyle(Color.clear)
+            
+            
+            
+            
+              //  .foregroundStyle(Color.accent)
+            
+//                .fill(
+//                    RadialGradient(gradient: Gradient(colors: [.accent, .accent1, .accent2]), center: .center, startRadius: 0, endRadius: 50)
+//                )
+//            
+            HStack {
+                Image(imageName)
+                .resizable()
+                .frame(width: 40, height: 40)
+                
+                Text(label)
+                    .fontWeight(.bold)
+                    .foregroundStyle(.white)
+            }
+          //  .padding(.top, 5)
+          //  .padding(.bottom, 5)
+            .padding(.leading)
+            .padding(.trailing)
+           // .padding(.trailing)
         }
-        .padding(.leading)
-        .padding(.trailing)
     }
     
 }

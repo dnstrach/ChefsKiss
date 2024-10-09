@@ -13,22 +13,48 @@ struct EquipmentView: View {
     let recipe: Recipe
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Equipment")
-                .font(.title2)
-                .padding(.leading)
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.background)
+                .opacity(0.2)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
             
-            LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                ForEach(recipe.sortedEquipment, id:\.id) { equipment in
-                    Text(equipment.name)
-                        .frame(maxHeight: .infinity)
-                        .padding(.leading)
-                        .padding(.bottom, 5)
-                        .padding(.horizontal)
+            VStack(alignment: .leading) {
+                Text("Equipment")
+                    .font(.title2)
+                    .padding(.leading)
+                    .padding(.top)
+                
+                if !recipe.sortedEquipment.isEmpty {
+                    LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
+                        ForEach(recipe.sortedEquipment, id:\.id) { equipment in
+                            HStack(spacing: 5) {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(Color.accent)
+                                
+                                Text(equipment.name)
+                                    .frame(maxHeight: .infinity)
+                                    .padding(.bottom, 5)
+                            }
+                            .padding(.horizontal)
+                        }
+                    }
+                    .padding(.leading)
+                    
+                } else {
+                    HStack {
+                        Text("No equipment listed")
+                            .foregroundColor(.gray)
+                            .padding(.leading)
+                        
+                        Spacer()
+                    }
                 }
             }
+            .padding(.bottom)
         }
-        .padding(.bottom)
+        .padding()
+        .padding(.horizontal, 20)
     }
 }
 

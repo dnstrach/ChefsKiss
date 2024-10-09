@@ -8,19 +8,25 @@
 import SwiftUI
 
 struct CategoryView: View {
+    
     @StateObject var viewModel: CategoryViewModel
     
-    @State private var searchText: String = ""
+  //  @State private var searchText: String = ""
     
     var body: some View {
         NavigationStack {
             ScrollView {
-                SearchBarView(searchText: $searchText)
+                SearchBarView(viewModel: viewModel, searchText: $viewModel.searchText)
+                    .submitLabel(.search)
                 
-                if !searchText.isEmpty {
-                    SearchGridView(recipes: viewModel.recipes)
+                if viewModel.showSearchView {
+                    RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
                         .alert(isPresented: $viewModel.showAlert) {
                             Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
+                    
+//                    SearchGridView(recipes: viewModel.recipes)
+//                        .alert(isPresented: $viewModel.showAlert) {
+//                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
                         }
                 } else {
                     ForEach(viewModel.categories, id: \.0) { category, searchParam in
@@ -33,11 +39,18 @@ struct CategoryView: View {
                 UIApplication.shared.endEditing()
             }
             .navigationTitle("Recipe Finder")
-            .onChange(of: searchText) { _, newSearchText in
+            .onSubmit {
                 Task {
-                    await viewModel.searchRecipes(query: newSearchText)
+                    await viewModel.searchRecipes(query: viewModel.searchText)
                 }
+                
+                viewModel.showSearchView.toggle()
             }
+//            .onChange(of: searchText) { _, newSearchText in
+//                Task {
+//                    await viewModel.searchRecipes(query: newSearchText)
+//                }
+//            }
         }
     }
 }

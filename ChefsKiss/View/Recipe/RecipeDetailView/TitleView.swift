@@ -8,18 +8,19 @@
 import SwiftUI
 
 struct TitleView: View {
-    let viewModel: RecipeDetailViewModel
+   // let viewModel: RecipeDetailViewModel
     
     let recipe: Recipe
     
     var body: some View {
         HStack {
-            Text(viewModel.remainingTitle(recipe: recipe))
+            Text("\(recipe.title)")
                 .font(.system(size: 34, weight: .bold))
                 .padding(.leading)
             
             Spacer()
         }
+
     }
 }
 
@@ -27,7 +28,7 @@ struct TitleView: View {
     do {
         let preview = try RecipePreview()
         
-        return TitleView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
+        return TitleView(recipe: preview.recipe)
             .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")

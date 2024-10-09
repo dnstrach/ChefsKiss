@@ -32,44 +32,70 @@ struct PrepCookTimeView: View {
     }
     
     var body: some View {
-        VStack {
-            if (!isPrepHrZero || !isPrepMinZero || !isCookHrZero || !isCookMinZero) {
-                VStack {
+        ZStack {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Color.accent)
+            
+            VStack {
+                if (!isPrepHrZero || !isPrepMinZero || !isCookHrZero || !isCookMinZero) {
                     HStack {
-                        if !isPrepHrZero || !isPrepMinZero {
-                            Text("Prep:")
+                        VStack {
+                            if !isPrepHrZero || !isPrepMinZero {
+                                HStack {
+    //                                Image(systemName: "clock.circle")
+    //                                    .foregroundStyle(.accent)
+                                    Text("Prep")
+                                        .font(.system(size: 20, weight: .bold))
+                                }
+                            }
+                            
+                            HStack {
+                                if !isPrepHrZero {
+                                    Text("\(recipe.prepHrTime)")
+                                    Text(recipe.prepHrTime == 1 ? hour : hours)
+                                }
+                                
+                                if !isPrepMinZero {
+                                    Text("\(recipe.prepMinTime)")
+                                    Text(recipe.prepMinTime == 1 ? min : mins)
+                                }
+                            }
+                            
                         }
+                      //  .padding(.bottom)
                         
-                        if !isPrepHrZero {
-                            Text("\(recipe.prepHrTime)")
-                            Text(recipe.prepHrTime == 1 ? hour : hours)
-                        }
+                        Spacer()
                         
-                        if !isPrepMinZero {
-                            Text("\(recipe.prepMinTime)")
-                            Text(recipe.prepMinTime == 1 ? min : mins)
+                        VStack {
+                            if !isCookHrZero || !isCookMinZero {
+                                HStack {
+    //                                Image(systemName: "clock.circle")
+    //                                    .foregroundStyle(.accent)
+                                    Text("Cook")
+                                        .font(.system(size: 20, weight: .bold))
+                                }
+                            }
+                            
+                            HStack {
+                                if !isCookHrZero {
+                                    Text("\(recipe.cookHrTime)")
+                                    Text(recipe.cookHrTime == 1 ? hour : hours)
+                                }
+                                
+                                if !isCookMinZero {
+                                    Text("\(recipe.cookMinTime)")
+                                    Text(recipe.cookMinTime == 1 ? min : mins)
+                                }
+                            }
                         }
-                    }
-                    
-                    HStack {
-                        if !isCookHrZero || !isCookMinZero {
-                            Text("Cook:")
-                        }
-                        
-                        if !isCookHrZero {
-                            Text("\(recipe.cookHrTime)")
-                            Text(recipe.cookHrTime == 1 ? hour : hours)
-                        }
-                        
-                        if !isCookMinZero {
-                            Text("\(recipe.cookMinTime)")
-                            Text(recipe.cookMinTime == 1 ? min : mins)
-                        }
+                      //  .padding(.bottom)
                     }
                 }
-                .padding(.bottom)
             }
         }
+        .padding(.vertical)
+        .padding(.horizontal)
+        .padding(.horizontal)
     }
 }
 

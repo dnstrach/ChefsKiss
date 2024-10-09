@@ -11,20 +11,26 @@ import SwiftData
 struct TabBarView: View {
     var body: some View {
         TabView {
-            CategoryView(viewModel: CategoryViewModel(searchTerm: .query("")))
-                .tabItem {
-                    Label("Explore", systemImage: "magnifyingglass.circle")
-                }
-            
-            SavedRecipesView()
-                .tabItem {
-                    Label("Saved", systemImage: "heart.fill")
-                }
-            
-            MyRecipeListView()
-                .tabItem {
-                    Label("My Recipes", systemImage: "book.closed")
-                }
+           // Group {
+                CategoryView(viewModel: CategoryViewModel(searchTerm: .query("")))
+                    .tabItem {
+                        Label("Explore", systemImage: "magnifyingglass.circle")
+                    }
+                  //  .toolbarBackground(Color.accent, for: .tabBar)
+                
+                SavedRecipesView()
+                    .tabItem {
+                        Label("Saved", systemImage: "heart.fill")
+                    }
+                 //   .toolbarBackground(Color.accent, for: .tabBar)
+                
+                MyRecipeListView()
+                    .tabItem {
+                        Label("My Recipes", systemImage: "book.closed")
+                    }
+                  //  .toolbarBackground(Color.accent, for: .tabBar)
+          //  }
+           // .toolbarBackground(Color.accent, for: .tabBar)
         }
     }
 }

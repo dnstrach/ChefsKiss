@@ -12,8 +12,8 @@ struct ServingsView: View {
     
     var body: some View {
         VStack {
-            Text("Serves \(recipe.servings.formatted())")
-            .padding(.bottom)
+            Text("Servings: \(recipe.servings.formatted())")
+                .padding(.vertical)
         }
     }
 }
