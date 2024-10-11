@@ -11,58 +11,53 @@ import SwiftUI
 struct RecipeDetailView: View {
     @StateObject var viewModel = RecipeDetailViewModel()
     
+    @State private var showScrollToTopButton = false
+    
     @Bindable var recipe: Recipe
     
     var body: some View {
         NavigationStack {
-            GeometryReader { geo in
-                ScrollView {
-                    VStack {
-                        TitleView(recipe: recipe)
-                        
-                      //  ImageView(recipe: recipe, geo: geo)
-                        
-                        ServingsView(recipe: recipe)
-                        
-                        PrepCookTimeView(recipe: recipe)
-                        
-                        SummaryView(recipe: recipe)
-                        
-                        IngredientsView(viewModel: viewModel, recipe: recipe)
-                        
-                        EquipmentView(viewModel: viewModel, recipe: recipe)
-                        
-                        InstructionsView(recipe: recipe)
-
+            ScrollViewReader { value in
+                GeometryReader { geo in
+                    ScrollView {
+                        LazyVStack {
+                            TitleView(recipe: recipe)
+                            
+                            ServingsView(recipe: recipe)
+                            
+                            PrepCookTimeView(recipe: recipe)
+                            
+                            SummaryView(recipe: recipe)
+                            
+                            IngredientsView(viewModel: viewModel, recipe: recipe)
+                            
+                            EquipmentView(viewModel: viewModel, recipe: recipe)
+                            
+                            InstructionsView(recipe: recipe)
+                            
+                        }
+                        .safeAreaInset(edge: .top) {
+                            ImageView(recipe: recipe, geo: geo)
+                                .overlay(alignment: .topTrailing) {
+                                    EditButtonView(viewModel: viewModel)
+                                }
+                                .id(1)
+                                .overlay(alignment: .topLeading) {
+                                    BackButtonView()
+                                }
+                        }
+                        .ignoresSafeArea(.container, edges: .top)
+                        .modifier(DetectScroll(isButtonShown: $showScrollToTopButton, geoProxy: geo))
                     }
-                    .safeAreaInset(edge: .top) {
-                        ImageView(recipe: recipe, geo: geo)
-                            .overlay(alignment: .topTrailing) {
-                                EditButtonView(viewModel: viewModel)
-                            }
-                            .overlay(alignment: .topLeading) {
-                                BackButtonView()
-                            }
-                    }
-                    .ignoresSafeArea(.container, edges: .top)
-
+                    .modifier(ScrollButton(isButtonShown: $showScrollToTopButton, scrollProxy: value))
                 }
             }
             .ignoresSafeArea(.all, edges: .top)
             .toolbar(.hidden, for: .navigationBar)
             .statusBarHidden(true)
-          //  .navigationTitle(viewModel.navigationTitle(recipe: recipe))
             .sheet(isPresented: $viewModel.isEditViewPresented) {
-//               EditRecipeView(recipe: recipe)
-                 AddEditRecipeView(recipe: recipe)
+                AddEditRecipeView(recipe: recipe)
             }
-//            .toolbar {
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    Button("Edit") {
-//                        viewModel.isEditViewPresented.toggle()
-//                    }
-//                }
-//            }
         }
     }
 }

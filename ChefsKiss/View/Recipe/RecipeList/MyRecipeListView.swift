@@ -51,16 +51,10 @@ struct MyRecipeListView: View {
                     } label: {
                         Image(systemName: "plus.circle.fill")
                     }
-
-                    
-//                    Button("Add") {
-//                        isAddViewPresented.toggle()
-//                    }
                 }
             }
             .sheet(isPresented: $isAddViewPresented) {
                 AddEditRecipeView(recipe: nil)
-//                 AddRecipeView()
             }
         }
         

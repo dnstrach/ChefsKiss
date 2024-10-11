@@ -28,7 +28,7 @@ struct AddEditRecipeView: View {
                     
                     Section {
                         ImagePickerView(
-                            imageState: viewModel.imageState, recipe: recipe, viewModel: viewModel
+                            viewModel: viewModel, recipe: recipe
                         )
                         .onAppear(perform: showSavedImage)
                     }

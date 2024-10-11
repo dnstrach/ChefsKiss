@@ -21,6 +21,8 @@ struct LinkButtonView: View {
         .buttonStyle(.borderedProminent)
         .buttonBorderShape(.capsule)
         .controlSize(.large)
+        .overlay(Capsule().stroke(Color.background))
+        .shadow(color: Color.shadow, radius: 5)
         .padding(.bottom)
     }
 }

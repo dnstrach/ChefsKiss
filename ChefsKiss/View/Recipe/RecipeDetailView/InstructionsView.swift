@@ -15,35 +15,42 @@ struct InstructionsView: View {
             VStack(alignment: .leading) {
                 Text("Instructions")
                     .font(.title2)
+                    .fontDesign(.rounded)
+                    .fontWeight(.bold)
                     .padding(.leading)
+                    .padding(.leading)
+                    .padding(.top)
                 
-                Rectangle()
-                    .frame(height: 2)
-                    .foregroundStyle(Color.accent)
-                   // .opacity(0.2)
-                    .padding(.horizontal)
-                    .padding(.horizontal)
+                LineDividerView()
                 
                 if !recipe.sortedInstructions.isEmpty {
                     ForEach(recipe.sortedInstructions, id: \.id) { step in
-                        Text("\(step.index + 1). \(step.step)")
-                            .padding(.leading)
-                            .padding(.leading)
-                            .padding(.trailing)
-                            .padding(.bottom)
+                        HStack {
+                            Text("\(step.index + 1).")
+                                .foregroundStyle(Color.accent)
+                                .font(.title2)
+                                .bold()
+                            
+                            Text("\(step.step)")
+                            
+                            Spacer()
+                        }
+                        .padding(.leading)
+                        .padding(.leading)
+                        .padding(.trailing)
+                        .padding(.bottom)
                         
-                        Rectangle()
-                            .frame(height: 2)
-                            .foregroundStyle(Color.accent)
-                           // .opacity(0.2)
-                            .padding(.horizontal)
-                            .padding(.horizontal)
+                        LineDividerView()
                     }
                 } else {
                     Text("No ingredients listed")
                         .foregroundColor(.gray)
                         .padding(.leading)
                         .padding(.leading)
+                        .padding(.leading)
+                    
+                    LineDividerView()
+                        .padding(.bottom)
                 }
                 
             }

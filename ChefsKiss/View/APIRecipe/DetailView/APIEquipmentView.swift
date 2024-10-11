@@ -14,15 +14,12 @@ struct APIEquipmentView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.background)
-                .opacity(0.2)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accent))
-             //   .shadow(color: Color.shadow, radius: 5)
+            RoundedRectangleView()
             
             VStack(alignment: .leading) {
                 Text("Equipment")
                     .font(.title2)
+                    .fontDesign(.rounded)
                     .fontWeight(.bold)
                     .padding(.leading)
                     .padding(.top)
@@ -42,7 +39,6 @@ struct APIEquipmentView: View {
                                 Text(equipment.name)
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
-                                   // .padding(.horizontal)
                             }
                             .padding(.horizontal)
                         }

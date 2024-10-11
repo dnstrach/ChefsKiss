@@ -11,8 +11,6 @@ struct CategoryView: View {
     
     @StateObject var viewModel: CategoryViewModel
     
-  //  @State private var searchText: String = ""
-    
     var body: some View {
         NavigationStack {
             ScrollView {

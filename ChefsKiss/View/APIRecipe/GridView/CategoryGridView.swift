@@ -80,7 +80,7 @@ struct CategoryLabel: View {
                 .frame(width: 200, height: 200)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
-                .shadow(radius: 5)
+                .shadow(color: Color.secondary, radius: 5)
                 .aspectRatio(contentMode: .fit)
             Text(category)
                 .font(.title3)
@@ -97,6 +97,5 @@ struct CategoryLabel: View {
             CategoryGridView(category: "Diets", searchParam: .diet)
             CategoryGridView(category: "Intolerances", searchParam: .intolerance)
         }
-      //  .previewLayout(.sizeThatFits)
     }
 }

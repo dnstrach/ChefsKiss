@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "Screenshot 2024-10-09 at 9.48.13 PM.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -11,6 +12,7 @@
           "value" : "light"
         }
       ],
+      "filename" : "Screenshot 2024-10-09 at 9.48.13 PM 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -21,11 +23,11 @@
           "value" : "dark"
         }
       ],
+      "filename" : "Screenshot 2024-10-09 at 9.48.37 PM.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Screenshot 2024-10-08 at 9.45.15 PM.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -36,7 +38,6 @@
           "value" : "light"
         }
       ],
-      "filename" : "Screenshot 2024-10-08 at 9.45.15 PM 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -47,7 +48,6 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Screenshot 2024-10-08 at 9.44.19 PM.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

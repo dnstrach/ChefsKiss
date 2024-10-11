@@ -17,15 +17,12 @@ struct APITitleView: View {
             HStack {
                 
                 Text(recipe.title)
-                    .font(.system(size: 34))
+                    .font(.system(size: 40))
                     .fontDesign(.rounded)
+                    .fontWeight(.bold)
                     .padding(.leading, 20)
                     .padding(.top, 5)
-                
-//                Text(viewModel.remainingTitle(recipe: recipe))
-//                    .font(.system(size: 34, weight: .bold))
-//                    .padding(.leading, 20)
-                
+
                 Spacer()
             }
         }

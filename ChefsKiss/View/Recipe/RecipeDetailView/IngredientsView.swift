@@ -14,14 +14,13 @@ struct IngredientsView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .fill(Color.background)
-                .opacity(0.2)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
+            RoundedRectangleView()
             
             VStack(alignment: .leading) {
                 Text("Ingredients")
                     .font(.title2)
+                    .fontDesign(.rounded)
+                    .fontWeight(.bold)
                     .padding(.leading)
                     .padding(.top)
                 

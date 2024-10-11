@@ -42,8 +42,6 @@ struct PrepCookTimeView: View {
                         VStack {
                             if !isPrepHrZero || !isPrepMinZero {
                                 HStack {
-    //                                Image(systemName: "clock.circle")
-    //                                    .foregroundStyle(.accent)
                                     Text("Prep")
                                         .font(.system(size: 20, weight: .bold))
                                 }
@@ -62,15 +60,12 @@ struct PrepCookTimeView: View {
                             }
                             
                         }
-                      //  .padding(.bottom)
                         
                         Spacer()
                         
                         VStack {
                             if !isCookHrZero || !isCookMinZero {
                                 HStack {
-    //                                Image(systemName: "clock.circle")
-    //                                    .foregroundStyle(.accent)
                                     Text("Cook")
                                         .font(.system(size: 20, weight: .bold))
                                 }
@@ -88,7 +83,6 @@ struct PrepCookTimeView: View {
                                 }
                             }
                         }
-                      //  .padding(.bottom)
                     }
                 }
             }

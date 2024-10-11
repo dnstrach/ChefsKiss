@@ -35,6 +35,7 @@ enum ImageState {
     
     var imageState: ImageState = .empty
 
+    var selectedCameraImage: UIImage? 
     var selectedImage: PhotosPickerItem? {
         didSet {
             if let selectedImage {
@@ -103,11 +104,6 @@ enum ImageState {
         title.isReallyEmpty
     }
     
-    func clearAddViewPhoto() {
-        imageState = .empty
-        selectedImage = nil
-    }
-    
     func clearPhoto(recipe: Recipe) {
         imageState = .empty
         selectedImage = nil
@@ -131,6 +127,13 @@ enum ImageState {
     }
     
     func saveImage(_ recipe: Recipe) {
+        // convert selectedCameraImage to data if not nil
+        if let selectedImage = selectedCameraImage {
+            if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+                recipe.image = imageData
+            }
+        }
+        
         guard let selectedImage else { return }
         
         Task {

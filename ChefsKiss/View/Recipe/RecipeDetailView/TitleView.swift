@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct TitleView: View {
-   // let viewModel: RecipeDetailViewModel
-    
     let recipe: Recipe
     
     var body: some View {
         HStack {
             Text("\(recipe.title)")
-                .font(.system(size: 34, weight: .bold))
-                .padding(.leading)
+                .font(.system(size: 40))
+                .fontDesign(.rounded)
+                .fontWeight(.bold)
+                .padding(.leading, 20)
+                .padding(.top, 5)
             
             Spacer()
         }

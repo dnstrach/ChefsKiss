@@ -20,13 +20,13 @@ struct ImageView: View {
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: geo.size.width, height: 300)
+                    .frame(width: geo.size.width, height: 400)
                     .clipped()
             } else {
                 Image("Placeholder")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: geo.size.width, height: 300)
+                    .frame(width: geo.size.width, height: 400)
                     .clipped()
 
             }

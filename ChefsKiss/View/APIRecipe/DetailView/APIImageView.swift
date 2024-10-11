@@ -13,34 +13,31 @@ struct APIImageView: View {
     let recipe: APIRecipe
     
     var body: some View {
-      //  VStack {
-            AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
-                } else if phase.error != nil {
-                    Image("Placeholder")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(maxWidth: .infinity)
-                } else {
-                    KissAnimation()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 400)
-
-                }
+        //  VStack {
+        AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
+            if let image = phase.image {
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity)
+            } else if phase.error != nil {
+                Image("Placeholder")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity)
+            } else {
+                KissAnimation()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 400)
                 
             }
-           // .frame(height: 300)
-            .overlay(alignment: .bottomTrailing) {
-                HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
-                    .scaleEffect(1.5)
-                    .padding(.trailing)
-            }
-     //   }
-     //   .ignoresSafeArea(.container, edges: .top)
+            
+        }
+        .overlay(alignment: .bottomTrailing) {
+            HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+                .scaleEffect(1.5)
+                .padding(.trailing)
+        }
     }
 }
 

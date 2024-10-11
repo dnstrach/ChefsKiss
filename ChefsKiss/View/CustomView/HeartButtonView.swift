@@ -40,28 +40,9 @@ struct HeartButtonView: View {
                     .foregroundStyle(.accent)
                     .imageScale(.large)
             }
+            .shadow(color: Color.shadow, radius: 5)
         }
-        .offset(x: -10, y: -15)
-        
-        
-        
-        
-        
-//        Button {
-//            let recipes = viewModel.querySavedRecipes(savedRecipes)
-//            
-//            if recipes.contains(where: { $0.id == recipe.id }) {
-//                modelContext.delete(recipe)
-//            } else {
-//                modelContext.insert(recipe)
-//            }
-//            
-//        } label: {
-//            let recipes = viewModel.querySavedRecipes(savedRecipes)
-//            
-//            Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
-//                .imageScale(.large)
-//        }
+        .offset(x: -10, y: -10)
     }
 }
 

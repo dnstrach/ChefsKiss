@@ -24,7 +24,6 @@ struct RecipesGridView: View {
     var body: some View {
         if shouldShowSpinner {
                 KissAnimation()
-            //  ProgressView()
         } else {
         ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns) {
@@ -40,34 +39,29 @@ struct RecipesGridView: View {
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
-                                                .shadow(radius: 5)
+                                                .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                        HeartButton(savedRecipesViewModel: savedRecipesViewModel, recipe: recipe)
+                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
                                             
                                             Text(recipe.title)
                                                 .titleStyle()
                                         } else if phase.error != nil {
-                                            // Display a placeholder when loading failed
                                             Image("Placeholder")
                                                 .resizable()
                                                 .scaledToFill()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                                                .shadow(radius: 5)
-                                            
-//                                            Image(systemName: "questionmark.diamond")
-//                                                .imageScale(.large)
-//                                                .frame(width: geometry.size.width, height: geometry.size.height)
+                                                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
+                                                .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    HeartButton(savedRecipesViewModel: savedRecipesViewModel, recipe: recipe)
+                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
                                             
                                             Text(recipe.title)
                                                 .titleStyle()
                                         } else {
                                             KissAnimation()
-                                           // ProgressView()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)
                                         }
                                         
@@ -89,43 +83,6 @@ struct RecipesGridView: View {
                     .safeAreaInsets.bottom ?? 0)
             }
         }
-    }
-}
-
-struct HeartButton: View {
-    @Environment(\.modelContext) var modelContext
-    @Query var savedRecipes: [APIRecipe]
-    
-    let savedRecipesViewModel: SavedRecipesViewModel
-    
-    let recipe: APIRecipe
-    
-    var body: some View {
-        HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
-            .offset(x: 5)
-    }
-}
-
-struct Title: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .multilineTextAlignment(.center)
-            .lineLimit(2)
-            .fixedSize(horizontal: false, vertical: true)
-            .font(.title3)
-            .foregroundStyle(Color.primary)
-    }
-}
-
-//struct Image: ViewModifier {
-//    func body(content: Content) -> some View {
-//        content
-//    }
-//}
-
-extension View {
-    func titleStyle() -> some View {
-        modifier(Title())
     }
 }
 

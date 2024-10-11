@@ -8,65 +8,97 @@
 import SwiftData
 import SwiftUI
 
+//struct ScrollButton: ViewModifier {
+//    @Binding var isButtonShown: Bool
+//    var scrollProxy: ScrollViewProxy
+//
+//    func body(content: Content) -> some View {
+//        content
+//            .overlay(alignment: .bottomTrailing) {
+//                if isButtonShown {
+//                    Button {
+//                        scrollProxy.scrollTo(1, anchor: .top)
+//                    } label: {
+//                        Image(systemName: "arrow.up.circle.fill")
+//                            .opacity(0.2)
+//                            .scaleEffect(3)
+//                           // .offset(x: geo.size.width - 80 , y: geo.size.height - 80)
+//                            .frame(width: 80, height: 80)
+//                    }
+//                }
+//            }
+//    }
+//}
+//
+//struct DetectScroll: ViewModifier {
+//    @Binding var isButtonShown: Bool
+//    var geoProxy: GeometryProxy
+//
+//    func body(content: Content) -> some View {
+//        content
+//            .background(GeometryReader { innerGeo in
+//                Color.clear
+//                    .onChange(of: innerGeo.frame(in: .global).minY) { _, newY in
+//                        let screenHeight = geoProxy.size.height
+//                        isButtonShown = newY < -(screenHeight / 4)
+//                    }
+//            })
+//    }
+//}
+
 struct APIRecipeDetailView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) private var dismiss
     
     @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
- //   @Query var savedRecipes: [APIRecipe]
+    //   @Query var savedRecipes: [APIRecipe]
     
     @StateObject var viewModel = APIRecipeDetailViewModel()
     
-    @Environment(\.dismiss) private var dismiss
+    
+    @State private var showScrollToTopButton = false
     
     let recipe: APIRecipe
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                // .sorted for NavTitle
-               // APITitleView(viewModel: viewModel, recipe: recipe)
-                
-              //  APIImageView(recipe: recipe)
-                   // .ignoresSafeArea(.container, edges: .top)
-                   // .edgesIgnoringSafeArea(.top)
-                
-                VStack {
-                    APITitleView(viewModel: viewModel, recipe: recipe)
-                    
-                    IconView(recipe: recipe, viewModel: viewModel)
-                    
-                    APIServingsDurationView(recipe: recipe)
-                    
-                    APISummaryView(recipe: recipe)
-                    
-                    APIIngredientsView(viewModel: viewModel, recipe: recipe)
-                    
-                    APIEquipmentView(viewModel: viewModel, recipe: recipe)
-                    
-                    APIInstructionsView(recipe: recipe)
-                    
-                    LinkButtonView(recipe: recipe)
-                }
-                .safeAreaInset(edge: .top) {
-                    APIImageView(recipe: recipe)
-                        .overlay(alignment: .topLeading) {
-                            BackButtonView()
+            ScrollViewReader { value in
+                GeometryReader { geo in
+                    ScrollView {
+                        LazyVStack {
+                            APITitleView(viewModel: viewModel, recipe: recipe)
+                            
+                            IconView(recipe: recipe, viewModel: viewModel)
+                            
+                            APIServingsDurationView(recipe: recipe)
+                            
+                            APISummaryView(recipe: recipe)
+                            
+                            APIIngredientsView(viewModel: viewModel, recipe: recipe)
+                            
+                            APIEquipmentView(viewModel: viewModel, recipe: recipe)
+                            
+                            APIInstructionsView(recipe: recipe)
+                            
+                            LinkButtonView(recipe: recipe)
                         }
+                        .safeAreaInset(edge: .top) {
+                            APIImageView(recipe: recipe)
+                                .overlay(alignment: .topLeading) {
+                                    BackButtonView()
+                                }
+                                .id(1)
+                        }
+                        .ignoresSafeArea(.all, edges: .all)
+                        .modifier(DetectScroll(isButtonShown: $showScrollToTopButton, geoProxy: geo))
+                    }
+                    .modifier(ScrollButton(isButtonShown: $showScrollToTopButton, scrollProxy: value))
                 }
-                .ignoresSafeArea(.all, edges: .all)
             }
             .ignoresSafeArea(.all, edges: .top)
             .toolbar(.hidden, for: .navigationBar)
             .statusBarHidden(true)
-//            .navigationTitle(viewModel.navigationTitle(recipe: recipe)) // first 3 words
-//            .navigationBarTitleDisplayMode(.large)
-            
-//            .toolbar {
-//                ToolbarItem(placement: .topBarTrailing) {
-//                    HeartToolbarButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
-//                }
-//
         }
     }
 }

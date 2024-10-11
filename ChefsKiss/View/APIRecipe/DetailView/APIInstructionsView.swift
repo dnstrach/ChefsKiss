@@ -17,7 +17,9 @@ struct APIInstructionsView: View {
             HStack {
                 Text("Instructions")
                     .font(.title2)
+                    .fontDesign(.rounded)
                     .fontWeight(.bold)
+                    .padding(.leading)
                     .padding(.leading)
                     .padding(.bottom, 2)
                 
@@ -30,20 +32,14 @@ struct APIInstructionsView: View {
                     ForEach(Array(instructions.flatMap { $0.steps }.enumerated()), id: \.element.step) { index, step in
                         
                         if index == 0 {
-                            Rectangle()
-                                .frame(height: 2)
-                                .foregroundStyle(Color.accent)
-                                // .opacity(0.2)
-                              //  .shadow(color: Color.secondary, radius: 5)
-                                .padding(.horizontal)
-                                .padding(.horizontal)
+                            LineDividerView()
                         }
                         
-                     //   Divider()
                         HStack {
                             Text("\(index + 1).")
                                 .foregroundStyle(Color.accent)
                                 .font(.title2)
+                                .fontDesign(.rounded)
                                 .bold()
                             Text("\(step.step)")
                             
@@ -54,16 +50,8 @@ struct APIInstructionsView: View {
                         .padding(.leading)
                         .padding(.trailing)
                         .padding(.trailing)
-//                        .padding(.bottom)
-                      
-                        Rectangle()
-                            .frame(height: 2)
-                            .foregroundStyle(Color.accent)
-                          //  .shadow(color: Color.secondary, radius: 5)
-                          //  .opacity(0.2)
-                            .padding(.horizontal)
-                            .padding(.horizontal)
-                     //   Divider()
+                        
+                        LineDividerView()
                         
                     }
                 } else {

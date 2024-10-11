@@ -35,7 +35,8 @@ struct RecipeRowView: View {
             
             Text(recipe.title)
                 .padding()
-                .font(.title3)
+                .font(.system(size: 25))
+                .fontDesign(.rounded)
                 .lineLimit(2)
         }
     }
