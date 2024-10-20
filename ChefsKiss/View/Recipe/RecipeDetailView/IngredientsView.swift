@@ -18,9 +18,7 @@ struct IngredientsView: View {
             
             VStack(alignment: .leading) {
                 Text("Ingredients")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.top)
                 
@@ -32,6 +30,7 @@ struct IngredientsView: View {
                                     .foregroundStyle(Color.accent)
                                 
                                 Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
+                                    .contentFont()
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
                             }
@@ -42,6 +41,7 @@ struct IngredientsView: View {
                 } else {
                     HStack {
                         Text("No ingredients listed")
+                            .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
                         

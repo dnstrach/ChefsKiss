@@ -18,28 +18,23 @@ enum ImageState {
     case empty
     case loading(Progress)
     case success(Data)
+    case cameraImage
     case savedImage
     case failure(Error)
 }
 
 @MainActor
 @Observable final class AddEditRecipeViewModel: ObservableObject {
-    var selectedIngredient: Recipe.Ingredient?
-    
-    var selectedEquipment: Recipe.Equipment?
-    
-    var selectedInstruction: Recipe.Instruction?
-    
     var title: String = ""
     var summary: String = ""
     
     var imageState: ImageState = .empty
 
     var selectedCameraImage: UIImage? 
-    var selectedImage: PhotosPickerItem? {
+    var selectedPhoto: PhotosPickerItem? {
         didSet {
-            if let selectedImage {
-                let progress = loadTransferable(from: selectedImage)
+            if let selectedPhoto {
+                let progress = loadTransferable(from: selectedPhoto)
                 imageState = .loading(progress)
             } else {
                 imageState = .empty
@@ -66,12 +61,10 @@ enum ImageState {
     var measurement: Double? = nil
     var amountDouble: Double?
     var measurementType: String = ""
-    
+    var selectedIngredient: Recipe.Ingredient?
     let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
-    
     var sortedIngredients: [Recipe.Ingredient] {
-        ingredients.sorted(by: {$0.name < $1.name} )
-    }
+        ingredients.sorted(by: {$0.name < $1.name}) }
     
     var disableIngredient: Bool {
         ingredientName.isReallyEmpty
@@ -79,26 +72,16 @@ enum ImageState {
     
     var appliances: [Recipe.Equipment] = []
     var equipmentName: String = ""
-    
-    var sortedEquipment: [Recipe.Equipment] {
-        appliances.sorted(by: {$0.name < $1.name} )
-    }
-    
-    var disableEquip: Bool {
-        equipmentName.isReallyEmpty
-    }
+    var selectedEquipment: Recipe.Equipment?
+    var sortedEquipment: [Recipe.Equipment] { appliances.sorted(by: {$0.name < $1.name}) }
+    var disableEquip: Bool { equipmentName.isReallyEmpty }
     
     var instructions: [Recipe.Instruction] = []
     var stepNumber: Int = 0
     var step: String = ""
-    
-    var sortedInstructions: [Recipe.Instruction] {
-        instructions.sorted(by: {$0.index < $1.index} )
-    }
-    
-    var disableStep: Bool {
-        step.isReallyEmpty
-    }
+    var selectedInstruction: Recipe.Instruction?
+    var sortedInstructions: [Recipe.Instruction] { instructions.sorted(by: {$0.index < $1.index}) }
+    var disableStep: Bool { step.isReallyEmpty }
     
     var disableForm: Bool {
         title.isReallyEmpty
@@ -106,19 +89,21 @@ enum ImageState {
     
     func clearPhoto(recipe: Recipe) {
         imageState = .empty
-        selectedImage = nil
+        selectedPhoto = nil
+        selectedCameraImage = nil
         recipe.image = nil
     }
     
     private func loadTransferable(from selectedImage: PhotosPickerItem) -> Progress {
         return selectedImage.loadTransferable(type: Data.self) { result in
             DispatchQueue.main.async {
-                guard selectedImage == self.selectedImage else { return }
+                guard selectedImage == self.selectedPhoto else { return }
                 switch result {
                 case .success(nil):
                     self.imageState = .empty
                 case .success(let imageData?):
                     self.imageState = .success(imageData)
+                    self.selectedCameraImage = nil
                 case .failure(let error):
                     self.imageState = .failure(error)
                 }
@@ -127,29 +112,29 @@ enum ImageState {
     }
     
     func saveImage(_ recipe: Recipe) {
-        // convert selectedCameraImage to data if not nil
+        // First, check if there's a selected photo from the library
         if let selectedImage = selectedCameraImage {
             if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
                 recipe.image = imageData
             }
         }
-        
-        guard let selectedImage else { return }
-        
-        Task {
-            do {
-                let data = try await selectedImage.loadTransferable(type: Data.self)
-                
-                guard let data, let uiImage = UIImage(data: data) else {
-                    throw PhotoError.badConversion
+        // If no photo is selected from the library, check if there's a camera image
+        else if let selectedPhoto {
+            Task {
+                do {
+                    let data = try await selectedPhoto.loadTransferable(type: Data.self)
+                    
+                    guard let data, let uiImage = UIImage(data: data) else {
+                        throw PhotoError.badConversion
+                    }
+                    
+                    if let imageData = uiImage.jpegData(compressionQuality: 0.8) {
+                        recipe.image = imageData
+                    }
+                    
+                } catch {
+                    print(error)
                 }
-                
-                if let imageData = uiImage.jpegData(compressionQuality: 0.8) {
-                    recipe.image = imageData
-                }
-                
-            } catch {
-                print(error)
             }
         }
     }
@@ -230,12 +215,6 @@ enum ImageState {
         
         print("end")
         
-    }
-}
-
-extension Data {
-    func toUIImage() -> UIImage? {
-        return UIImage(data: self)
     }
 }
 

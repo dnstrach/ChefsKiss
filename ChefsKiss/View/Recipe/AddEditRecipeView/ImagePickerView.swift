@@ -38,9 +38,11 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         self.picker.selectedImage = selectedImage
-        if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
-            self.picker.imageState = .success(imageData)
-        }
+        self.picker.imageState = .cameraImage
+        
+//        if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+//            self.picker.imageState = .success(imageData)
+//        }
         self.picker.dismiss()
     }
 }
@@ -53,74 +55,83 @@ struct ImagePickerView: View {
     let recipe: Recipe?
     
     var body: some View {
-        //  VStack {
-        HStack {
-            CameraButtonView(cameraView: $showCamera)
-            
-            Spacer()
-            
-            switch viewModel.imageState {
-            case .savedImage:
-                XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
-            case .success:
-                XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
-            default:
-                EmptyView()
-            }
-            
-        }
-        
-        HStack {
-            switch viewModel.imageState {
-            case .empty:
-                ContentUnavailableView("No picture", systemImage: "photo.badge.plus", description: Text("Tap to import photo"))
-                    .foregroundStyle(.accent)
+        VStack {
+            HStack {
+                CameraButtonView(cameraView: $showCamera)
                 
-            case .loading:
-                KissAnimation()
+                Spacer()
                 
-                // savedImage will show larger width/height because being shown from Data -> UIImage
-            case .savedImage:
-                if let recipe = recipe {
-                    if let savedImage = recipe.image,
-                       let uiSavedImage = UIImage(data: savedImage) {
-                        Image(uiImage: uiSavedImage)
-                            .resizable()
-                            .scaledToFit()
-                    }
+                switch viewModel.imageState {
+                case .savedImage:
+                    XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
+                case .success:
+                    XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
+                default:
+                    EmptyView()
                 }
                 
-                // selected image will show smaller width/height because being shown as Image
-            case .success(let data):
-                if let uiImage = UIImage(data: data) {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                } else {
+            }
+            
+            HStack {
+                switch viewModel.imageState {
+                case .empty:
+                    ContentUnavailableView("No picture", systemImage: "photo.badge.plus", description: Text("Tap to import photo"))
+                        .foregroundStyle(.accent)
+                    
+                case .loading:
+                    KissAnimation()
+                    
+                    // savedImage will show larger width/height because being shown from Data -> UIImage
+                case .savedImage:
+                    if let recipe = recipe {
+                        if let savedImage = recipe.image,
+                           let uiSavedImage = UIImage(data: savedImage) {
+                            Image(uiImage: uiSavedImage)
+                                .resizable()
+                                .scaledToFit()
+                        }
+                    }
+                    
+                    // selected image will show smaller width/height because being shown as Image
+                case .success(let data):
+                    if let uiImage = UIImage(data: data) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    }
+    //                } else {
+    //                    if let uiImage = viewModel.selectedCameraImage {
+    //                        Image(uiImage: uiImage)
+    //                            .resizable()
+    //                            .aspectRatio(contentMode: .fill)
+    //                    }
+    //                }
+                    
+                case .cameraImage:
                     if let uiImage = viewModel.selectedCameraImage {
                         Image(uiImage: uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                     }
+                    
+                case .failure:
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.system(size: 40))
+                        .foregroundStyle(.white)
                 }
                 
-            case .failure:
-                Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.system(size: 40))
-                    .foregroundStyle(.white)
             }
-            
-        }
-        .overlay {
-            PhotosPicker(
-                "",
-                selection: $viewModel.selectedImage,
-                matching: .images,
-                photoLibrary: .shared()
-            )
-        }
-        .fullScreenCover(isPresented: $showCamera) {
-            CameraView(selectedImage: $viewModel.selectedCameraImage, imageState: $viewModel.imageState)
+            .overlay {
+                PhotosPicker(
+                    "",
+                    selection: $viewModel.selectedPhoto,
+                    matching: .images,
+                    photoLibrary: .shared()
+                )
+            }
+            .fullScreenCover(isPresented: $showCamera) {
+                CameraView(selectedImage: $viewModel.selectedCameraImage, imageState: $viewModel.imageState)
+            }
         }
     }
 }

@@ -14,9 +14,7 @@ struct InstructionsView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text("Instructions")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.leading)
                     .padding(.top)
@@ -32,6 +30,7 @@ struct InstructionsView: View {
                                 .bold()
                             
                             Text("\(step.step)")
+                                .contentFont()
                             
                             Spacer()
                         }
@@ -43,7 +42,8 @@ struct InstructionsView: View {
                         LineDividerView()
                     }
                 } else {
-                    Text("No ingredients listed")
+                    Text("No instructions listed")
+                        .contentFont()
                         .foregroundColor(.gray)
                         .padding(.leading)
                         .padding(.leading)

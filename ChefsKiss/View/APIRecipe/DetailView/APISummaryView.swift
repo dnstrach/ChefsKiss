@@ -14,6 +14,7 @@ struct APISummaryView: View {
     
     var body: some View {
         Text(recipe.summary.stringByStrippingHTMLTags())
+            .contentFont()
             .lineLimit(isFullSummary ? nil : 4)
             .overlay(alignment: .bottomTrailing) {
                 ExpandButtonView(isFullSummary: $isFullSummary)

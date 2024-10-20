@@ -18,9 +18,7 @@ struct EquipmentView: View {
             
             VStack(alignment: .leading) {
                 Text("Equipment")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.top)
                 
@@ -32,6 +30,7 @@ struct EquipmentView: View {
                                     .foregroundStyle(Color.accent)
                                 
                                 Text(equipment.name)
+                                    .contentFont()
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
                             }
@@ -43,6 +42,7 @@ struct EquipmentView: View {
                 } else {
                     HStack {
                         Text("No equipment listed")
+                            .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
                         

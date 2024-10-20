@@ -18,9 +18,7 @@ struct APIEquipmentView: View {
             
             VStack(alignment: .leading) {
                 Text("Equipment")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.top)
                 
@@ -37,6 +35,7 @@ struct APIEquipmentView: View {
                                     .foregroundStyle(Color.accent)
                                 
                                 Text(equipment.name)
+                                    .contentFont()
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
                             }
@@ -47,6 +46,7 @@ struct APIEquipmentView: View {
                 } else {
                     HStack {
                         Text("No equipment available")
+                            .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
                         

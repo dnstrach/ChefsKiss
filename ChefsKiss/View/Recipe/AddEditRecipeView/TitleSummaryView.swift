@@ -11,12 +11,8 @@ struct TitleSummaryView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
     var body: some View {
-       // Form {
-            Section {
-                TextField("Title", text: $viewModel.title)
-                TextField("Summary", text: $viewModel.summary, axis: .vertical)
-            }
-    //    }
+        TextField("Title", text: $viewModel.title)
+        TextField("Summary", text: $viewModel.summary, axis: .vertical)
     }
 }
 

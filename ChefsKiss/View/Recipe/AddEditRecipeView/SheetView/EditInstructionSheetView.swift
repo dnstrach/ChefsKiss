@@ -20,6 +20,7 @@ struct EditInstructionSheetView: View {
         VStack {
             HStack {
                 TextField("Step", text: $step, axis: .vertical)
+                    .padding(.horizontal)
                     .textFieldStyle(.roundedBorder)
             }
             
@@ -28,6 +29,7 @@ struct EditInstructionSheetView: View {
                 dismiss()
             }
         }
+        .padding(.vertical)
         .onAppear {
             storeInitialStep(instruction)
         }

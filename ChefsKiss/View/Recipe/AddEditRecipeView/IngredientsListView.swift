@@ -10,7 +10,30 @@ import SwiftUI
 struct IngredientsListView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
+    @State var showAddIngredientSheet: Bool = false
+    
     var body: some View {
+        HStack {
+            Text("INGREDIENTS")
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+            
+            Spacer()
+            
+            PlusButtonView(showSheet: $showAddIngredientSheet)
+            
+          //  Spacer()
+        }
+        .sheet(isPresented: $showAddIngredientSheet) {
+            ZStack {
+                Color.accent.ignoresSafeArea(.all)
+                
+                AddIngredientView(viewModel: viewModel)
+                    .presentationDetents([.fraction(0.25)])
+                    .presentationDragIndicator(.hidden)
+            }
+        }
+        
         List {
             ForEach(viewModel.sortedIngredients, id: \.id) { ingredient in
                 HStack {
@@ -37,38 +60,6 @@ struct IngredientsListView: View {
                     }
                 }
             }
-        }
-        
-        VStack {
-            HStack {
-                TextField("Qty", value: $viewModel.measurement, format: .number) 
-                    .textFieldStyle(.roundedBorder)
-                    .keyboardType(.decimalPad)
-                    .frame(width: 50)
-                
-                TextField("Ingredient", text: $viewModel.ingredientName) 
-                    .textFieldStyle(.roundedBorder)
-                
-            }
-            
-            ScrollView(.horizontal, showsIndicators: true) {
-                HStack {
-                    Picker("Metric", selection: $viewModel.measurementType) {
-                        ForEach(viewModel.measureTypes, id: \.self) { measure in
-                            Text(measure)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 20)
-            }
-            
-            Button("Add Ingredient", systemImage: "plus.circle") {
-                viewModel.addIngredient()
-                UIApplication.shared.endEditing()
-            }
-            .disabled(viewModel.disableIngredient)
         }
     }
 }

@@ -19,9 +19,7 @@ struct APIIngredientsView: View {
             VStack(alignment: .leading) {
                 
                 Text("Ingredients")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.top)
                 
@@ -37,6 +35,7 @@ struct APIIngredientsView: View {
                                     .foregroundStyle(Color.accent)
                                 
                                 Text(ingredient.name)
+                                    .contentFont()
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
                                   //  .padding(.horizontal)
@@ -48,6 +47,7 @@ struct APIIngredientsView: View {
                 } else {
                     HStack {
                         Text("No ingredients available")
+                            .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
                         

@@ -7,17 +7,38 @@
 
 import SwiftUI
 
-enum SheetAction {
-    case cancel
-    case swipeDown
-}
+//enum SheetAction {
+//    case cancel
+//    case swipeDown
+//}
 
 struct EquipmentListView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
-   // @State var isPresented: Bool = false
+    @State var showAddEquipmentSheet: Bool = false
     
     var body: some View {
+        HStack {
+            Text("EQUIPMENT")
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+            
+            Spacer()
+            
+            PlusButtonView(showSheet: $showAddEquipmentSheet)
+            
+          //  Spacer()
+        }
+        .sheet(isPresented: $showAddEquipmentSheet) {
+            ZStack {
+                Color.accent.ignoresSafeArea(.all)
+                
+                AddEquipmentView(viewModel: viewModel)
+                    .presentationDetents([.fraction(0.25)])
+                    .presentationDragIndicator(.hidden)
+            }
+        }
+        
         List {
             ForEach(viewModel.sortedEquipment, id: \.id) { equipment in
                 HStack {
@@ -35,23 +56,8 @@ struct EquipmentListView: View {
                 }
             }
         }
-//        .sheet(item: $viewModel.selectedEquipment) { equipment in
-//            EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
-//                .presentationDetents([.fraction(0.25)])
-//                .presentationDragIndicator(.hidden)
-//        }
-        
-        VStack {
-            TextField("Equipment", text: $viewModel.equipmentName)
-                .textFieldStyle(.roundedBorder)
-            
-            Button("Add Equipment", systemImage: "plus.circle") {
-                viewModel.addEquipment()
-                UIApplication.shared.endEditing()
-            }
-            .disabled(viewModel.disableEquip)
-        }
     }
+        
 }
 
 #Preview {

@@ -16,7 +16,6 @@ struct ImageView: View {
         VStack {
             if let imageData = recipe.image,
                let uiImage = UIImage(data: imageData) {
-                
                 Image(uiImage: uiImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)

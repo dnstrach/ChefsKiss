@@ -47,9 +47,9 @@ struct RecipeDetailView: View {
                                 }
                         }
                         .ignoresSafeArea(.container, edges: .top)
-                        .modifier(DetectScroll(isButtonShown: $showScrollToTopButton, geoProxy: geo))
+                        .showScrollButton($showScrollToTopButton, geoProxy: geo)
                     }
-                    .modifier(ScrollButton(isButtonShown: $showScrollToTopButton, scrollProxy: value))
+                    .scrollButton($showScrollToTopButton, scrollProxy: value)
                 }
             }
             .ignoresSafeArea(.all, edges: .top)

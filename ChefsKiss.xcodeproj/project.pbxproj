@@ -51,7 +51,13 @@
 		D87385892CB8647D00873264 /* ExpandButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87385882CB8647D00873264 /* ExpandButtonView.swift */; };
 		D873858B2CB8917F00873264 /* XButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873858A2CB8917F00873264 /* XButtonView.swift */; };
 		D873858F2CB89C0A00873264 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D873858E2CB89C0A00873264 /* CameraButtonView.swift */; };
+		D87385972CBA2B8000873264 /* KeyboardAvoidance.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87385962CBA2B8000873264 /* KeyboardAvoidance.swift */; };
 		D87AC2032BE5787C0079569C /* KissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87AC2022BE5787C0079569C /* KissAnimation.swift */; };
+		D88158C92CC4990A0078E115 /* AddEquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158C82CC4990A0078E115 /* AddEquipmentView.swift */; };
+		D88158CC2CC49C9F0078E115 /* AddIngredientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158CB2CC49C9F0078E115 /* AddIngredientView.swift */; };
+		D88158CE2CC49E880078E115 /* AddInstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158CD2CC49E880078E115 /* AddInstructionView.swift */; };
+		D88158D02CC4A2FB0078E115 /* PlusButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158CF2CC4A2FB0078E115 /* PlusButtonView.swift */; };
+		D88158D22CC4A9680078E115 /* AddButtonLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158D12CC4A9680078E115 /* AddButtonLabelView.swift */; };
 		D894FF9A2CAF53B300E78F8F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D894FF992CAF53B300E78F8F /* CacheManager.swift */; };
 		D897A0D82C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */; };
 		D899C6E42C93CA1000FFEA7B /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D899C6E32C93CA1000FFEA7B /* IconView.swift */; };
@@ -125,8 +131,14 @@
 		D87385882CB8647D00873264 /* ExpandButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandButtonView.swift; sourceTree = "<group>"; };
 		D873858A2CB8917F00873264 /* XButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XButtonView.swift; sourceTree = "<group>"; };
 		D873858E2CB89C0A00873264 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
+		D87385962CBA2B8000873264 /* KeyboardAvoidance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAvoidance.swift; sourceTree = "<group>"; };
 		D87AC2022BE5787C0079569C /* KissAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KissAnimation.swift; sourceTree = "<group>"; };
 		D87AC2042BE86C7C0079569C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D88158C82CC4990A0078E115 /* AddEquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEquipmentView.swift; sourceTree = "<group>"; };
+		D88158CB2CC49C9F0078E115 /* AddIngredientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIngredientView.swift; sourceTree = "<group>"; };
+		D88158CD2CC49E880078E115 /* AddInstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddInstructionView.swift; sourceTree = "<group>"; };
+		D88158CF2CC4A2FB0078E115 /* PlusButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlusButtonView.swift; sourceTree = "<group>"; };
+		D88158D12CC4A9680078E115 /* AddButtonLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonLabelView.swift; sourceTree = "<group>"; };
 		D894FF992CAF53B300E78F8F /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		D899C6E32C93CA1000FFEA7B /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -170,9 +182,6 @@
 			children = (
 				D8C4A92B2C2CD2E40097BAA8 /* AddEditRecipeView.swift */,
 				D824A0582C9A92D600452EC7 /* CookTimePickerView.swift */,
-				D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */,
-				D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */,
-				D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */,
 				D824A05C2C9A93D100452EC7 /* EquipmentListView.swift */,
 				D8C4A92D2C2CE7DB0097BAA8 /* ImagePickerView.swift */,
 				D824A05A2C9A934400452EC7 /* IngredientsListView.swift */,
@@ -180,6 +189,7 @@
 				D824A0562C9A910F00452EC7 /* PrepTimePickerView.swift */,
 				D824A0542C9A8F9D00452EC7 /* ServingsPickerView.swift */,
 				D824A0502C9A4BA000452EC7 /* TitleSummaryView.swift */,
+				D88158CA2CC49AE40078E115 /* SheetView */,
 			);
 			path = AddEditRecipeView;
 			sourceTree = "<group>";
@@ -288,6 +298,7 @@
 			children = (
 				D82FA4AD2BBBCC3500077128 /* UIApplication.swift */,
 				D8D061A52BC4604F00B23350 /* String.swift */,
+				D87385962CBA2B8000873264 /* KeyboardAvoidance.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -341,15 +352,28 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		D88158CA2CC49AE40078E115 /* SheetView */ = {
+			isa = PBXGroup;
+			children = (
+				D88158C82CC4990A0078E115 /* AddEquipmentView.swift */,
+				D88158CB2CC49C9F0078E115 /* AddIngredientView.swift */,
+				D88158CD2CC49E880078E115 /* AddInstructionView.swift */,
+				D8D77F632C9BDB6B0017A85B /* EditEquipmentSheetView.swift */,
+				D8D77F672C9CE5150017A85B /* EditIngredientSheetView.swift */,
+				D8D77F652C9CE1700017A85B /* EditInstructionSheetView.swift */,
+			);
+			path = SheetView;
+			sourceTree = "<group>";
+		};
 		D897A0D52C9A2E5400BC3A5A /* RecipeDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				D82FA4B52BBDCB1B00077128 /* RecipeDetailView.swift */,
 				D824A04B2C9A3C9A00452EC7 /* EquipmentView.swift */,
 				D824A0412C9A32E200452EC7 /* ImageView.swift */,
 				D824A0492C9A3C0C00452EC7 /* IngredientsView.swift */,
 				D824A04D2C9A3CD700452EC7 /* InstructionsView.swift */,
 				D824A0432C9A346D00452EC7 /* PrepCookTimeView.swift */,
-				D82FA4B52BBDCB1B00077128 /* RecipeDetailView.swift */,
 				D824A0452C9A3A9B00452EC7 /* ServingsView.swift */,
 				D824A0472C9A3BB800452EC7 /* SummaryView.swift */,
 				D824A03F2C9A326E00452EC7 /* TitleView.swift */,
@@ -394,6 +418,7 @@
 		D8D674842CB856EF00FD9FE3 /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				D88158D12CC4A9680078E115 /* AddButtonLabelView.swift */,
 				D8D674782CB61F6900FD9FE3 /* BackButtonView.swift */,
 				D873858E2CB89C0A00873264 /* CameraButtonView.swift */,
 				D8D6747C2CB6372800FD9FE3 /* EditButtonView.swift */,
@@ -404,6 +429,7 @@
 				D8D6747E2CB6F12F00FD9FE3 /* LineDividerView.swift */,
 				D8BDBA702C98E37700AC5E52 /* LinkButtonView.swift */,
 				D8D674852CB8572000FD9FE3 /* Modifier.swift */,
+				D88158CF2CC4A2FB0078E115 /* PlusButtonView.swift */,
 				D8D674802CB6F1E500FD9FE3 /* RoundedRectangleView.swift */,
 				D82FA4A32BBBCC2C00077128 /* SearchBarView.swift */,
 				D873858A2CB8917F00873264 /* XButtonView.swift */,
@@ -489,6 +515,7 @@
 				D82FA48A2BBBCBD900077128 /* APIRecipe.swift in Sources */,
 				D82FA4882BBBCBBE00077128 /* APIManager.swift in Sources */,
 				D8BDBA652C98DCA500AC5E52 /* APIEquipmentView.swift in Sources */,
+				D87385972CBA2B8000873264 /* KeyboardAvoidance.swift in Sources */,
 				D824A04E2C9A3CD700452EC7 /* InstructionsView.swift in Sources */,
 				D873858F2CB89C0A00873264 /* CameraButtonView.swift in Sources */,
 				D8D6747F2CB6F12F00FD9FE3 /* LineDividerView.swift in Sources */,
@@ -508,19 +535,23 @@
 				D82FA49B2BBBCC2600077128 /* MyRecipeListView.swift in Sources */,
 				D8BDBA6B2C98E01500AC5E52 /* APISummaryView.swift in Sources */,
 				D82FA4AE2BBBCC3500077128 /* UIApplication.swift in Sources */,
+				D88158CC2CC49C9F0078E115 /* AddIngredientView.swift in Sources */,
 				D899C6E42C93CA1000FFEA7B /* IconView.swift in Sources */,
 				D82FA4A92BBBCC2C00077128 /* APIRecipeDetailView.swift in Sources */,
 				D8BDBA6D2C98E0D900AC5E52 /* APITitleView.swift in Sources */,
+				D88158C92CC4990A0078E115 /* AddEquipmentView.swift in Sources */,
 				D8BDBA712C98E37700AC5E52 /* LinkButtonView.swift in Sources */,
 				D8454CF72BF5CA5200F449A8 /* RecipePreview.swift in Sources */,
 				D82FA4A62BBBCC2C00077128 /* CategoryView.swift in Sources */,
 				D8D674792CB61F6900FD9FE3 /* BackButtonView.swift in Sources */,
 				D82FA4A52BBBCC2C00077128 /* CategoryGridView.swift in Sources */,
+				D88158D02CC4A2FB0078E115 /* PlusButtonView.swift in Sources */,
 				D873858B2CB8917F00873264 /* XButtonView.swift in Sources */,
 				D824A0402C9A326E00452EC7 /* TitleView.swift in Sources */,
 				D8D674862CB8572000FD9FE3 /* Modifier.swift in Sources */,
 				D82FA4932BBBCC0700077128 /* CategoryViewModel.swift in Sources */,
 				D824A0462C9A3A9B00452EC7 /* ServingsView.swift in Sources */,
+				D88158D22CC4A9680078E115 /* AddButtonLabelView.swift in Sources */,
 				D824A04A2C9A3C0C00452EC7 /* IngredientsView.swift in Sources */,
 				D82FA4B22BBC6AEA00077128 /* RecipeRowView.swift in Sources */,
 				D82FA4AC2BBBCC2C00077128 /* SearchBarView.swift in Sources */,
@@ -535,6 +566,7 @@
 				D824A0592C9A92D600452EC7 /* CookTimePickerView.swift in Sources */,
 				D824A05D2C9A93D100452EC7 /* EquipmentListView.swift in Sources */,
 				D87AC2032BE5787C0079569C /* KissAnimation.swift in Sources */,
+				D88158CE2CC49E880078E115 /* AddInstructionView.swift in Sources */,
 				D8D061A62BC4604F00B23350 /* String.swift in Sources */,
 				D8D77F682C9CE5150017A85B /* EditIngredientSheetView.swift in Sources */,
 				D8D77F662C9CE1700017A85B /* EditInstructionSheetView.swift in Sources */,

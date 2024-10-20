@@ -15,6 +15,7 @@ struct SummaryView: View {
     var body: some View {
         if !recipe.summary.isEmpty {
             Text(recipe.summary)
+                .contentFont()
                 .lineLimit(isFullSummary ? nil : 2)
                 .overlay(alignment: .bottomTrailing) {
                     ExpandButtonView(isFullSummary: $isFullSummary)

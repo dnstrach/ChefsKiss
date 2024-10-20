@@ -11,7 +11,9 @@ struct ServingsPickerView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
     var body: some View {
-        Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 1...100, step: 0.5)
+        VStack {
+            Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 1...100, step: 0.5)
+        }
     }
 }
 

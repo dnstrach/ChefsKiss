@@ -61,7 +61,7 @@ struct SavedRecipesView: View {
                                                     }
                                                 
                                                 Text(recipe.title)
-                                                    .titleStyle()
+                                                    .titleFont()
                                                 
                                             } else if phase.error != nil {
                                                 Image("Placeholder")
@@ -75,7 +75,7 @@ struct SavedRecipesView: View {
                                                     }
                                                 
                                                 Text(recipe.title)
-                                                    .titleStyle()
+                                                    .titleFont()
                                                 
                                             } else {
                                                 KissAnimation()

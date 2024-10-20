@@ -19,6 +19,7 @@ struct EditEquipmentSheetView: View {
     var body: some View {
         VStack {
             TextField("Equipment", text: $equipmentName)
+                .padding(.horizontal)
                 .textFieldStyle(.roundedBorder)
                 .padding()
             
@@ -27,7 +28,7 @@ struct EditEquipmentSheetView: View {
                 dismiss()
             }
         }
-        .padding()
+        .padding(.vertical)
         .onAppear {
             storeInitialEquipment(equipment)
         }

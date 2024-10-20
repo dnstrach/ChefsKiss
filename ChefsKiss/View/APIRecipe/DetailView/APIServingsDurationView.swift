@@ -14,8 +14,10 @@ struct APIServingsDurationView: View {
         HStack {
             HStack {
                 Text("Servings:")
+                    .contentFont()
                     .fontWeight(.bold)
                 Text("\(recipe.servings)")
+                    .contentFont()
             }
             
             
@@ -23,8 +25,10 @@ struct APIServingsDurationView: View {
             
             HStack {
                 Text("Duration:")
+                    .contentFont()
                     .fontWeight(.bold)
                 Text("\(recipe.readyInMinutes) minutes")
+                    .contentFont()
             }
         }
         .padding(.horizontal, 50)

@@ -30,6 +30,7 @@ struct EditIngredientSheetView: View {
                     .textFieldStyle(.roundedBorder)
                 
             }
+            .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack {
@@ -40,15 +41,17 @@ struct EditIngredientSheetView: View {
                     }
                     .pickerStyle(.segmented)
                 }
+                .padding(.horizontal)
                 .padding(.top, 10)
                 .padding(.bottom, 20)
             }
             
-            Button("Add Ingredient", systemImage: "plus.circle") {
+            Button("Edit Ingredient", systemImage: "plus.circle") {
                 editIngredient(ingredient)
                 dismiss()
             }
         }
+        .padding(.vertical)
         .onAppear {
             storeInitialIngredient(ingredient)
         }

@@ -16,9 +16,7 @@ struct APIInstructionsView: View {
         VStack {
             HStack {
                 Text("Instructions")
-                    .font(.title2)
-                    .fontDesign(.rounded)
-                    .fontWeight(.bold)
+                    .subtitleFont()
                     .padding(.leading)
                     .padding(.leading)
                     .padding(.bottom, 2)
@@ -42,6 +40,7 @@ struct APIInstructionsView: View {
                                 .fontDesign(.rounded)
                                 .bold()
                             Text("\(step.step)")
+                                .contentFont()
                             
                             Spacer()
                             
@@ -57,6 +56,7 @@ struct APIInstructionsView: View {
                 } else {
                     HStack {
                         Text("No instructions available")
+                            .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
                         

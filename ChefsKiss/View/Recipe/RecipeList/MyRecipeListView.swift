@@ -50,6 +50,7 @@ struct MyRecipeListView: View {
                         isAddViewPresented.toggle()
                     } label: {
                         Image(systemName: "plus.circle.fill")
+                            .scaleEffect(1.5)
                     }
                 }
             }

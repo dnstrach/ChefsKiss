@@ -10,7 +10,30 @@ import SwiftUI
 struct InstructionsListView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
+    @State var showAddInstructionSheet: Bool = false
+    
     var body: some View {
+        HStack {
+            Text("INSTRUCTIONS")
+                .foregroundStyle(.secondary)
+                .font(.footnote)
+            
+            Spacer()
+            
+            PlusButtonView(showSheet: $showAddInstructionSheet)
+            
+//            Spacer()
+        }
+        .sheet(isPresented: $showAddInstructionSheet) {
+            ZStack {
+                Color.accent.ignoresSafeArea(.all)
+                
+                AddInstructionView(viewModel: viewModel)
+                    .presentationDetents([.fraction(0.25)])
+                    .presentationDragIndicator(.hidden)
+            }
+        }
+        
         List {
             if !viewModel.instructions.isEmpty {
                 EditButton()
@@ -32,22 +55,7 @@ struct InstructionsListView: View {
                 
             }
             .onMove(perform: viewModel.moveStep)
-            //  .onDelete(perform: deleteStep)
         }
-        
-        VStack {
-            HStack {
-                TextField("Step", text: $viewModel.step, axis: .vertical)
-                    .textFieldStyle(.roundedBorder)
-            }
-            
-            Button("Add Step", systemImage: "plus.circle") {
-                viewModel.addStep(at: viewModel.instructions.count)
-                UIApplication.shared.endEditing()
-            }
-            .disabled(viewModel.disableStep)
-        }
-
     }
 }
 

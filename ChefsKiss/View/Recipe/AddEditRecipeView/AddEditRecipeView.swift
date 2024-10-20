@@ -5,6 +5,7 @@
 //  Created by Dominique Strachan on 6/26/24.
 //
 
+import Combine
 import PhotosUI
 import SwiftUI
 
@@ -16,81 +17,75 @@ struct AddEditRecipeView: View {
     
     let recipe: Recipe?
     
-    private var editorTitle: String {
-        recipe == nil ? "Add Recipe" : "Edit Recipe"
-    }
-    
     var body: some View {
         NavigationStack {
-            ScrollViewReader { value in
-                Form {
+            Form {
+                Section {
                     TitleSummaryView(viewModel: viewModel)
-                    
-                    Section {
-                        ImagePickerView(
-                            viewModel: viewModel, recipe: recipe
-                        )
-                        .onAppear(perform: showSavedImage)
-                    }
-                    
-                    Section("Servings") {
-                        ServingsPickerView(viewModel: viewModel)
-                    }
-                    
-                    Section("Prep Time") {
-                        PrepTimePickerView(viewModel: viewModel)
-                    }
-                    
-                    Section("Cook Time") {
-                        CookTimePickerView(viewModel: viewModel)
-                    }
-                    
-                    Section("Ingredients") {
-                        IngredientsListView(viewModel: viewModel)
-                    }
-                    
-                    Section("Equipment") {
-                        EquipmentListView(viewModel: viewModel)
-                    }
-                    
-                    Section("Instructions") {
-                        InstructionsListView(viewModel: viewModel)
-                    }
-                    
                 }
-                .onAppear {
-                    if let recipe {
-                        viewModel.title = recipe.title
-                        viewModel.summary = recipe.summary
-                        viewModel.servings = recipe.servings
-                        viewModel.prepHrTime = recipe.prepHrTime
-                        viewModel.prepMinTime = recipe.prepMinTime
-                        viewModel.cookHrTime = recipe.cookHrTime
-                        viewModel.cookMinTime = recipe.cookMinTime
-                        viewModel.ingredients = recipe.ingredients
-                        viewModel.instructions = recipe.instructions
-                        viewModel.appliances = recipe.appliances
-                    }
+                
+                Section {
+                    ImagePickerView(
+                        viewModel: viewModel, recipe: recipe
+                    )
+                    .onAppear(perform: showSavedImage)
                 }
-                // .navigationTitle(editorTitle)
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        Text(editorTitle)
-                    }
-                    
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Button("Save") {
-                            withAnimation {
-                                save()
-                                dismiss()
-                            }
-                        }
-                        .disabled(viewModel.disableForm)
-                    }
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Cancel") {
+                
+                Section("Servings") {
+                    ServingsPickerView(viewModel: viewModel)
+                }
+                
+                Section("Prep Time") {
+                    PrepTimePickerView(viewModel: viewModel)
+                }
+                
+                Section("Cook Time") {
+                    CookTimePickerView(viewModel: viewModel)
+                }
+                
+                Section {
+                    IngredientsListView(viewModel: viewModel)
+                }
+                
+                Section {
+                    EquipmentListView(viewModel: viewModel)
+                }
+                
+                Section {
+                    InstructionsListView(viewModel: viewModel)
+                }
+            }
+            .onAppear {
+                if let recipe {
+                    viewModel.title = recipe.title
+                    viewModel.summary = recipe.summary
+                    viewModel.servings = recipe.servings
+                    viewModel.prepHrTime = recipe.prepHrTime
+                    viewModel.prepMinTime = recipe.prepMinTime
+                    viewModel.cookHrTime = recipe.cookHrTime
+                    viewModel.cookMinTime = recipe.cookMinTime
+                    viewModel.ingredients = recipe.ingredients
+                    viewModel.instructions = recipe.instructions
+                    viewModel.appliances = recipe.appliances
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text(recipe == nil ? "Add Recipe" : "Edit Recipe")
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Save") {
+                        withAnimation {
+                            save()
                             dismiss()
                         }
+                    }
+                    .disabled(viewModel.disableForm)
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        dismiss()
                     }
                 }
             }
@@ -150,7 +145,6 @@ struct AddEditRecipeView: View {
             )
             
             viewModel.saveImage(newRecipe)
-            // viewModel.storeImageInRecipe(newRecipe)
             context.insert(newRecipe)
         }
     }

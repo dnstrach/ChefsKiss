@@ -45,7 +45,7 @@ struct RecipesGridView: View {
                                                 }
                                             
                                             Text(recipe.title)
-                                                .titleStyle()
+                                                .titleFont()
                                         } else if phase.error != nil {
                                             Image("Placeholder")
                                                 .resizable()
@@ -59,7 +59,7 @@ struct RecipesGridView: View {
                                                 }
                                             
                                             Text(recipe.title)
-                                                .titleStyle()
+                                                .titleFont()
                                         } else {
                                             KissAnimation()
                                                 .frame(width: geometry.size.width, height: geometry.size.height)

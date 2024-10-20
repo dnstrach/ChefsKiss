@@ -5,6 +5,7 @@
 //  Created by Dominique Strachan on 10/10/24.
 //
 
+import Combine
 import SwiftUI
 
 struct Title: ViewModifier {
@@ -18,9 +19,19 @@ struct Title: ViewModifier {
     }
 }
 
-extension View {
-    func titleStyle() -> some View {
-        modifier(Title())
+struct Subtitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title2)
+            .fontDesign(.rounded)
+            .fontWeight(.bold)
+    }
+}
+
+struct ContentText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .fontDesign(.rounded)
     }
 }
 
@@ -33,14 +44,13 @@ struct ScrollButton: ViewModifier {
             .overlay(alignment: .bottomTrailing) {
                 if isButtonShown {
                     Button {
-                        withAnimation {
+                        withAnimation(.easeIn) {
                             scrollProxy.scrollTo(1, anchor: .top)
                         }
                     } label: {
                         Image(systemName: "arrow.up.circle.fill")
                             .opacity(0.2)
                             .scaleEffect(3)
-                           // .offset(x: geo.size.width - 80 , y: geo.size.height - 80)
                             .frame(width: 80, height: 80)
                     }
                 }
@@ -61,5 +71,27 @@ struct DetectScroll: ViewModifier {
                         isButtonShown = newY < -(screenHeight / 4)
                     }
             })
+    }
+}
+
+extension View {
+    func titleFont() -> some View {
+        modifier(Title())
+    }
+    
+    func subtitleFont() -> some View {
+        modifier(Subtitle())
+    }
+    
+    func contentFont() -> some View {
+        modifier(ContentText())
+    }
+    
+    func scrollButton(_ showButton: Binding<Bool>, scrollProxy: ScrollViewProxy) -> some View {
+        modifier(ScrollButton(isButtonShown: showButton, scrollProxy: scrollProxy))
+    }
+    
+    func showScrollButton(_ isButtonShown: Binding<Bool>, geoProxy: GeometryProxy) -> some View {
+        modifier(DetectScroll(isButtonShown: isButtonShown, geoProxy: geoProxy))
     }
 }
