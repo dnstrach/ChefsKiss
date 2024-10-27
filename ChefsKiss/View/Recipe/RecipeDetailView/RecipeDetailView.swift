@@ -23,9 +23,7 @@ struct RecipeDetailView: View {
                         LazyVStack {
                             TitleView(recipe: recipe)
                             
-                            ServingsView(recipe: recipe)
-                            
-                            PrepCookTimeView(recipe: recipe)
+                            DurationServingsView(viewModel: viewModel, recipe: recipe)
                             
                             SummaryView(recipe: recipe)
                             

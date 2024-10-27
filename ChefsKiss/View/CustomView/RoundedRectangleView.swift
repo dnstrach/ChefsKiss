@@ -13,7 +13,6 @@ struct RoundedRectangleView: View {
             .fill(Color.background)
             .opacity(0.2)
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accent))
-         //   .shadow(color: Color.shadow, radius: 5)
     }
 }
 

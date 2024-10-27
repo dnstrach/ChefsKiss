@@ -52,6 +52,7 @@ struct IngredientsView: View {
             .padding(.bottom)
         }
         .padding()
+        .padding(.top)
         .padding(.horizontal, 20)
     }
 }

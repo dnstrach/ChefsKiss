@@ -12,20 +12,19 @@ struct AddEquipmentView: View {
     
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
+    let showAddImage: Bool = true
+    
     var body: some View {
         VStack {
-            TextField("Equipment", text: $viewModel.equipmentName)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
-                .background(.textfield)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+            TextField("", text: $viewModel.equipmentName, prompt: Text("Equipment").foregroundStyle(.accent))
+                .textfieldStyle()
                 .padding(.horizontal)
             
             Button {
                 viewModel.addEquipment()
                 dismiss()
             } label: {
-                AddButtonLabelView(text: "Add Equipment")
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Add Equipment")
             }
             .disabled(viewModel.disableEquip)
         }

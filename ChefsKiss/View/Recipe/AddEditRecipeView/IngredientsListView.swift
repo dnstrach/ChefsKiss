@@ -15,8 +15,9 @@ struct IngredientsListView: View {
     var body: some View {
         HStack {
             Text("INGREDIENTS")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.accent)
                 .font(.footnote)
+                .fontWeight(.bold)
             
             Spacer()
             
@@ -25,13 +26,8 @@ struct IngredientsListView: View {
           //  Spacer()
         }
         .sheet(isPresented: $showAddIngredientSheet) {
-            ZStack {
-                Color.accent.ignoresSafeArea(.all)
-                
-                AddIngredientView(viewModel: viewModel)
-                    .presentationDetents([.fraction(0.25)])
-                    .presentationDragIndicator(.hidden)
-            }
+            AddIngredientView(viewModel: viewModel)
+                .sheetBackground()
         }
         
         List {

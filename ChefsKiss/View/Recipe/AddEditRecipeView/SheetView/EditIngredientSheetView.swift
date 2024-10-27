@@ -18,19 +18,22 @@ struct EditIngredientSheetView: View {
     @State var measurementType: String = ""
     @State var ingredientName: String = ""
     
+    let showAddImage: Bool = false
+    
     var body: some View {
         VStack {
             HStack {
-                TextField("Qty", value: $measurement, format: .number)
-                    .textFieldStyle(.roundedBorder)
+                TextField("", value: $measurement, format: .number, prompt: Text("Qty").foregroundStyle(.accent))
+                    .textfieldStyle()
                     .keyboardType(.decimalPad)
-                    .frame(width: 50)
+                    .frame(width: 100)
                 
-                TextField("Ingredient", text: $ingredientName)
-                    .textFieldStyle(.roundedBorder)
+                TextField("", text: $ingredientName, prompt: Text("Ingredient").foregroundStyle(.accent))
+                    .textfieldStyle()
                 
             }
             .padding(.horizontal)
+            .padding(.top)
             
             ScrollView(.horizontal, showsIndicators: true) {
                 HStack {
@@ -43,12 +46,13 @@ struct EditIngredientSheetView: View {
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
-                .padding(.bottom, 20)
             }
             
-            Button("Edit Ingredient", systemImage: "plus.circle") {
+            Button {
                 editIngredient(ingredient)
                 dismiss()
+            } label: {
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Edit Ingredient")
             }
         }
         .padding(.vertical)

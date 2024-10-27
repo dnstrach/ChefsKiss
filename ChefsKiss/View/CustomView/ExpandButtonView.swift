@@ -21,12 +21,12 @@ struct ExpandButtonView: View {
                     .foregroundStyle(Color.accentColor)
             }
             .scaleEffect(2)
-            .offset(x: isFullSummary ? 0 : 10, y: isFullSummary ? 0 : 25 )
+            .offset(x: isFullSummary ? 10 : 10, y: isFullSummary ? 10 : 35 )
             .shadow(color: Color.secondary, radius: 5)
             
             Image(systemName: isFullSummary ? "arrow.up" : "arrow.down")
                 .foregroundStyle(.white)
-                .offset(x: isFullSummary ? 0 : 10, y: isFullSummary ? 0 : 25 )
+                .offset(x: isFullSummary ? 10 : 10, y: isFullSummary ? 10 : 35 )
         }
     }
 }

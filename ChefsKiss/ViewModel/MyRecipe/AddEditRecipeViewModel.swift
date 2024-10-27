@@ -44,17 +44,11 @@ enum ImageState {
     
     var servings: Double = 4
     
-    var prepHrTime: Int = 0
-    var prepMinTime: Int = 0
-    
-    let prepHrRange = 0..<24
-    let prepMinRange = 0..<60
-    
-    var cookHrTime: Int = 0
-    var cookMinTime: Int = 0
-    
-    let cookHrRange = 0..<24
-    let cookMinRange = 0..<60
+    var prepTime: Int = 0
+    let prepTimeRange = 0..<1500
+
+    var cookTime: Int = 0
+    let cookTimeRange = 0..<1500
     
     var ingredients: [Recipe.Ingredient] = []
     var ingredientName: String = ""
@@ -87,11 +81,11 @@ enum ImageState {
         title.isReallyEmpty
     }
     
-    func clearPhoto(recipe: Recipe) {
+    func clearPhoto(recipe: Recipe?) {
         imageState = .empty
         selectedPhoto = nil
         selectedCameraImage = nil
-        recipe.image = nil
+        recipe?.image = nil
     }
     
     private func loadTransferable(from selectedImage: PhotosPickerItem) -> Progress {

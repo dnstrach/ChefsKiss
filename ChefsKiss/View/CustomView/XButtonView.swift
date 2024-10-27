@@ -10,27 +10,27 @@ import SwiftUI
 struct XButtonView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
-    let imageState: ImageState
     let recipe: Recipe?
+    
+    let imageState: ImageState
     
     var body: some View {
         Button {
-            if let recipe = recipe {
-                viewModel.clearPhoto(recipe: recipe)
-            }
+            viewModel.clearPhoto(recipe: recipe)
         } label: {
             Image(systemName: "x.circle.fill")
                 .imageScale(.large)
                 .foregroundStyle(.accent)
         }
         .buttonStyle(PlainButtonStyle())
+        .padding(.top)
     }
 }
 
 #Preview {
     do {
         let preview = try RecipePreview()
-        return XButtonView(viewModel: AddEditRecipeViewModel(), imageState: .empty, recipe: preview.recipe)
+        return XButtonView(viewModel: AddEditRecipeViewModel(), recipe: preview.recipe, imageState: .empty)
             .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")

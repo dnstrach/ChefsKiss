@@ -74,6 +74,28 @@ struct DetectScroll: ViewModifier {
     }
 }
 
+struct SheetTextfield: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal)
+            .padding(.vertical, 10)
+            .background(.textfield)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.accent1))
+    }
+}
+
+struct SheetBackground: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .presentationDetents([.fraction(0.25)])
+            .presentationDragIndicator(.hidden)
+            .presentationBackground(
+                LinearGradient(colors: [.accent, .accent1.opacity(0.9), .accent2.opacity(0.9), .accent3.opacity(0.9), .accent2.opacity(0.9), .accent1.opacity(0.9), .accent], startPoint: .topLeading, endPoint: .bottomTrailing)
+            )
+    }
+}
+
 extension View {
     func titleFont() -> some View {
         modifier(Title())
@@ -93,5 +115,13 @@ extension View {
     
     func showScrollButton(_ isButtonShown: Binding<Bool>, geoProxy: GeometryProxy) -> some View {
         modifier(DetectScroll(isButtonShown: isButtonShown, geoProxy: geoProxy))
+    }
+    
+    func textfieldStyle() -> some View {
+        modifier(SheetTextfield())
+    }
+    
+    func sheetBackground() -> some View {
+        modifier(SheetBackground())
     }
 }

@@ -26,10 +26,8 @@ struct RecipePreview {
             summary: "This is recipe summary.",
             image: imageData,
             servings: 6,
-            prepHrTime: 30,
-            prepMinTime: 30,
-            cookHrTime: 2,
-            cookMinTime: 45,
+            prepTime: 30,
+            cookTime: 2,
             ingredients: [
                 Recipe.Ingredient(
                     name: "basil",

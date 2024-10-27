@@ -12,22 +12,18 @@ struct AddIngredientView: View {
     
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
+    let showAddImage: Bool = true
+    
     var body: some View {
         VStack {
             HStack {
-                TextField("Qty", value: $viewModel.measurement, format: .number)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    .background(.textfield)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                TextField("", value: $viewModel.measurement, format: .number, prompt: Text("Qty").foregroundStyle(.accent))
+                    .textfieldStyle()
                     .keyboardType(.decimalPad)
-                    .frame(width: 60)
+                    .frame(width: 100)
                 
-                TextField("Ingredient", text: $viewModel.ingredientName)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    .background(.textfield)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                TextField("", text: $viewModel.ingredientName, prompt: Text("Ingredient").foregroundStyle(.accent))
+                    .textfieldStyle()
                 
             }
             .padding(.horizontal)
@@ -50,7 +46,7 @@ struct AddIngredientView: View {
                 viewModel.addIngredient()
                 dismiss()
             } label: {
-                AddButtonLabelView(text: "Add Ingredient")
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Add Ingredient")
             }
             .disabled(viewModel.disableIngredient)
         }

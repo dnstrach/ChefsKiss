@@ -16,10 +16,8 @@ class Recipe: Identifiable {
     var summary: String = ""
     var image: Data? = nil
     var servings: Double = 0
-    var prepHrTime: Int = 0
-    var prepMinTime: Int = 0
-    var cookHrTime: Int = 0
-    var cookMinTime: Int = 0
+    var prepTime: Int = 0
+    var cookTime: Int = 0
     var ingredients: [Ingredient]
     var instructions: [Instruction]
     var appliances: [Equipment]
@@ -36,16 +34,14 @@ class Recipe: Identifiable {
         instructions.sorted(by: {$0.index < $1.index} )
     }
     
-    init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepHrTime: Int, prepMinTime: Int, cookHrTime: Int, cookMinTime: Int, ingredients: [Ingredient], steps: [Instruction], appliances: [Equipment]) {
+    init(id: UUID = UUID(), title: String, summary: String, image: Data? = nil, servings: Double, prepTime: Int, cookTime: Int, ingredients: [Ingredient], steps: [Instruction], appliances: [Equipment]) {
         self.id = id
         self.title = title
         self.summary = summary
         self.image = image
         self.servings = servings
-        self.prepHrTime = prepHrTime
-        self.prepMinTime = prepMinTime
-        self.cookHrTime = cookHrTime
-        self.cookMinTime = cookMinTime
+        self.prepTime = prepTime
+        self.cookTime = cookTime
         self.ingredients = ingredients
         self.instructions = steps
         self.appliances = appliances

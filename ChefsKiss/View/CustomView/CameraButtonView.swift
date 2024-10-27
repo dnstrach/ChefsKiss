@@ -19,6 +19,7 @@ struct CameraButtonView: View {
                 .foregroundStyle(.accent)
         }
         .buttonStyle(PlainButtonStyle())
+        .padding(.top)
     }
 }
 

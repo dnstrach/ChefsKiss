@@ -23,7 +23,7 @@ struct SummaryView: View {
                 .padding(.horizontal)
                 .padding(.horizontal)
                 .padding(.horizontal)
-                .padding(.bottom)
+                .padding(.vertical)
         }
     }
 }

@@ -13,20 +13,27 @@ struct EditInstructionSheetView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
     @State var instruction: Recipe.Instruction
-    
     @State var step: String = ""
+    
+    let showAddImage: Bool = false
     
     var body: some View {
         VStack {
             HStack {
-                TextField("Step", text: $step, axis: .vertical)
-                    .padding(.horizontal)
-                    .textFieldStyle(.roundedBorder)
+                TextField("",
+                          text: $step,
+                          prompt: Text("Step").foregroundStyle(.accent),
+                          axis: .vertical
+                )
+                .textfieldStyle()
+                .padding(.horizontal)
             }
             
-            Button("Edit Step", systemImage: "plus.circle") {
+            Button {
                 editInstruction(instruction)
                 dismiss()
+            } label: {
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Edit Step")
             }
         }
         .padding(.vertical)

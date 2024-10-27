@@ -10,8 +10,6 @@ import SwiftUI
 struct IconView: View {
     let recipe: APIRecipe
     
-    let viewModel: APIRecipeDetailViewModel
-    
     var body: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 20) {
@@ -33,6 +31,7 @@ struct IconView: View {
                 }
             }
         }
+        .background(.green)
         .contentMargins(10, for: .scrollContent)
     }
     
@@ -40,6 +39,7 @@ struct IconView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.accent)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
             HStack {
                 Image(imageName)
                     .resizable()
@@ -61,7 +61,7 @@ struct IconView: View {
     do {
         let preview = try APIRecipePreview()
         
-        return IconView(recipe: preview.recipe, viewModel: APIRecipeDetailViewModel())
+        return IconView(recipe: preview.recipe)
             .modelContainer(preview.container)
     } catch {
         fatalError("Failed to create preview container.")

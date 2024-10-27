@@ -11,6 +11,9 @@ import SwiftUI
 class RecipeDetailViewModel: ObservableObject {
     @Published var isEditViewPresented = false
     
+    let min: String = "min"
+    let mins: String = "mins"
+    
     let columns = [
         GridItem(.flexible(minimum: 40, maximum: 200)),
         GridItem(.flexible(minimum: 40, maximum: 200))
@@ -39,5 +42,29 @@ class RecipeDetailViewModel: ObservableObject {
         let remainingTitle = remainingWords.joined(separator: " ")
         
         return remainingTitle
+    }
+    
+    func isServingsZero(recipe: Recipe) -> Bool {
+        recipe.servings == 0
+    }
+    
+    func isPrepTimeZero(recipe: Recipe) -> Bool {
+        recipe.prepTime == 0
+    }
+    
+    func isCookTimeZero(recipe: Recipe) -> Bool {
+        recipe.cookTime == 0
+    }
+
+    func showServings(recipe: Recipe) -> Bool {
+        !isServingsZero(recipe: recipe)
+    }
+    
+    func showPrepTime(recipe: Recipe) -> Bool {
+        !isPrepTimeZero(recipe: recipe)
+    }
+    
+    func showCookTime(recipe: Recipe) -> Bool {
+        !isCookTimeZero(recipe: recipe)
     }
 }

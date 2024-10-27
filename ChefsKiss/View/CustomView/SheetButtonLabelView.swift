@@ -7,21 +7,22 @@
 
 import SwiftUI
 
-struct AddButtonLabelView: View {
+struct SheetButtonLabelView: View {
+    var isAddItem: Bool
+    
     var text: String
     
     var body: some View {
         ZStack {
             Capsule()
-                .fill(.accent)
-                .overlay(Capsule().stroke(.white))
-                .shadow(
-                    color: .white.opacity(0.5),
-                    radius: 10, x: 0, y: 0
+                .fill(
+                    .accent1
                 )
+                .overlay(Capsule().stroke(.white))
+                .shadow(color: Color.shadow, radius: 5)
             
             HStack {
-                Image(systemName: "plus.circle.fill")
+                Image(systemName: isAddItem ? "plus.circle.fill" : "pencil.circle")
                     .foregroundStyle(.white)
                     .imageScale(.large)
                 
@@ -38,5 +39,5 @@ struct AddButtonLabelView: View {
 }
 
 #Preview {
-    AddButtonLabelView(text: "Add Ingredient")
+    SheetButtonLabelView(isAddItem: true, text: "Add Ingredient")
 }

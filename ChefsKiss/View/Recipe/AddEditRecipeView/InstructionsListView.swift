@@ -15,8 +15,9 @@ struct InstructionsListView: View {
     var body: some View {
         HStack {
             Text("INSTRUCTIONS")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.accent)
                 .font(.footnote)
+                .fontWeight(.bold)
             
             Spacer()
             
@@ -25,13 +26,8 @@ struct InstructionsListView: View {
 //            Spacer()
         }
         .sheet(isPresented: $showAddInstructionSheet) {
-            ZStack {
-                Color.accent.ignoresSafeArea(.all)
-                
-                AddInstructionView(viewModel: viewModel)
-                    .presentationDetents([.fraction(0.25)])
-                    .presentationDragIndicator(.hidden)
-            }
+            AddInstructionView(viewModel: viewModel)
+                .sheetBackground()
         }
         
         List {
@@ -56,6 +52,7 @@ struct InstructionsListView: View {
             }
             .onMove(perform: viewModel.moveStep)
         }
+      //  .listRowBackground(Color.textfield)
     }
 }
 

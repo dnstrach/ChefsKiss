@@ -20,8 +20,9 @@ struct EquipmentListView: View {
     var body: some View {
         HStack {
             Text("EQUIPMENT")
-                .foregroundStyle(.secondary)
+                .foregroundStyle(.accent)
                 .font(.footnote)
+                .fontWeight(.bold)
             
             Spacer()
             
@@ -30,13 +31,8 @@ struct EquipmentListView: View {
           //  Spacer()
         }
         .sheet(isPresented: $showAddEquipmentSheet) {
-            ZStack {
-                Color.accent.ignoresSafeArea(.all)
-                
-                AddEquipmentView(viewModel: viewModel)
-                    .presentationDetents([.fraction(0.25)])
-                    .presentationDragIndicator(.hidden)
-            }
+            AddEquipmentView(viewModel: viewModel)
+                .sheetBackground()
         }
         
         List {

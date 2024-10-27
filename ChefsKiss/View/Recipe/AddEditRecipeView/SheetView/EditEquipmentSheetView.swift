@@ -13,19 +13,21 @@ struct EditEquipmentSheetView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
     @State var equipment: Recipe.Equipment
-    
     @State var equipmentName: String = ""
+    
+    let showAddImage: Bool = false
     
     var body: some View {
         VStack {
-            TextField("Equipment", text: $equipmentName)
+            TextField("", text: $equipmentName, prompt: Text("Equipment").foregroundStyle(.accent))
+                .textfieldStyle()
                 .padding(.horizontal)
-                .textFieldStyle(.roundedBorder)
-                .padding()
             
-            Button("Edit Equipment", systemImage: "plus.circle") {
+            Button {
                 editEquipment(equipment)
                 dismiss()
+            } label: {
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Edit Equipment")
             }
         }
         .padding(.vertical)

@@ -12,22 +12,25 @@ struct AddInstructionView: View {
     
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
+    let showAddImage: Bool = true
+    
     var body: some View {
         VStack {
             HStack {
-                TextField("Step", text: $viewModel.step, axis: .vertical)
-                    .padding(.horizontal)
-                    .padding(.vertical, 10)
-                    .background(.textfield)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                    .padding(.horizontal)
+                TextField("",
+                          text: $viewModel.step,
+                          prompt: Text("Step").foregroundStyle(.accent),
+                          axis: .vertical
+                )
+                .textfieldStyle()
+                .padding(.horizontal)
             }
             
             Button {
                 viewModel.addStep(at: viewModel.instructions.count)
                 dismiss()
             } label: {
-                AddButtonLabelView(text: "Add Step")
+                SheetButtonLabelView(isAddItem: showAddImage, text: "Add Step")
             }
             .disabled(viewModel.disableStep)
         }

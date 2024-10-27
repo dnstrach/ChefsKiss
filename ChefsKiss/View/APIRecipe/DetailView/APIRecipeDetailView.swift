@@ -69,7 +69,7 @@ struct APIRecipeDetailView: View {
                         LazyVStack {
                             APITitleView(viewModel: viewModel, recipe: recipe)
                             
-                            IconView(recipe: recipe, viewModel: viewModel)
+                            IconView(recipe: recipe)
                             
                             APIServingsDurationView(recipe: recipe)
                             

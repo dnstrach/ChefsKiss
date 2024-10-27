@@ -63,14 +63,21 @@ struct ImagePickerView: View {
                 
                 switch viewModel.imageState {
                 case .savedImage:
-                    XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
+                    XButtonView(viewModel: viewModel, recipe: recipe, imageState: viewModel.imageState)
+                case .cameraImage:
+                    XButtonView(viewModel: viewModel, recipe: recipe, imageState: viewModel.imageState)
                 case .success:
-                    XButtonView(viewModel: viewModel, imageState: viewModel.imageState, recipe: recipe)
+                    XButtonView(viewModel: viewModel, recipe: recipe, imageState: viewModel.imageState)
                 default:
                     EmptyView()
                 }
                 
             }
+            
+//            Rectangle()
+//                .frame(height: 2)
+//                .foregroundStyle(Color.accent)
+//                 .opacity(0.4)
             
             HStack {
                 switch viewModel.imageState {
@@ -89,6 +96,7 @@ struct ImagePickerView: View {
                             Image(uiImage: uiSavedImage)
                                 .resizable()
                                 .scaledToFit()
+                                .padding()
                         }
                     }
                     
@@ -98,6 +106,7 @@ struct ImagePickerView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .padding()
                     }
     //                } else {
     //                    if let uiImage = viewModel.selectedCameraImage {
@@ -112,6 +121,7 @@ struct ImagePickerView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
+                            .padding()
                     }
                     
                 case .failure:

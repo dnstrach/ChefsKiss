@@ -12,7 +12,7 @@ struct ServingsPickerView: View {
     
     var body: some View {
         VStack {
-            Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 1...100, step: 0.5)
+            Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 0...100, step: 0.5)
         }
     }
 }

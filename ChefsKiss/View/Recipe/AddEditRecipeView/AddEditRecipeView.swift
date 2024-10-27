@@ -23,6 +23,7 @@ struct AddEditRecipeView: View {
                 Section {
                     TitleSummaryView(viewModel: viewModel)
                 }
+                .listRowBackground(Color.textfield)
                 
                 Section {
                     ImagePickerView(
@@ -30,40 +31,59 @@ struct AddEditRecipeView: View {
                     )
                     .onAppear(perform: showSavedImage)
                 }
+                .listRowBackground(Color.textfield)
                 
-                Section("Servings") {
+                Section {
                     ServingsPickerView(viewModel: viewModel)
+                } header: {
+                    Text("SERVINGS")
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
                 }
+                .listRowBackground(Color.textfield)
                 
-                Section("Prep Time") {
+                Section {
                     PrepTimePickerView(viewModel: viewModel)
+                } header: {
+                    Text("PREP TIME")
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
                 }
+                .listRowBackground(Color.textfield)
                 
-                Section("Cook Time") {
+                Section {
                     CookTimePickerView(viewModel: viewModel)
+                } header: {
+                    Text("COOK TIME")
+                        .foregroundStyle(.white)
+                        .fontWeight(.bold)
                 }
+                .listRowBackground(Color.textfield)
                 
                 Section {
                     IngredientsListView(viewModel: viewModel)
                 }
+                .listRowBackground(Color.textfield)
                 
                 Section {
                     EquipmentListView(viewModel: viewModel)
                 }
+                .listRowBackground(Color.textfield)
                 
                 Section {
                     InstructionsListView(viewModel: viewModel)
                 }
+                .listRowBackground(Color.textfield)
             }
+            .scrollContentBackground(.hidden)
+            .background(.accent1)
             .onAppear {
                 if let recipe {
                     viewModel.title = recipe.title
                     viewModel.summary = recipe.summary
                     viewModel.servings = recipe.servings
-                    viewModel.prepHrTime = recipe.prepHrTime
-                    viewModel.prepMinTime = recipe.prepMinTime
-                    viewModel.cookHrTime = recipe.cookHrTime
-                    viewModel.cookMinTime = recipe.cookMinTime
+                    viewModel.prepTime = recipe.prepTime
+                    viewModel.cookTime = recipe.cookTime
                     viewModel.ingredients = recipe.ingredients
                     viewModel.instructions = recipe.instructions
                     viewModel.appliances = recipe.appliances
@@ -93,18 +113,15 @@ struct AddEditRecipeView: View {
         }
         .sheet(item: $viewModel.selectedEquipment) { equipment in
             EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
-                .presentationDetents([.fraction(0.25)])
-                .presentationDragIndicator(.hidden)
+                .sheetBackground()
         }
         .sheet(item: $viewModel.selectedInstruction) { instruction in
             EditInstructionSheetView(viewModel: viewModel, instruction: instruction)
-                .presentationDetents([.fraction(0.25)])
-                .presentationDragIndicator(.hidden)
+                .sheetBackground()
         }
         .sheet(item: $viewModel.selectedIngredient) { ingredient in
             EditIngredientSheetView(viewModel: viewModel, ingredient: ingredient)
-                .presentationDetents([.fraction(0.25)])
-                .presentationDragIndicator(.hidden)
+                .sheetBackground()
         }
     }
     
@@ -121,10 +138,8 @@ struct AddEditRecipeView: View {
             recipe.title = viewModel.title
             recipe.summary = viewModel.summary
             recipe.servings = viewModel.servings
-            recipe.prepHrTime = viewModel.prepHrTime
-            recipe.prepMinTime = viewModel.prepMinTime
-            recipe.cookHrTime = viewModel.cookHrTime
-            recipe.cookMinTime = viewModel.cookMinTime
+            recipe.prepTime = viewModel.prepTime
+            recipe.cookTime = viewModel.cookTime
             recipe.ingredients = viewModel.ingredients
             recipe.instructions = viewModel.instructions
             recipe.appliances = viewModel.appliances
@@ -135,10 +150,8 @@ struct AddEditRecipeView: View {
                 title: viewModel.title,
                 summary: viewModel.summary,
                 servings: viewModel.servings,
-                prepHrTime: viewModel.prepHrTime,
-                prepMinTime: viewModel.prepMinTime,
-                cookHrTime: viewModel.cookHrTime,
-                cookMinTime: viewModel.cookMinTime,
+                prepTime: viewModel.prepTime,
+                cookTime: viewModel.cookTime,
                 ingredients: viewModel.ingredients,
                 steps: viewModel.instructions,
                 appliances: viewModel.appliances
