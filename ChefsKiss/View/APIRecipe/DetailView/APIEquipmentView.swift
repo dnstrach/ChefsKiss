@@ -45,7 +45,7 @@ struct APIEquipmentView: View {
                     .padding(.leading)
                 } else {
                     HStack {
-                        Text("No equipment available")
+                        Text("No equipment listed")
                             .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)

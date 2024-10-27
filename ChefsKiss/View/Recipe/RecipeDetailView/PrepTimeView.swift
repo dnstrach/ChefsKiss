@@ -18,7 +18,7 @@ struct PrepTimeView: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.accent)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
-                    .frame(maxWidth: 200)
+                    .frame(maxWidth: 180)
                 
                 VStack(spacing: 0) {
                     Text("Prep")

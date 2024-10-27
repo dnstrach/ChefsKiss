@@ -63,6 +63,7 @@
 		D894FF9A2CAF53B300E78F8F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D894FF992CAF53B300E78F8F /* CacheManager.swift */; };
 		D897A0D82C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */; };
 		D899C6E42C93CA1000FFEA7B /* IconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D899C6E32C93CA1000FFEA7B /* IconView.swift */; };
+		D8A6DEFB2CCE3C7E00BB06EB /* MeasurementPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8A6DEFA2CCE3C7D00BB06EB /* MeasurementPickerView.swift */; };
 		D8BDBA632C98D8E400AC5E52 /* APIIngredientsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BDBA622C98D8E400AC5E52 /* APIIngredientsView.swift */; };
 		D8BDBA652C98DCA500AC5E52 /* APIEquipmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BDBA642C98DCA500AC5E52 /* APIEquipmentView.swift */; };
 		D8BDBA672C98DDCF00AC5E52 /* APIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8BDBA662C98DDCF00AC5E52 /* APIImageView.swift */; };
@@ -146,6 +147,7 @@
 		D894FF992CAF53B300E78F8F /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
 		D899C6E32C93CA1000FFEA7B /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
+		D8A6DEFA2CCE3C7D00BB06EB /* MeasurementPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementPickerView.swift; sourceTree = "<group>"; };
 		D8BDBA622C98D8E400AC5E52 /* APIIngredientsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIIngredientsView.swift; sourceTree = "<group>"; };
 		D8BDBA642C98DCA500AC5E52 /* APIEquipmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEquipmentView.swift; sourceTree = "<group>"; };
 		D8BDBA662C98DDCF00AC5E52 /* APIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIImageView.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				D87AC2022BE5787C0079569C /* KissAnimation.swift */,
 				D8D6747E2CB6F12F00FD9FE3 /* LineDividerView.swift */,
 				D8BDBA702C98E37700AC5E52 /* LinkButtonView.swift */,
+				D8A6DEFA2CCE3C7D00BB06EB /* MeasurementPickerView.swift */,
 				D8D674852CB8572000FD9FE3 /* Modifier.swift */,
 				D88158CF2CC4A2FB0078E115 /* PlusButtonView.swift */,
 				D8D674802CB6F1E500FD9FE3 /* RoundedRectangleView.swift */,
@@ -551,6 +554,7 @@
 				D8454CF72BF5CA5200F449A8 /* RecipePreview.swift in Sources */,
 				D82FA4A62BBBCC2C00077128 /* CategoryView.swift in Sources */,
 				D8D674792CB61F6900FD9FE3 /* BackButtonView.swift in Sources */,
+				D8A6DEFB2CCE3C7E00BB06EB /* MeasurementPickerView.swift in Sources */,
 				D82FA4A52BBBCC2C00077128 /* CategoryGridView.swift in Sources */,
 				D88158D02CC4A2FB0078E115 /* PlusButtonView.swift in Sources */,
 				D873858B2CB8917F00873264 /* XButtonView.swift in Sources */,

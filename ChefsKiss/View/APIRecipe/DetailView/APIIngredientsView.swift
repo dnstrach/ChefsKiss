@@ -46,7 +46,7 @@ struct APIIngredientsView: View {
                     .padding(.leading)
                 } else {
                     HStack {
-                        Text("No ingredients available")
+                        Text("No ingredients listed")
                             .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)

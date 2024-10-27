@@ -55,7 +55,7 @@ struct APIInstructionsView: View {
                     }
                 } else {
                     HStack {
-                        Text("No instructions available")
+                        Text("No instructions listed")
                             .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)

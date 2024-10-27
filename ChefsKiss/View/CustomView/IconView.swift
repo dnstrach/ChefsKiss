@@ -31,7 +31,6 @@ struct IconView: View {
                 }
             }
         }
-        .background(.green)
         .contentMargins(10, for: .scrollContent)
     }
     

@@ -35,18 +35,7 @@ struct EditIngredientSheetView: View {
             .padding(.horizontal)
             .padding(.top)
             
-            ScrollView(.horizontal, showsIndicators: true) {
-                HStack {
-                    Picker("Metric", selection: $measurementType) {
-                        ForEach(viewModel.measureTypes, id: \.self) { measure in
-                            Text(measure)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                }
-                .padding(.horizontal)
-                .padding(.top, 10)
-            }
+            MeasurementPickerView(viewModel: viewModel, selectedMeasurement: $measurementType)
             
             Button {
                 editIngredient(ingredient)

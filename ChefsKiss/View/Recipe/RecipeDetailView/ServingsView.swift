@@ -17,7 +17,7 @@ struct ServingsView: View {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.accent)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
-                .frame(maxWidth: 150)
+                .frame(maxWidth: 100)
             
             VStack(spacing: 0) {
                 Text("Serves")
