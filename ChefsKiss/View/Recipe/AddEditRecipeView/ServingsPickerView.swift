@@ -11,8 +11,36 @@ struct ServingsPickerView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     
     var body: some View {
-        VStack {
-            Stepper("Serves \(viewModel.servings.formatted())", value: $viewModel.servings, in: 0...100, step: 0.5)
+        HStack {
+            Text("SERVINGS")
+                .foregroundStyle(.accent)
+                .font(.footnote)
+                .fontWeight(.bold)
+            
+            Spacer()
+            
+            Button {
+                viewModel.servings -= 0.5
+                print("- button tapped")
+            } label: {
+                Image(systemName: "minus.rectangle.fill")
+                    .imageScale(.large)
+                    .foregroundStyle(.accent)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Text("\(viewModel.servings.formatted())")
+            
+            Button {
+                viewModel.servings += 0.5
+                print("+ button tapped")
+            } label: {
+                Image(systemName: "plus.rectangle.fill")
+                    .imageScale(.large)
+                    .foregroundStyle(.accent)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
         }
     }
 }

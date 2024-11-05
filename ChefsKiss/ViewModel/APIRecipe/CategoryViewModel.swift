@@ -7,6 +7,12 @@
 
 import Foundation
 
+enum RecipeView {
+    case categoryResults
+    case searchResults
+    case emptySearch
+}
+
 @MainActor class CategoryViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
     @Published var cachedRecipes: [APIRecipe] = []
@@ -15,9 +21,11 @@ import Foundation
     @Published var alertMessage = ""
     @Published var showSearchView = false
     @Published var searchText: String = ""
+    @Published var recipeView = RecipeView.categoryResults
     
     private let searchTerm: SearchTerm
     private let manager = CacheManager.instance
+    
     let categories: [(String, CategoryParam)] = [
         ("Cuisines", .cuisine),
         ("Dish Types", .dishType),
@@ -52,6 +60,7 @@ import Foundation
         do {
             recipes = try await APIManager.loadRecipes(searchTerm: searchTerm)
             shouldShowSpinner = false
+            recipeView = .categoryResults
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {
                 showAlert = true
@@ -70,10 +79,14 @@ import Foundation
         do {
             let fetchedRecipes = try await APIManager.loadRecipes(searchTerm: .query(query))
             shouldShowSpinner = false
-            
             manager.add(recipes: fetchedRecipes, search: query)
-            
             cachedRecipes = manager.get(search: query) ?? []
+            
+            if fetchedRecipes.isEmpty {
+                recipeView = .emptySearch
+            } else if !fetchedRecipes.isEmpty {
+                recipeView = .searchResults
+            }
             
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {

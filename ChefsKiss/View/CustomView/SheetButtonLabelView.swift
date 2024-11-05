@@ -27,7 +27,7 @@ struct SheetButtonLabelView: View {
                     .imageScale(.large)
                 
                 Text("\(text)")
-                    .font(.subheadline)
+                    .contentFont()
                     .fontWeight(.bold)
                     .foregroundStyle(.white)
             }

@@ -28,7 +28,8 @@ struct SearchBarView: View {
                         .onTapGesture {
                             UIApplication.shared.endEditing()
                             searchText = ""
-                            viewModel.showSearchView = false
+                            viewModel.recipeView = .categoryResults
+                           // viewModel.showSearchView = false
                         },
                     alignment: .trailing
                 )

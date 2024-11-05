@@ -17,20 +17,33 @@ struct CategoryView: View {
                 SearchBarView(viewModel: viewModel, searchText: $viewModel.searchText)
                     .submitLabel(.search)
                 
-                if viewModel.showSearchView {
-                    RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
-                        .alert(isPresented: $viewModel.showAlert) {
-                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
-                    
-//                    SearchGridView(recipes: viewModel.recipes)
-//                        .alert(isPresented: $viewModel.showAlert) {
-//                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
-                        }
-                } else {
+                switch viewModel.recipeView {
+                case .categoryResults:
                     ForEach(viewModel.categories, id: \.0) { category, searchParam in
                         CategoryGridView(category: category, searchParam: searchParam)
                     }
+                case .searchResults:
+                    RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                        .alert(isPresented: $viewModel.showAlert) {
+                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
+                            
+                        }
+                case .emptySearch:
+                    ContentUnavailableView("No Search Results", systemImage: "magnifyingglass.circle.fill", description: Text("Unable to find \(viewModel.searchText) recipes."))
+                        .foregroundStyle(.accent)
                 }
+                
+//                // make with enum instead
+//                if viewModel.showSearchView {
+//                    RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+//                        .alert(isPresented: $viewModel.showAlert) {
+//                            Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
+//                        }
+//                } else {
+//                    ForEach(viewModel.categories, id: \.0) { category, searchParam in
+//                        CategoryGridView(category: category, searchParam: searchParam)
+//                    }
+//                }
             }
             .scrollDismissesKeyboard(.immediately)
             .onTapGesture {
@@ -44,11 +57,6 @@ struct CategoryView: View {
                 
                 viewModel.showSearchView.toggle()
             }
-//            .onChange(of: searchText) { _, newSearchText in
-//                Task {
-//                    await viewModel.searchRecipes(query: newSearchText)
-//                }
-//            }
         }
     }
 }

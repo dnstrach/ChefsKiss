@@ -35,11 +35,7 @@ struct AddEditRecipeView: View {
                 
                 Section {
                     ServingsPickerView(viewModel: viewModel)
-                } header: {
-                    Text("SERVINGS")
-                        .foregroundStyle(.white)
-                        .fontWeight(.bold)
-                }
+                } 
                 .listRowBackground(Color.textfield)
                 
                 Section {

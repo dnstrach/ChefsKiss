@@ -18,10 +18,6 @@ struct SavedRecipesView: View {
     
     @EnvironmentObject var viewModel: SavedRecipesViewModel
     
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
-    
     var body: some View {
         NavigationStack {
             ScrollView(showsIndicators: false) {
@@ -42,7 +38,7 @@ struct SavedRecipesView: View {
                     .padding(.horizontal)
                     .offset(x: 0, y: 200)
                 } else {
-                    LazyVGrid(columns: columns) {
+                    LazyVGrid(columns: viewModel.columns) {
                         ForEach(savedRecipes, id: \.id) { recipe in
                             NavigationLink(destination: APIRecipeDetailView(recipe: recipe)) {
                                 VStack {

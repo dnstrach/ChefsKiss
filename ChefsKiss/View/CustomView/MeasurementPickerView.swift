@@ -17,8 +17,7 @@ struct MeasurementPickerView: View {
             HStack(spacing: 0.5) {
                 ForEach(viewModel.measureTypes, id: \.self) { measurement in
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10)
-                       // Ellipse()
+                        RoundedRectangle(cornerRadius: 10)  
                             .fill(.white)
                             .frame(width: 70, height: 40)
                             .opacity(selectedMeasurement == measurement ? 1.0 : 0.3)
@@ -30,7 +29,7 @@ struct MeasurementPickerView: View {
                             .overlay {
                                 Text(measurement)
                                     .foregroundStyle(.accent)
-                                    .contentFont()
+                                    .font(.subheadline)
                                     .bold()
                                     .frame(width: 100)
                             }
@@ -39,13 +38,12 @@ struct MeasurementPickerView: View {
                         
                     }
                     .background(RoundedRectangle(cornerRadius: 10).fill(.textfield.opacity(0.5)))
-                   // .background(Ellipse().fill(.textfield.opacity(0.5)))
                 }
             }
             .frame(height: 50)
         }
         .padding(.top)
-        .padding(.leading)
+        .padding(.horizontal)
     }
 }
 
