@@ -7,6 +7,7 @@
 
 import Foundation
 import PhotosUI
+import SwiftData
 import SwiftUI
 import UIKit
 
@@ -25,6 +26,8 @@ enum ImageState {
 
 @MainActor
 @Observable final class AddEditRecipeViewModel: ObservableObject {
+    let recipe: Recipe? = nil
+    
     var title: String = ""
     var summary: String = ""
     
@@ -43,6 +46,9 @@ enum ImageState {
     }
     
     var servings: Double = 4
+    var servingsGreaterThanMinimum: Bool {
+        servings > 0.5
+    }
     
     var prepTime: Int = 0
     let prepTimeRange = 0..<1500
@@ -129,6 +135,14 @@ enum ImageState {
                 } catch {
                     print(error)
                 }
+            }
+        }
+    }
+    
+    func showSavedImage() {
+        if let recipe = recipe {
+            if recipe.image != nil {
+                imageState = .savedImage
             }
         }
     }

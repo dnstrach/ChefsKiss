@@ -12,7 +12,12 @@ struct PrepTimePickerView: View {
     
     var body: some View {
         HStack {
-            Picker("Prep Time", selection: $viewModel.prepTime) {
+            Text("PREP TIME")
+                .foregroundStyle(.accent)
+                .font(.footnote)
+                .fontWeight(.bold)
+            
+            Picker("", selection: $viewModel.prepTime) {
                 ForEach(viewModel.prepTimeRange, id: \.self) { min in
                     Text("\(min)")
                 }

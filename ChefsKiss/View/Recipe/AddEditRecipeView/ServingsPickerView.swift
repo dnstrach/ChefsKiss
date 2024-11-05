@@ -19,25 +19,42 @@ struct ServingsPickerView: View {
             
             Spacer()
             
+            Text("\(viewModel.servings.formatted())")
+                .fontWeight(.bold)
+                .padding(.horizontal, 8)
+            
             Button {
-                viewModel.servings -= 0.5
-                print("- button tapped")
+                if viewModel.servingsGreaterThanMinimum {
+                    viewModel.servings -= 0.5
+                }
             } label: {
-                Image(systemName: "minus.rectangle.fill")
-                    .imageScale(.large)
-                    .foregroundStyle(.accent)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.accent)
+                        .opacity(0.1)
+                    
+                    Text("-")
+                        .foregroundStyle(.accent)
+                        .font(.title)
+                }
+                .frame(width: 50, height: 30)
             }
             .buttonStyle(PlainButtonStyle())
             
-            Text("\(viewModel.servings.formatted())")
             
             Button {
                 viewModel.servings += 0.5
-                print("+ button tapped")
             } label: {
-                Image(systemName: "plus.rectangle.fill")
-                    .imageScale(.large)
-                    .foregroundStyle(.accent)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 10)
+                        .fill(.accent)
+                        .opacity(0.1)
+                    
+                    Text("+")
+                        .foregroundStyle(.accent)
+                        .font(.title)
+                }
+                .frame(width: 50, height: 30)
             }
             .buttonStyle(PlainButtonStyle())
             

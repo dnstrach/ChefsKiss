@@ -7,8 +7,6 @@
 
 import Foundation
 
-// reminder that finger food shows incorrect search
-// manipulate components with 2 words
 enum CategoryParam: String, CaseIterable {
     case cuisine = "cuisine"
     case dishType = "type"
