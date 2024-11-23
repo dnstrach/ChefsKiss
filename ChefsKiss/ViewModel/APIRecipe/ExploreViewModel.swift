@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum RecipeView {
+enum ExploreView {
     case categoryResults
     case searchResults
     case emptySearch
 }
 
-@MainActor class CategoryViewModel: ObservableObject {
+@MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
     @Published var cachedRecipes: [APIRecipe] = []
     @Published var shouldShowSpinner: Bool = true
@@ -21,7 +21,7 @@ enum RecipeView {
     @Published var alertMessage = ""
     @Published var showSearchView = false
     @Published var searchText: String = ""
-    @Published var recipeView = RecipeView.categoryResults
+    @Published var exploreView = ExploreView.categoryResults
     
     private let searchTerm: SearchTerm
     private let manager = CacheManager.instance
@@ -60,7 +60,7 @@ enum RecipeView {
         do {
             recipes = try await APIManager.loadRecipes(searchTerm: searchTerm)
             shouldShowSpinner = false
-            recipeView = .categoryResults
+            exploreView = .categoryResults
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {
                 showAlert = true
@@ -83,9 +83,9 @@ enum RecipeView {
             cachedRecipes = manager.get(search: query) ?? []
             
             if fetchedRecipes.isEmpty {
-                recipeView = .emptySearch
+                exploreView = .emptySearch
             } else if !fetchedRecipes.isEmpty {
-                recipeView = .searchResults
+                exploreView = .searchResults
             }
             
         } catch {

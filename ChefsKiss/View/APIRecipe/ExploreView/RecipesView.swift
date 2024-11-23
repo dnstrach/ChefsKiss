@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecipesView: View {
-    @StateObject var viewModel: CategoryViewModel
+    @StateObject var viewModel: ExploreViewModel
     
     let columns = [
         GridItem(.adaptive(minimum: 150))

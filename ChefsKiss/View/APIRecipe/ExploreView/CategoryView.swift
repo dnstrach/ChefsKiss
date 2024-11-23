@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CategoryView: View {
     
-    @StateObject var viewModel: CategoryViewModel
+    @StateObject var viewModel: ExploreViewModel
     
     var body: some View {
         NavigationStack {
@@ -17,7 +17,7 @@ struct CategoryView: View {
                 SearchBarView(viewModel: viewModel, searchText: $viewModel.searchText)
                     .submitLabel(.search)
                 
-                switch viewModel.recipeView {
+                switch viewModel.exploreView {
                 case .categoryResults:
                     ForEach(viewModel.categories, id: \.0) { category, searchParam in
                         CategoryGridView(category: category, searchParam: searchParam)
@@ -62,7 +62,7 @@ struct CategoryView: View {
 }
 
 #Preview {
-    CategoryView(viewModel: CategoryViewModel(searchTerm: .query("")))
+    CategoryView(viewModel: ExploreViewModel(searchTerm: .query("")))
         .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 
