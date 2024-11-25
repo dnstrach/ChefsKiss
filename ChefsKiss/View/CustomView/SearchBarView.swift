@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchBarView: View {
-    @ObservedObject var viewModel: CategoryViewModel
+    @ObservedObject var viewModel: ExploreViewModel
     
     @Binding var searchText: String
     
@@ -28,7 +28,7 @@ struct SearchBarView: View {
                         .onTapGesture {
                             UIApplication.shared.endEditing()
                             searchText = ""
-                            viewModel.recipeView = .categoryResults
+                            viewModel.exploreView = .categoryResults
                            // viewModel.showSearchView = false
                         },
                     alignment: .trailing
@@ -51,7 +51,7 @@ struct SearchBarView: View {
 
 #Preview {
     Group {
-        SearchBarView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "", value: "")), searchText: .constant(""))
+        SearchBarView(viewModel: ExploreViewModel(searchTerm: .searchParam(param: "", value: "")), searchText: .constant(""))
           //  .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }

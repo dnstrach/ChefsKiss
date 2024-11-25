@@ -88,7 +88,6 @@ struct SheetTextfield: ViewModifier {
 struct SheetBackground: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .presentationDetents([.fraction(0.25)])
             .presentationDragIndicator(.hidden)
             .presentationBackground(
                 LinearGradient(colors: [.accent, .accent1.opacity(0.9), .accent2.opacity(0.9), .accent3.opacity(0.9), .accent2.opacity(0.9), .accent1.opacity(0.9), .accent], startPoint: .topLeading, endPoint: .bottomTrailing)

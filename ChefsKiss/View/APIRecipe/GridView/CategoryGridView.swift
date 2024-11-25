@@ -22,13 +22,11 @@ struct CategoryGridView: View {
                 .font(.title)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHGrid(rows: rows, spacing: 20) {
-                    // cuisine, type, diet, intolerances
                     switch searchParam {
                     case .cuisine:
                         ForEach(Cuisine.allCases, id: \.self) { cuisine in
                             NavigationLink {
-                                // initialized CategoryViewModel
-                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: cuisine.rawValue)))
+                                RecipesView(viewModel: ExploreViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: cuisine.rawValue)))
                             } label: {
                                 CategoryLabel(category: cuisine.rawValue.capitalized)
                             }
@@ -37,7 +35,7 @@ struct CategoryGridView: View {
                     case .dishType:
                         ForEach(DishType.allCases, id: \.self) { dish in
                             NavigationLink {
-                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: dish.rawValue)))
+                                RecipesView(viewModel: ExploreViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: dish.rawValue)))
                             } label: {
                                 CategoryLabel(category: dish.rawValue.capitalized)
                             }
@@ -46,7 +44,7 @@ struct CategoryGridView: View {
                     case .diet:
                         ForEach(Diet.allCases, id: \.self) { diet in
                             NavigationLink {
-                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: diet.rawValue)))
+                                RecipesView(viewModel: ExploreViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: diet.rawValue)))
                             } label: {
                                 CategoryLabel(category: diet.rawValue)
                             }
@@ -55,7 +53,7 @@ struct CategoryGridView: View {
                     case .intolerance:
                         ForEach(Intolerance.allCases, id: \.self) { intolerance in
                             NavigationLink {
-                                RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: intolerance.rawValue)))
+                                RecipesView(viewModel: ExploreViewModel(searchTerm: .searchParam(param: searchParam.rawValue, value: intolerance.rawValue)))
                             } label: {
                                 CategoryLabel(category: intolerance.rawValue.capitalized)
                             }

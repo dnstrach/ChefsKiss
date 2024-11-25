@@ -22,6 +22,8 @@ struct PrepTimePickerView: View {
                     Text("\(min)")
                 }
             }
+            
+            Text(viewModel.prepTime == 1 ? "minute" : "minutes")
         }
     }
 }

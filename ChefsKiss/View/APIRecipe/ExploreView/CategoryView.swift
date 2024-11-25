@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+// CLEAN UP CODE
 struct CategoryView: View {
     
     @StateObject var viewModel: ExploreViewModel

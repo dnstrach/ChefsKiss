@@ -20,7 +20,6 @@ struct ServingsPickerView: View {
             Spacer()
             
             Text("\(viewModel.servings.formatted())")
-                .fontWeight(.bold)
                 .padding(.horizontal, 8)
             
             Button {
@@ -37,7 +36,7 @@ struct ServingsPickerView: View {
                         .foregroundStyle(.accent)
                         .font(.title)
                 }
-                .frame(width: 50, height: 30)
+                .frame(width: 30, height: 30)
             }
             .buttonStyle(PlainButtonStyle())
             
@@ -54,7 +53,7 @@ struct ServingsPickerView: View {
                         .foregroundStyle(.accent)
                         .font(.title)
                 }
-                .frame(width: 50, height: 30)
+                .frame(width: 30, height: 30)
             }
             .buttonStyle(PlainButtonStyle())
             

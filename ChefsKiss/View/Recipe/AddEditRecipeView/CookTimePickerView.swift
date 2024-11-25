@@ -16,13 +16,15 @@ struct CookTimePickerView: View {
                 .foregroundStyle(.accent)
                 .font(.footnote)
                 .fontWeight(.bold)
-
             
             Picker("", selection: $viewModel.cookTime) {
                 ForEach(viewModel.cookTimeRange, id: \.self) { min in
                     Text("\(min)")
                 }
+                .foregroundStyle(.accent1)
             }
+            
+            Text(viewModel.cookTime == 1 ? "minute" : "minutes")
         }
     }
 }

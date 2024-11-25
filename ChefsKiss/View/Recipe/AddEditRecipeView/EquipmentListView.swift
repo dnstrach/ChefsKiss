@@ -28,11 +28,11 @@ struct EquipmentListView: View {
             
             PlusButtonView(showSheet: $showAddEquipmentSheet)
             
-          //  Spacer()
         }
         .sheet(isPresented: $showAddEquipmentSheet) {
             AddEquipmentView(viewModel: viewModel)
                 .sheetBackground()
+                .presentationDetents([.fraction(0.25)])
         }
         
         List {

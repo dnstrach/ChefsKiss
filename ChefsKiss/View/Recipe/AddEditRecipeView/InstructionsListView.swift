@@ -28,6 +28,7 @@ struct InstructionsListView: View {
         .sheet(isPresented: $showAddInstructionSheet) {
             AddInstructionView(viewModel: viewModel)
                 .sheetBackground()
+                .presentationDetents([.fraction(0.25)])
         }
         
         List {

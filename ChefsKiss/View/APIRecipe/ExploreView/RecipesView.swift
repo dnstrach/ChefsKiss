@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// CLEAN UP CODE - view may not be necessary
 struct RecipesView: View {
     @StateObject var viewModel: ExploreViewModel
     

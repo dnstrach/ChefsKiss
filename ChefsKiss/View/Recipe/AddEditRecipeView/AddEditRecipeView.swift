@@ -80,14 +80,17 @@ struct AddEditRecipeView: View {
             .sheet(item: $viewModel.selectedEquipment) { equipment in
                 EditEquipmentSheetView(viewModel: viewModel, equipment: equipment)
                     .sheetBackground()
+                    .presentationDetents([.fraction(0.25)])
             }
             .sheet(item: $viewModel.selectedInstruction) { instruction in
                 EditInstructionSheetView(viewModel: viewModel, instruction: instruction)
                     .sheetBackground()
+                    .presentationDetents([.fraction(0.25)])
             }
             .sheet(item: $viewModel.selectedIngredient) { ingredient in
                 EditIngredientSheetView(viewModel: viewModel, ingredient: ingredient)
                     .sheetBackground()
+                    .presentationDetents([.fraction(0.40)])
             }
         }
         .background(.textfield)

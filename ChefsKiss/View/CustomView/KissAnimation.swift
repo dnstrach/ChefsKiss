@@ -17,8 +17,8 @@ struct KissAnimation: View {
 
 struct KissView: View {
     @Binding var kissing: Bool
-    @State private var isRotating: Bool = true
     
+    @State private var isRotating: Bool = true
     @State private var degrees: Double = 0
     
     var body: some View {

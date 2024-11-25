@@ -23,11 +23,11 @@ struct IngredientsListView: View {
             
             PlusButtonView(showSheet: $showAddIngredientSheet)
             
-          //  Spacer()
         }
         .sheet(isPresented: $showAddIngredientSheet) {
             AddIngredientView(viewModel: viewModel)
                 .sheetBackground()
+                .presentationDetents([.fraction(0.40)])
         }
         
         List {
