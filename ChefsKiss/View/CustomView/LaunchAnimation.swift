@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct LaunchAnimation: View {
-    @State var kissing: Bool = true
+    @State var kissing: Bool = false
+    @Binding var showLaunchAnimation: Bool
     
     var body: some View {
         ZStack {
@@ -29,10 +30,15 @@ struct LaunchAnimation: View {
                     }
                 }
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+                showLaunchAnimation = false
+            }
+        }
 
     }
 }
 
 #Preview {
-    LaunchAnimation()
+    LaunchAnimation(showLaunchAnimation: .constant(true))
 }

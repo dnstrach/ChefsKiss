@@ -13,6 +13,11 @@ enum ExploreView {
     case emptySearch
 }
 
+// being passed to ExploreRecipesView, RecipesView
+// initialized in CategoryGridView inside navlink for RecipesGridView
+
+// ExploreRecipesView -> CategoryGridView -> RecipesGridView
+
 @MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
     @Published var cachedRecipes: [APIRecipe] = []
@@ -26,16 +31,16 @@ enum ExploreView {
     private let searchTerm: SearchTerm
     private let manager = CacheManager.instance
     
-    let categories: [(String, CategoryParam)] = [
-        ("Cuisines", .cuisine),
-        ("Dish Types", .dishType),
-        ("Diets", .diet),
-        ("Intolerances", .intolerance)
+    let categories: [(CategoryTitle, CategoryParam)] = [
+        (.cuisine, .cuisine),
+        (.dishType, .dishType),
+        (.diet, .diet),
+        (.intolerance, .intolerance)
     ]
     
     var navigationTitle: String? {
         switch searchTerm {
-        case let .searchParam(_, value):
+        case let .categoryParam(_, value):
             
            return (value == "Low FODMAP" ? value : value.description.capitalized)
             

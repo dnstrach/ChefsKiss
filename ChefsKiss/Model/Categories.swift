@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum CategoryTitle: String {
+    case cuisine = "Cuisines"
+    case dishType = "Dish Types"
+    case diet = "Diets"
+    case intolerance = "Intolerances"
+}
+
 enum CategoryParam: String, CaseIterable {
     case cuisine = "cuisine"
     case dishType = "type"

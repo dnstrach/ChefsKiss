@@ -45,6 +45,8 @@ enum ImageState {
         }
     }
     
+    var savedImage: UIImage? = nil
+    
     var servings: Double = 4
     var servingsGreaterThanMinimum: Bool {
         servings > 0.5
@@ -87,6 +89,19 @@ enum ImageState {
         title.isReallyEmpty
     }
     
+    func loadRecipeData() {
+        if let recipe = recipe {
+            title = recipe.title
+            summary = recipe.summary
+            servings = recipe.servings
+            prepTime = recipe.prepTime
+            cookTime = recipe.cookTime
+            ingredients = recipe.ingredients
+            instructions = recipe.instructions
+            appliances = recipe.appliances
+        }
+    }
+        
     func clearPhoto(recipe: Recipe?) {
         imageState = .empty
         selectedPhoto = nil
@@ -112,13 +127,13 @@ enum ImageState {
     }
     
     func saveImage(_ recipe: Recipe) {
-        // First, check if there's a selected photo from the library
+        // check if there's a camera image
         if let selectedImage = selectedCameraImage {
             if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
                 recipe.image = imageData
             }
         }
-        // If no photo is selected from the library, check if there's a camera image
+        // check if there's a selected photo from the library
         else if let selectedPhoto {
             Task {
                 do {
@@ -135,14 +150,6 @@ enum ImageState {
                 } catch {
                     print(error)
                 }
-            }
-        }
-    }
-    
-    func showSavedImage() {
-        if let recipe = recipe {
-            if recipe.image != nil {
-                imageState = .savedImage
             }
         }
     }

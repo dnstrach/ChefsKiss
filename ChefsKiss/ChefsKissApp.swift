@@ -12,21 +12,21 @@ import SwiftUI
 struct ChefsKissApp: App {
     @StateObject var viewModel = SavedRecipesViewModel()
     
-    @State var showLaunchAnimation = false
+    @State var showLaunchAnimation = true
     
     var body: some Scene {
         WindowGroup {
             ZStack {
-                if showLaunchAnimation {
-                    LaunchAnimation()
-                }
-                
-                TabBarView(showLaunchAnimation: $showLaunchAnimation)
+                TabBarView()
                 .modelContainer(for: [
                     Recipe.self,
                     APIRecipe.self
                 ])
                 .environmentObject(viewModel)
+                
+//                if showLaunchAnimation {
+//                    LaunchAnimation(showLaunchAnimation: $showLaunchAnimation)
+//                }
             }
         }
     }

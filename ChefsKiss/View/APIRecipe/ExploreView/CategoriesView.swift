@@ -1,5 +1,5 @@
 //
-//  CategoryView.swift
+//  CategoriesView.swift
 //  ChefsKiss
 //
 //  Created by Dominique Strachan on 11/27/24.
@@ -7,13 +7,8 @@
 
 import SwiftUI
 
-import SwiftUI
-
 // CLEAN UP CODE - view may not be necessary
-// purpose of this file is to show the recipes from a category with the navtitle and alert if out of network calls
-// being passed to CategoryGridView
-
-struct RecipesView: View {
+struct CategoriesView: View {
     @StateObject var viewModel: ExploreViewModel
     
     var body: some View {
@@ -33,3 +28,4 @@ struct RecipesView: View {
 //    RecipesView(viewModel: CategoryViewModel(searchTerm: .searchParam(param: "cuisine", value: "American")))
 //        .modelContainer(for: APIRecipe.self, inMemory: true)
 //}
+

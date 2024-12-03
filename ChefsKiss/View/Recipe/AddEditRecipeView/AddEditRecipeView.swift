@@ -28,7 +28,7 @@ struct AddEditRecipeView: View {
                     ImagePickerView(
                         viewModel: viewModel, recipe: recipe
                     )
-                    .onAppear(perform: viewModel.showSavedImage)
+                    .onAppear(perform: showSavedImage)
                 }
                 .listRowBackground(Color.textfield)
                 
@@ -94,6 +94,14 @@ struct AddEditRecipeView: View {
             }
         }
         .background(.textfield)
+    }
+    
+    func showSavedImage() {
+        if let recipe = recipe {
+            if recipe.image != nil {
+                viewModel.imageState = .savedImage
+            }
+        }
     }
 }
 

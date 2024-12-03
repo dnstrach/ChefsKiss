@@ -16,7 +16,7 @@ enum APIError: String, Error {
 
 enum SearchTerm {
     case query(String)
-    case searchParam(param: String, value: String)
+    case categoryParam(param: String, value: String)
 }
 
 struct CachedResponseEntry {
@@ -25,6 +25,8 @@ struct CachedResponseEntry {
 }
 
 struct APIManager {
+//    private static let apiKey = "3f6a72d40dfe481bbd6a747499faaa2f"
+//    private static let apiKey = "26c2395715cb402fa5f0277fa945812e"
     private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
     private static let urlCache = URLCache.shared
     private static var cacheStorage: [URL: CachedResponseEntry] = [:]
@@ -48,7 +50,7 @@ struct APIManager {
                 URLQueryItem(name: "query",
                              value: queryValue))
             
-        case let .searchParam(param, value):
+        case let .categoryParam(param, value):
             components.queryItems?.append(
                 URLQueryItem(name: param,
                              value: value)
@@ -95,11 +97,11 @@ struct APIManager {
             
             return decodedResponse.results
         } catch {
-            if let cachedEntry = cacheStorage[url] {
-                if Date().timeIntervalSince(cachedEntry.timestamp) < 3600 {
-                    return try JSONDecoder().decode(Response.self, from: cachedEntry.response.data).results
-                }
-            }
+//            if let cachedEntry = cacheStorage[url] {
+//                if Date().timeIntervalSince(cachedEntry.timestamp) < 3600 {
+//                    return try JSONDecoder().decode(Response.self, from: cachedEntry.response.data).results
+//                }
+//            }
             throw(error)
         }
     }

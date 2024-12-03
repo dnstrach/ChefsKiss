@@ -39,10 +39,6 @@ class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContro
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
         self.picker.selectedImage = selectedImage
         self.picker.imageState = .cameraImage
-        
-//        if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
-//            self.picker.imageState = .success(imageData)
-//        }
         self.picker.dismiss()
     }
 }
@@ -74,11 +70,6 @@ struct ImagePickerView: View {
                 
             }
             
-//            Rectangle()
-//                .frame(height: 2)
-//                .foregroundStyle(Color.accent)
-//                 .opacity(0.4)
-            
             HStack {
                 switch viewModel.imageState {
                 case .empty:
@@ -91,12 +82,10 @@ struct ImagePickerView: View {
                     // savedImage will show larger width/height because being shown from Data -> UIImage
                 case .savedImage:
                     if let recipe = recipe {
-                        if let savedImage = recipe.image,
-                           let uiSavedImage = UIImage(data: savedImage) {
-                            Image(uiImage: uiSavedImage)
+                        if let savedImage = recipe.image, let uiImage = UIImage(data: savedImage) {
+                            Image(uiImage: uiImage)
                                 .resizable()
                                 .scaledToFit()
-                                .padding()
                         }
                     }
                     
@@ -108,13 +97,6 @@ struct ImagePickerView: View {
                             .aspectRatio(contentMode: .fill)
                             .padding()
                     }
-    //                } else {
-    //                    if let uiImage = viewModel.selectedCameraImage {
-    //                        Image(uiImage: uiImage)
-    //                            .resizable()
-    //                            .aspectRatio(contentMode: .fill)
-    //                    }
-    //                }
                     
                 case .cameraImage:
                     if let uiImage = viewModel.selectedCameraImage {

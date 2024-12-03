@@ -45,7 +45,7 @@ struct KissView: View {
                 .scaledToFill()
                 .frame(width: 100, height: 50)
             
-            Image(systemName: "heart.fill")
+            Image("heart")
                 .resizable()
                 .frame(width: 30, height: 30)
                 .foregroundColor(.red)
