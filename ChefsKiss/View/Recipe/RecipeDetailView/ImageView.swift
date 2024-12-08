@@ -33,16 +33,16 @@ struct ImageView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try RecipePreview()
-        
-        return 
-            GeometryReader { geo in
-            ImageView(recipe: preview.recipe, geo: geo)
-                .modelContainer(preview.container)
-        }
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try RecipePreview()
+//        
+//        return 
+//            GeometryReader { geo in
+//            ImageView(recipe: preview.recipe, geo: geo)
+//                .modelContainer(preview.container)
+//        }
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

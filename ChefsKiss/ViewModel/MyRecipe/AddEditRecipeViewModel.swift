@@ -31,6 +31,12 @@ enum ImageState {
     var title: String = ""
     var summary: String = ""
     
+//    var type: String = ""
+//    var isVegan: Bool = false
+//    var isVegetarian: Bool = false
+//    var isGlutenFree: Bool = false
+//    var isDairyFree: Bool = false
+    
     var imageState: ImageState = .empty
 
     var selectedCameraImage: UIImage? 

@@ -12,6 +12,8 @@ import SwiftUI
 struct AddEditRecipeView: View {
     @StateObject private var viewModel = AddEditRecipeViewModel()
     
+    // pass sortOrder to RecipeListView and type
+    
     let recipe: Recipe?
     
     var body: some View {
@@ -24,6 +26,54 @@ struct AddEditRecipeView: View {
                 }
                 .listRowBackground(Color.textfield)
                 
+//                HStack {
+//                    VStack {
+//                        Button {
+//                            viewModel.isVegan.toggle()
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "circle")
+//                                
+//                                Text("Vegan")
+//                            }
+//                        }
+//                        
+//                        Button {
+//                            viewModel.isVegetarian.toggle()
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "circle")
+//                                
+//                                Text("Vegetarian")
+//                            }
+//                        }
+//                    }
+//                    
+//                    VStack {
+//                        Button {
+//                            viewModel.isGlutenFree.toggle()
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "circle")
+//                                
+//                                Text("Gluten Free")
+//                            }
+//                        }
+//                        
+//                        Button {
+//                            viewModel.isDairyFree.toggle()
+//                        } label: {
+//                            HStack {
+//                                Image(systemName: "circle")
+//                                
+//                                Text("Dairy Free")
+//                            }
+//                        }
+//                        
+//                    }
+//
+//                }
+                                
                 Section {
                     ImagePickerView(
                         viewModel: viewModel, recipe: recipe
@@ -68,6 +118,7 @@ struct AddEditRecipeView: View {
                 if let recipe {
                     viewModel.title = recipe.title
                     viewModel.summary = recipe.summary
+                 //   viewModel.type = recipe.type
                     viewModel.servings = recipe.servings
                     viewModel.prepTime = recipe.prepTime
                     viewModel.cookTime = recipe.cookTime
@@ -105,13 +156,13 @@ struct AddEditRecipeView: View {
     }
 }
 
-#Preview {
-    do {
-        let previewer = try RecipePreview()
-        
-        return AddEditRecipeView(recipe: previewer.recipe)
-            .modelContainer(previewer.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let previewer = try RecipePreview()
+//        
+//        return AddEditRecipeView(recipe: previewer.recipe)
+//            .modelContainer(previewer.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

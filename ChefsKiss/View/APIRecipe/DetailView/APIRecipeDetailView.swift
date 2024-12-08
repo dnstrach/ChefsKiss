@@ -65,16 +65,16 @@ struct APIRecipeDetailView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try APIRecipePreview()
-        
-        return APIRecipeDetailView(recipe: preview.recipe)
-            .modelContainer(preview.container)
-            .environmentObject(SavedRecipesViewModel())
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try APIRecipePreview()
+//        
+//        return APIRecipeDetailView(recipe: preview.recipe)
+//            .modelContainer(preview.container)
+//            .environmentObject(SavedRecipesViewModel())
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}
 
 

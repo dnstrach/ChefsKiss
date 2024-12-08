@@ -19,22 +19,20 @@ class Response: Codable {
         self.results = results
     }
     
-    // manually write Decodable/Encodable because class instead of struct
-    // class for SwiftData saved recipes
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.results = try container.decode([APIRecipe].self, forKey: .results)
     }
     
-    // conform to Encodable
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(results, forKey: .results)
-    }
+    
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(results, forKey: .results)
+//    }
 }
 
 @Model
-class APIRecipe: Codable, Hashable {
+class APIRecipe: Codable, Equatable {
     // used for saved recipes
     static func == (lhs: APIRecipe, rhs: APIRecipe) -> Bool {
         lhs.id == rhs.id

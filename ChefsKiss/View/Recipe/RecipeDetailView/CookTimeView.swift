@@ -45,13 +45,13 @@ struct CookTimeView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try RecipePreview()
-        
-        return CookTimeView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try RecipePreview()
+//        
+//        return CookTimeView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
+//            .modelContainer(preview.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

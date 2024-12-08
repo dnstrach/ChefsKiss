@@ -45,6 +45,16 @@ struct MyRecipeListView: View {
             }
             .navigationTitle("My Recipes")
             .toolbar {
+                
+//                if !recipes.isEmpty {
+//                    Menu("Filter/Sort", systemImage: "arrow.up.arrow.down") {
+////                        Picker("Filter/Sort", selection: <#T##Binding<Hashable>#>) {
+////                            
+////                        }
+//                    }
+//                    
+//                }
+                
                 if !recipes.isEmpty {
                     Button {
                         isAddViewPresented.toggle()
@@ -53,6 +63,7 @@ struct MyRecipeListView: View {
                             .scaleEffect(1.5)
                     }
                 }
+                
             }
             .sheet(isPresented: $isAddViewPresented) {
                 AddEditRecipeView(recipe: nil)
@@ -73,3 +84,8 @@ struct MyRecipeListView: View {
     MyRecipeListView()
         .modelContainer(for: Recipe.self, inMemory: true)
 }
+
+//#Preview {
+//    MyRecipeListView(sortOrder: [SortDescriptor(\Recipe.title)])
+//        .modelContainer(for: Recipe.self, inMemory: true)
+//}

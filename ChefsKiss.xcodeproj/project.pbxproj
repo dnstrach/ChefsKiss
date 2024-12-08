@@ -58,6 +58,7 @@
 		D88158D22CC4A9680078E115 /* SheetButtonLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158D12CC4A9680078E115 /* SheetButtonLabelView.swift */; };
 		D88158D42CC88F7B0078E115 /* PrepTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158D32CC88F7B0078E115 /* PrepTimeView.swift */; };
 		D88158D62CC88F870078E115 /* CookTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D88158D52CC88F870078E115 /* CookTimeView.swift */; };
+		D8896EF02D03DEF400B0802F /* MyRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8896EEF2D03DEF400B0802F /* MyRecipeView.swift */; };
 		D894BE142CF7AD8B007586B7 /* RecipesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D894BE132CF7AD8B007586B7 /* RecipesView.swift */; };
 		D894FF9A2CAF53B300E78F8F /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D894FF992CAF53B300E78F8F /* CacheManager.swift */; };
 		D897A0D82C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */; };
@@ -142,6 +143,7 @@
 		D88158D12CC4A9680078E115 /* SheetButtonLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetButtonLabelView.swift; sourceTree = "<group>"; };
 		D88158D32CC88F7B0078E115 /* PrepTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepTimeView.swift; sourceTree = "<group>"; };
 		D88158D52CC88F870078E115 /* CookTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookTimeView.swift; sourceTree = "<group>"; };
+		D8896EEF2D03DEF400B0802F /* MyRecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyRecipeView.swift; sourceTree = "<group>"; };
 		D894BE132CF7AD8B007586B7 /* RecipesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesView.swift; sourceTree = "<group>"; };
 		D894FF992CAF53B300E78F8F /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		D897A0D72C9A2F0B00BC3A5A /* RecipeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewModel.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 		D897A0D62C9A2E6700BC3A5A /* RecipeList */ = {
 			isa = PBXGroup;
 			children = (
+				D8896EEF2D03DEF400B0802F /* MyRecipeView.swift */,
 				D82FA4982BBBCC2600077128 /* MyRecipeListView.swift */,
 				D82FA4B12BBC6AEA00077128 /* RecipeRowView.swift */,
 			);
@@ -526,6 +529,7 @@
 				D8BDBA652C98DCA500AC5E52 /* APIEquipmentView.swift in Sources */,
 				D87385972CBA2B8000873264 /* KeyboardAvoidance.swift in Sources */,
 				D824A04E2C9A3CD700452EC7 /* InstructionsView.swift in Sources */,
+				D8896EF02D03DEF400B0802F /* MyRecipeView.swift in Sources */,
 				D873858F2CB89C0A00873264 /* CameraButtonView.swift in Sources */,
 				D8D6747F2CB6F12F00FD9FE3 /* LineDividerView.swift in Sources */,
 				D8C4A92E2C2CE7DB0097BAA8 /* ImagePickerView.swift in Sources */,
@@ -731,7 +735,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChefsKiss/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to capture image to show in the app.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access allows you to take and upload images to recipe.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -740,8 +744,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Dominique-Strachan.ChefsKiss";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dominique-Strachan.ChefsKiss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -766,7 +770,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChefsKiss/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to capture image to show in the app.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access allows you to take and upload images to recipe.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -775,8 +779,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Dominique-Strachan.ChefsKiss";
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.Dominique-Strachan.ChefsKiss";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

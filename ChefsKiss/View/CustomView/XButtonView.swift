@@ -27,12 +27,12 @@ struct XButtonView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try RecipePreview()
-        return XButtonView(viewModel: AddEditRecipeViewModel(), recipe: preview.recipe, imageState: .empty)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try RecipePreview()
+//        return XButtonView(viewModel: AddEditRecipeViewModel(), recipe: preview.recipe, imageState: .empty)
+//            .modelContainer(preview.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

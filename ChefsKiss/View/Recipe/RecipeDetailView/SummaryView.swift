@@ -28,13 +28,13 @@ struct SummaryView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try RecipePreview()
-        
-        return SummaryView(recipe: preview.recipe)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try RecipePreview()
+//        
+//        return SummaryView(recipe: preview.recipe)
+//            .modelContainer(preview.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

@@ -15,7 +15,9 @@ enum APIError: String, Error {
 }
 
 enum SearchTerm {
+    // search recipe
     case query(String)
+    // cuisine, meal type, diet, intolerance
     case categoryParam(param: String, value: String)
 }
 
@@ -25,9 +27,9 @@ struct CachedResponseEntry {
 }
 
 struct APIManager {
-//    private static let apiKey = "3f6a72d40dfe481bbd6a747499faaa2f"
+    private static let apiKey = "9df016c1df2e48ffb464d489cec9e760"
 //    private static let apiKey = "26c2395715cb402fa5f0277fa945812e"
-    private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
+//    private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
     private static let urlCache = URLCache.shared
     private static var cacheStorage: [URL: CachedResponseEntry] = [:]
 
@@ -44,6 +46,7 @@ struct APIManager {
             URLQueryItem(name: "number", value: "100")
         ]
         
+        // endpoint for search or category
         switch searchTerm {
         case let .query(queryValue):
             components.queryItems?.append(
@@ -63,9 +66,11 @@ struct APIManager {
         
         let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
         
-        if let cachedEntry = cacheStorage[url] {
-            if Date().timeIntervalSince(cachedEntry.timestamp) < 3600 {
-                return try JSONDecoder().decode(Response.self, from: cachedEntry.response.data).results
+        // checking if request is cached
+        if let cachedResponse = cacheStorage[url] {
+            // stores and loads api requests for 1 hour
+            if Date().timeIntervalSince(cachedResponse.timestamp) < 3600 {
+                return try JSONDecoder().decode(Response.self, from: cachedResponse.response.data).results
             } else {
                 cacheStorage.removeValue(forKey: url)
             }
@@ -73,13 +78,17 @@ struct APIManager {
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
+            
+            //
             print(data.count)
             print("Response data:", String(data: data, encoding: .utf8) ?? "")
+            //
             
             guard let httpResponse = response as? HTTPURLResponse else {
                 throw APIError.invalidResponse
             }
             
+            // status code 200 = OK Status
             guard httpResponse.statusCode == 200 else {
                 if httpResponse.statusCode == 402 {
                     throw APIError.exceededCallLimit
@@ -88,20 +97,16 @@ struct APIManager {
                 }
             }
             
-            let cachedResponse = CachedURLResponse(response: httpResponse, data: data)
-            cacheStorage[url] = CachedResponseEntry(response: cachedResponse, timestamp: Date())
-            
             guard let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) else {
                 throw APIError.unableToDecode
             }
             
+            // storing response
+            let cachedResponse = CachedURLResponse(response: httpResponse, data: data)
+            cacheStorage[url] = CachedResponseEntry(response: cachedResponse, timestamp: Date())
+            
             return decodedResponse.results
         } catch {
-//            if let cachedEntry = cacheStorage[url] {
-//                if Date().timeIntervalSince(cachedEntry.timestamp) < 3600 {
-//                    return try JSONDecoder().decode(Response.self, from: cachedEntry.response.data).results
-//                }
-//            }
             throw(error)
         }
     }

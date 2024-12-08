@@ -18,11 +18,8 @@ class APIRecipeDetailViewModel: ObservableObject {
     
     func navigationTitle(recipe: APIRecipe) -> String {
         let title = recipe.title
-
         let titleWords = title.split(separator: " ")
-        
         let threeWords = titleWords.prefix(3)
-        
         let navigationTitle = threeWords.joined(separator: " ")
         
         return navigationTitle
@@ -30,11 +27,8 @@ class APIRecipeDetailViewModel: ObservableObject {
     
     func remainingTitle(recipe: APIRecipe) -> String {
         let title = recipe.title
-        
         let titleWords = title.split(separator: " ")
-        
         let remainingWords = titleWords.dropFirst(3)
-        
         let remainingTitle = remainingWords.joined(separator: " ")
         
         return remainingTitle
@@ -67,12 +61,4 @@ class APIRecipeDetailViewModel: ObservableObject {
         
         return uniqueEquipment
     }
-    
-//    func removeDuplicateEquipment(recipe: APIRecipe) {
-//        let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
-//        
-//        // Remove duplicates from all ingredients
-//        let equipment = removeDuplicateEquipment(from: allEquipment ?? [])
-//    }
-    
 }

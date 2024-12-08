@@ -9,12 +9,19 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+// add enum for types
+
 @Model
 class Recipe: Identifiable {
     var id = UUID()
     var title: String = ""
     var summary: String = ""
     var image: Data? = nil
+//    var type: String = ""
+//    var isVegetarian: Bool = false
+//    var isVegan: Bool = false
+//    var isGlutenFree: Bool = false
+//    var isDairyFree: Bool = false
     var servings: Double = 0
     var prepTime: Int = 0
     var cookTime: Int = 0
@@ -47,7 +54,6 @@ class Recipe: Identifiable {
         self.appliances = appliances
     }
 
-    // added as relationship to recipe
     @Model
     class Ingredient: Identifiable {
         var id = UUID()
@@ -74,7 +80,6 @@ class Recipe: Identifiable {
         }
     }
     
-    // added as relationship to recipe
     @Model
     class Instruction: Identifiable {
         var id = UUID()

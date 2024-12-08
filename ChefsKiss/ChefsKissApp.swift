@@ -23,10 +23,6 @@ struct ChefsKissApp: App {
                     APIRecipe.self
                 ])
                 .environmentObject(viewModel)
-                
-//                if showLaunchAnimation {
-//                    LaunchAnimation(showLaunchAnimation: $showLaunchAnimation)
-//                }
             }
         }
     }
