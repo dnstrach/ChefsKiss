@@ -25,15 +25,15 @@ class Response: Codable {
     }
     
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(results, forKey: .results)
-//    }
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(results, forKey: .results)
+    }
 }
 
 @Model
 class APIRecipe: Codable, Equatable {
-    // used for saved recipes
+    // used to identify saved recipes
     static func == (lhs: APIRecipe, rhs: APIRecipe) -> Bool {
         lhs.id == rhs.id
     }

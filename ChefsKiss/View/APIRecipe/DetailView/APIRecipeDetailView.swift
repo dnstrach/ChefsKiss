@@ -10,14 +10,9 @@ import SwiftUI
 
 struct APIRecipeDetailView: View {
     @Environment(\.openURL) var openURL
-    @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) private var dismiss
-    
-    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
 
-    
     @StateObject var viewModel = APIRecipeDetailViewModel()
-    
     
     @State private var showScrollToTopButton = false
     
@@ -65,16 +60,15 @@ struct APIRecipeDetailView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let preview = try APIRecipePreview()
-//        
-//        return APIRecipeDetailView(recipe: preview.recipe)
-//            .modelContainer(preview.container)
-//            .environmentObject(SavedRecipesViewModel())
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//}
+#Preview {
+    do {
+        let preview = try APIRecipePreview()
+        
+        return APIRecipeDetailView(recipe: preview.recipe)
+            .modelContainer(preview.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+}
 
 

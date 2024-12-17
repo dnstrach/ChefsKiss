@@ -63,14 +63,14 @@ struct APIIngredientsView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let preview = try APIRecipePreview()
-//        
-//        return APIIngredientsView(viewModel: APIRecipeDetailViewModel(), recipe: preview.recipe)
-//            .modelContainer(preview.container)
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//    
-//}
+#Preview {
+    do {
+        let preview = try APIRecipePreview()
+        
+        return APIIngredientsView(viewModel: APIRecipeDetailViewModel(), recipe: preview.recipe)
+            .modelContainer(preview.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+    
+}

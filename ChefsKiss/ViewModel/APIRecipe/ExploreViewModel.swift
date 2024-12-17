@@ -13,10 +13,10 @@ enum ExploreView {
     case emptySearch
 }
 
-// being passed to ExploreRecipesView, RecipesView
-// initialized in CategoryGridView inside navlink for RecipesGridView
 
 // ExploreRecipesView -> CategoryGridView -> RecipesGridView
+// being passed to ExploreRecipesView, RecipesView
+// initialized in CategoryGridView inside navlink for RecipesGridView
 
 @MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []

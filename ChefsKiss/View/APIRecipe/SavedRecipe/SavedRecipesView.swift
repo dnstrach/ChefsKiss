@@ -9,14 +9,10 @@ import SwiftData
 import SwiftUI
 
 struct SavedRecipesView: View {
-    @Environment(\.modelContext) var modelContext
-    
     @Query(
         sort: \APIRecipe.title,
         order: .forward
     ) var savedRecipes: [APIRecipe]
-    
-    @EnvironmentObject var viewModel: SavedRecipesViewModel
     
     var body: some View {
         NavigationStack {
