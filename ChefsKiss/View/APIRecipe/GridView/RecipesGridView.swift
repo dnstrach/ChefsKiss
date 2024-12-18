@@ -80,13 +80,6 @@ struct RecipesGridView: View {
 }
 
 #Preview {
-    do {
-        let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try ModelContainer(for: APIRecipe.self, configurations: config)
-        
-        return RecipesGridView(recipes: APIRecipe.dummyRecipes, shouldShowSpinner: false)
-    } catch {
-        return Text("Failed to create container \(error.localizedDescription)")
-    }
+    return RecipesGridView(recipes: APIRecipe.dummyRecipes, shouldShowSpinner: false)
 }
 

@@ -20,7 +20,6 @@ struct SavedRecipesView: View {
                 if savedRecipes.isEmpty {
                     ContentUnavailableView("No Saved Recipes", systemImage: "heart.circle.fill", description: Text("Tap on heart buttons to save recipes."))
                         .foregroundStyle(.accent)
-                    
                 } else {
                     RecipesGridView(recipes: savedRecipes, shouldShowSpinner: false)
                 }

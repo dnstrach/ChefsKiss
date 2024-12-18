@@ -59,6 +59,7 @@ struct APIInstructionsView: View {
                             .contentFont()
                             .foregroundColor(.gray)
                             .padding(.leading)
+                            .padding(.leading)
                         
                         Spacer()
                     }
