@@ -2,7 +2,7 @@
 //  SavedRecipesViewModel.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 5/21/24.
+//  Created by Dominique Strachan on 12/23/24.
 //
 
 import Foundation
@@ -11,15 +11,17 @@ import SwiftData
 
 @MainActor
 class SavedRecipesViewModel: ObservableObject {
- //   let columns = [GridItem(.adaptive(minimum: 150))]
+    let columns = [
+        GridItem(.adaptive(minimum: 150))
+    ]
     
-//    func querySavedRecipes(_ savedRecipes: [APIRecipe]) -> [APIRecipe] {
-//        var recipes = [APIRecipe]()
-//        
-//        for recipe in savedRecipes {
-//            recipes.append(recipe)
-//        }
-//        
-//        return recipes
-//    }
+    func querySavedRecipes(_ savedRecipes: [APIRecipe]) -> [APIRecipe] {
+        var recipes = [APIRecipe]()
+        
+        for recipe in savedRecipes {
+            recipes.append(recipe)
+        }
+        
+        return recipes
+    }
 }

@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 struct TabBarView: View {
-    
     var body: some View {
         TabView {
             ExploreRecipesView(viewModel: ExploreViewModel(searchTerm: .query("")))

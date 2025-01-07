@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 enum ExploreView {
     case categoryResults
@@ -13,10 +14,10 @@ enum ExploreView {
     case emptySearch
 }
 
-
-// ExploreRecipesView -> CategoryGridView -> RecipesGridView
 // being passed to ExploreRecipesView, RecipesView
 // initialized in CategoryGridView inside navlink for RecipesGridView
+
+// ExploreRecipesView -> CategoryGridView -> RecipesGridView
 
 @MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []

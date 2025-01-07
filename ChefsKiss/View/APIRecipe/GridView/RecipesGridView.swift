@@ -9,6 +9,9 @@ import SwiftData
 import SwiftUI
 
 struct RecipesGridView: View {
+    @Query var savedRecipes: [APIRecipe]
+    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+    
     let columns = [GridItem(.adaptive(minimum: 150))]
     let recipes: [APIRecipe]
 
@@ -34,7 +37,7 @@ struct RecipesGridView: View {
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    HeartButtonView(recipe: recipe)
+                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
 
                                             Text(recipe.title)
@@ -48,7 +51,7 @@ struct RecipesGridView: View {
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    HeartButtonView(recipe: recipe)
+                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
                                                 }
 
                                             Text(recipe.title)

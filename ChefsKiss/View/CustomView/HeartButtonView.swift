@@ -8,43 +8,27 @@
 import SwiftData
 import SwiftUI
 
-
-/* BUG: DISCONNECT WHEN REMOVING A RECIPE FROM @QUERY SAVED RECIPES
- FROM EXPLOREVIEW --- RECIPEGRIDVIEW, BUT NOT FROM SAVEDRECIPESVIEW
- 
- AFTER CLICKING HEART BUTTON @QUERY SAVEDRECIPES DOES NOT UPDATE
- FOR ADDING OR DELETING A RECIPE UNTIL NEXT CLICK
-*/
 struct HeartButtonView: View {
     @Environment(\.modelContext) var modelContext
-    
     @Query var savedRecipes: [APIRecipe]
-
+    
+    let viewModel: SavedRecipesViewModel
+    
     let recipe: APIRecipe
     
     var body: some View {
         Button {
-            print("[")
-            for recipe in savedRecipes {
-                print("ID: \(recipe.id), \(recipe.title)")
-            }
-            print("]")
-            print("TAPPED RECIPE: \(recipe.id) \(recipe.title)")
+            let recipes = viewModel.querySavedRecipes(savedRecipes)
             
-            if savedRecipes.contains(where: { $0.id == recipe.id }) {
+            if recipes.contains(where: { $0.id == recipe.id }) {
                 modelContext.delete(recipe)
-                print("FOUND AND DELETED")
             } else {
                 modelContext.insert(recipe)
-                print("FOUND AND ADDED")
             }
             
-            print("[")
-            for recipe in savedRecipes {
-                print("ID: \(recipe.id), \(recipe.title)")
-            }
-            print("]")
         } label: {
+            let recipes = viewModel.querySavedRecipes(savedRecipes)
+            
             ZStack {
                 Image(systemName: "circle.fill")
                     .resizable()
@@ -52,7 +36,7 @@ struct HeartButtonView: View {
                     .frame(width: 35, height: 35)
                     .opacity(0.4)
                 
-                Image(systemName: savedRecipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
                     .foregroundStyle(.accent)
                     .imageScale(.large)
             }
@@ -62,13 +46,14 @@ struct HeartButtonView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try APIRecipePreview()
-        
-        return HeartButtonView(recipe: preview.recipe)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try APIRecipePreview()
+//
+//        return HeartButtonView(viewModel: SavedRecipesViewModel(), recipe: preview.recipe)
+//            .modelContainer(preview.container)
+//            .environmentObject(SavedRecipesViewModel())
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

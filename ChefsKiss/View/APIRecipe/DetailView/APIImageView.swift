@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct APIImageView: View {
+    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+    
     let recipe: APIRecipe
     
     var body: some View {
+        //  VStack {
         AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
             if let image = phase.image {
                 image
@@ -31,21 +34,22 @@ struct APIImageView: View {
             
         }
         .overlay(alignment: .bottomTrailing) {
-            HeartButtonView(recipe: recipe)
+            HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
                 .scaleEffect(1.5)
                 .padding(.trailing)
         }
     }
 }
 
-#Preview {
-    do {
-        let preview = try APIRecipePreview()
-        
-        return APIImageView(recipe: preview.recipe)
-            .frame(width: 200, height: 200)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try APIRecipePreview()
+//
+//        return APIImageView(recipe: preview.recipe)
+//            .frame(width: 200, height: 200)
+//            .modelContainer(preview.container)
+//            .environmentObject(SavedRecipesViewModel())
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

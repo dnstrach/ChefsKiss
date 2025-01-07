@@ -5,13 +5,14 @@
 //  Created by Dominique Strachan on 11/27/24.
 //
 
+import SwiftData
 import SwiftUI
 
 // purpose of this file is to show the recipes from a category with the navtitle and alert if out of network calls
 // being passed to CategoryGridView
 
 struct RecipesView: View {
-    @StateObject var viewModel: ExploreViewModel
+    @ObservedObject var viewModel: ExploreViewModel
     
     var body: some View {
         NavigationStack {

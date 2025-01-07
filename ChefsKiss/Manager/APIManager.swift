@@ -28,6 +28,8 @@ struct CachedResponseEntry {
 
 struct APIManager {
     private static let apiKey = "9df016c1df2e48ffb464d489cec9e760"
+//    private static let apiKey = "26c2395715cb402fa5f0277fa945812e"
+//    private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
     private static let urlCache = URLCache.shared
     private static var cacheStorage: [URL: CachedResponseEntry] = [:]
 
@@ -77,9 +79,9 @@ struct APIManager {
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
-            // print statements
-//            print(data.count)
-//            print("Response data:", String(data: data, encoding: .utf8) ?? "")
+            //
+            print(data.count)
+            print("Response data:", String(data: data, encoding: .utf8) ?? "")
             //
             
             guard let httpResponse = response as? HTTPURLResponse else {

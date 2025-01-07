@@ -7,9 +7,11 @@
 
 import SwiftData
 import SwiftUI
-
+//
 @main
 struct ChefsKissApp: App {
+    @StateObject var viewModel = SavedRecipesViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -18,6 +20,7 @@ struct ChefsKissApp: App {
                     Recipe.self,
                     APIRecipe.self
                 ])
+                .environmentObject(viewModel)
             }
         }
     }

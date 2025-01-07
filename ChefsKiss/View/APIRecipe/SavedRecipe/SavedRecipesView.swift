@@ -9,10 +9,14 @@ import SwiftData
 import SwiftUI
 
 struct SavedRecipesView: View {
+    @Environment(\.modelContext) var modelContext
+    
     @Query(
         sort: \APIRecipe.title,
         order: .forward
     ) var savedRecipes: [APIRecipe]
+    
+    @EnvironmentObject var viewModel: SavedRecipesViewModel
     
     var body: some View {
         NavigationStack {
@@ -20,6 +24,7 @@ struct SavedRecipesView: View {
                 if savedRecipes.isEmpty {
                     ContentUnavailableView("No Saved Recipes", systemImage: "heart.circle.fill", description: Text("Tap on heart buttons to save recipes."))
                         .foregroundStyle(.accent)
+                    
                 } else {
                     RecipesGridView(recipes: savedRecipes, shouldShowSpinner: false)
                 }
