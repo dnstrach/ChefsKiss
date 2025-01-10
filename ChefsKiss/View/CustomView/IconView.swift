@@ -59,7 +59,7 @@ struct IconView: View {
 //#Preview {
 //    do {
 //        let preview = try APIRecipePreview()
-//        
+//
 //        return IconView(recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

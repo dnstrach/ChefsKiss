@@ -46,7 +46,7 @@ struct PrepTimeView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
+//
 //        return PrepTimeView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

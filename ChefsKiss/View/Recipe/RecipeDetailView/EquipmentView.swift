@@ -60,7 +60,7 @@ struct EquipmentView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
+//
 //        return EquipmentView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

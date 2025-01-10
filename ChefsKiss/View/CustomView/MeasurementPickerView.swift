@@ -17,7 +17,7 @@ struct MeasurementPickerView: View {
             HStack(spacing: 0.5) {
                 ForEach(viewModel.measureTypes, id: \.self) { measurement in
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10)  
+                        RoundedRectangle(cornerRadius: 10)
                             .fill(.white)
                             .frame(width: 70, height: 40)
                             .opacity(selectedMeasurement == measurement ? 1.0 : 0.3)

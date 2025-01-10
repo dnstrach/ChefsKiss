@@ -33,7 +33,7 @@ struct DurationServingsView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
+//
 //        return DurationServingsView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

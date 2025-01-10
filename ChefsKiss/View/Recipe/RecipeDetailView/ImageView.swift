@@ -36,8 +36,8 @@ struct ImageView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
-//        return 
+//
+//        return
 //            GeometryReader { geo in
 //            ImageView(recipe: preview.recipe, geo: geo)
 //                .modelContainer(preview.container)

@@ -33,43 +33,43 @@ struct AddEditRecipeView: View {
 //                        } label: {
 //                            HStack {
 //                                Image(systemName: "circle")
-//                                
+//
 //                                Text("Vegan")
 //                            }
 //                        }
-//                        
+//
 //                        Button {
 //                            viewModel.isVegetarian.toggle()
 //                        } label: {
 //                            HStack {
 //                                Image(systemName: "circle")
-//                                
+//
 //                                Text("Vegetarian")
 //                            }
 //                        }
 //                    }
-//                    
+//
 //                    VStack {
 //                        Button {
 //                            viewModel.isGlutenFree.toggle()
 //                        } label: {
 //                            HStack {
 //                                Image(systemName: "circle")
-//                                
+//
 //                                Text("Gluten Free")
 //                            }
 //                        }
-//                        
+//
 //                        Button {
 //                            viewModel.isDairyFree.toggle()
 //                        } label: {
 //                            HStack {
 //                                Image(systemName: "circle")
-//                                
+//
 //                                Text("Dairy Free")
 //                            }
 //                        }
-//                        
+//
 //                    }
 //
 //                }
@@ -159,7 +159,7 @@ struct AddEditRecipeView: View {
 //#Preview {
 //    do {
 //        let previewer = try RecipePreview()
-//        
+//
 //        return AddEditRecipeView(recipe: previewer.recipe)
 //            .modelContainer(previewer.container)
 //    } catch {

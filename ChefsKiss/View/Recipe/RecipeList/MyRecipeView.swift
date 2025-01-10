@@ -31,12 +31,12 @@ struct MyRecipeView: View {
 //                        .toolbar {
 //                            Menu {
 //                                Button {
-//                                    
+//
 //                                } label: {
-//                                    
+//
 //                                }
 //                            }
-//                            
+//
 //            //                if !recipes.isEmpty {
 //            //                    Menu("Filter/Sort", systemImage: "arrow.up.arrow.down") {
 //            ////                        Picker("Filter/Sort", selection: <#T##Binding<Hashable>#>) {
@@ -45,7 +45,7 @@ struct MyRecipeView: View {
 //            //                    }
 //            //
 //            //                }
-//                            
+//
 //                            if !recipes.isEmpty {
 //                                Button {
 //                                    isAddViewPresented.toggle()
@@ -54,7 +54,7 @@ struct MyRecipeView: View {
 //                                        .scaleEffect(1.5)
 //                                }
 //                            }
-//                            
+//
 //                        }
                 }
         }

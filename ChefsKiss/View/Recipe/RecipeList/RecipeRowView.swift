@@ -45,7 +45,7 @@ struct RecipeRowView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
+//
 //        return RecipeRowView(recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

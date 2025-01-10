@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct CategoryGridView: View {
+    
     let category: CategoryTitle
     let searchParam: CategoryParam
-    let rows = [GridItem(.flexible(minimum: 100))]
+    
+    let rows = [
+        GridItem(.flexible(minimum: 100))
+    ]
   
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text(category.rawValue)
@@ -100,5 +105,101 @@ struct CategoryLabel: View {
         }
     }
 }
+
+
+/*
+ struct CategoryGridView: View {
+     @StateObject var viewModel: ExploreViewModel
+     
+     let category: CategoryTitle
+     let searchParam: CategoryParam
+     
+     let rows = [
+         GridItem(.flexible(minimum: 100))
+     ]
+   
+     
+     var body: some View {
+         VStack(alignment: .leading) {
+             Text(category.rawValue)
+                 .font(.title)
+             ScrollView(.horizontal, showsIndicators: false) {
+                 LazyHGrid(rows: rows, spacing: 20) {
+                     switch searchParam {
+                     case .cuisine:
+                         ForEach(Cuisine.allCases, id: \.self) { cuisine in
+                             NavigationLink {
+                                 RecipesGridView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: searchParam.rawValue, value: cuisine.rawValue)), recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                             } label: {
+                                 CategoryLabel(category: cuisine.rawValue.capitalized)
+                             }
+                         }
+                         
+                     case .dishType:
+                         ForEach(DishType.allCases, id: \.self) { dish in
+                             NavigationLink {
+                                 RecipesGridView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: searchParam.rawValue, value: dish.rawValue)), recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                             } label: {
+                                 CategoryLabel(category: dish.rawValue.capitalized)
+                             }
+                         }
+                         
+                     case .diet:
+                         ForEach(Diet.allCases, id: \.self) { diet in
+                             NavigationLink {
+                                 RecipesGridView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: searchParam.rawValue, value: diet.rawValue)), recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                             } label: {
+                                 CategoryLabel(category: diet.rawValue)
+                             }
+                         }
+                         
+                     case .intolerance:
+                         ForEach(Intolerance.allCases, id: \.self) { intolerance in
+                             NavigationLink {
+                                 RecipesGridView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: searchParam.rawValue, value: intolerance.rawValue)), recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                             } label: {
+                                 CategoryLabel(category: intolerance.rawValue.capitalized)
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+         .padding(.leading)
+         .padding(.bottom)
+     }
+ }
+
+ struct CategoryLabel: View {
+     var category: String
+     
+     var body: some View {
+         VStack {
+             Image(category.lowercased())
+                 .resizable()
+                 .scaledToFill()
+                 .frame(width: 200, height: 200)
+                 .clipShape(RoundedRectangle(cornerRadius: 10))
+                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
+                 .shadow(color: Color.secondary, radius: 5)
+                 .aspectRatio(contentMode: .fit)
+             Text(category)
+                 .font(.title3)
+                 .foregroundStyle(Color.primary)
+         }
+     }
+ }
+
+ #Preview {
+     ScrollView {
+         Group {
+             CategoryGridView(viewModel: ExploreViewModel(searchTerm: .query("")), category: .cuisine, searchParam: .cuisine)
+             CategoryGridView(viewModel: ExploreViewModel(searchTerm: .query("")), category: .dishType, searchParam: .dishType)
+             CategoryGridView(viewModel: ExploreViewModel(searchTerm: .query("")), category: .diet, searchParam: .diet)
+             CategoryGridView(viewModel: ExploreViewModel(searchTerm: .query("")), category: .intolerance, searchParam: .intolerance)
+         }
+     }
+ }
+ */
 
 

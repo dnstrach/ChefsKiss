@@ -39,7 +39,7 @@ enum ImageState {
     
     var imageState: ImageState = .empty
 
-    var selectedCameraImage: UIImage? 
+    var selectedCameraImage: UIImage?
     var selectedPhoto: PhotosPickerItem? {
         didSet {
             if let selectedPhoto {

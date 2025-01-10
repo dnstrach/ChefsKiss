@@ -43,7 +43,7 @@ struct ServingsView: View {
 //#Preview {
 //    do {
 //        let preview = try RecipePreview()
-//        
+//
 //        return ServingsView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

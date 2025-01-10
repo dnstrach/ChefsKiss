@@ -30,7 +30,7 @@ struct LinkButtonView: View {
 //#Preview {
 //    do {
 //        let preview = try APIRecipePreview()
-//        
+//
 //        return LinkButtonView(recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {

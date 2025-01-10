@@ -27,7 +27,7 @@ struct CachedResponseEntry {
 }
 
 struct APIManager {
-    private static let apiKey = "9df016c1df2e48ffb464d489cec9e760"
+    private static let apiKey = "cce86962d1e94f68b85f3fad930d6ee6"
 //    private static let apiKey = "26c2395715cb402fa5f0277fa945812e"
 //    private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
     private static let urlCache = URLCache.shared
