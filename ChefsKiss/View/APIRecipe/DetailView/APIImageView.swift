@@ -13,7 +13,6 @@ struct APIImageView: View {
     let recipe: APIRecipe
     
     var body: some View {
-        //  VStack {
         AsyncImage(url: URL(string: recipe.image), scale: 3) { phase in
             if let image = phase.image {
                 image

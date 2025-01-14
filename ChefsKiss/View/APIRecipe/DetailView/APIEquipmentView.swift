@@ -24,12 +24,11 @@ struct APIEquipmentView: View {
                 
                 let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
                 
-                // Remove duplicates from all ingredients
-                let equipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
+                let uniqueEquipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
                 
-                if !equipment.isEmpty {
+                if !uniqueEquipment.isEmpty {
                     LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                        ForEach(equipment, id: \.name) { equipment in
+                        ForEach(uniqueEquipment, id: \.name) { equipment in
                             HStack(alignment: .top, spacing: 5) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(Color.accent)

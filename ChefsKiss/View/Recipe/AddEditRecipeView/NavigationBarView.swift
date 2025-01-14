@@ -16,50 +16,40 @@ struct NavigationBarView: View {
     let recipe: Recipe?
     
     var body: some View {
-    //    ZStack {
-        //    Color.textfield.opacity(0.2)
+        HStack(alignment: .center) {
             
-//            Rectangle()
-//                .fill(Color.textfield.opacity(0.2))
-            
-//            Color(Color.textfield.opacity(0.3))
-            
-            HStack(alignment: .center) {
-                
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "x.square.fill")
-                        .foregroundStyle(.accent1)
-                        .scaleEffect(1.5)
-                }
-                .padding(.leading)
-                
-                Spacer()
-                
-                Text(recipe == nil ? "Add Recipe" : "Edit Recipe")
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "x.square.fill")
                     .foregroundStyle(.accent1)
-                    .font(.title2)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                Button {
-                    withAnimation {
-                        save()
-                        dismiss()
-                    }
-                } label: {
-                    Image(systemName: "square.and.arrow.down.fill")
-                        .foregroundStyle(.accent1)
-                        .scaleEffect(1.5)
-                }
-                .padding(.trailing)
+                    .scaleEffect(1.5)
             }
-            .frame(height: 60)
+            .padding(.leading)
+            
+            Spacer()
+            
+            Text(recipe == nil ? "Add Recipe" : "Edit Recipe")
+                .foregroundStyle(.accent1)
+                .font(.title2)
+                .fontWeight(.bold)
+            
+            Spacer()
+            
+            Button {
+                withAnimation {
+                    save()
+                    dismiss()
+                }
+            } label: {
+                Image(systemName: "square.and.arrow.down.fill")
+                    .foregroundStyle(.accent1)
+                    .scaleEffect(1.5)
+            }
+            .padding(.trailing)
         }
-        
- //   }
+        .frame(height: 60)
+    }
     
     func save() {
         if let recipe {

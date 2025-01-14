@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// when adding types
 struct MyRecipeView: View {
     /* Sort
      @State private var recipeType = "All"

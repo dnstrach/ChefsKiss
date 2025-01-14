@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-//enum SheetAction {
-//    case cancel
-//    case swipeDown
-//}
-
 struct EquipmentListView: View {
     @ObservedObject var viewModel: AddEditRecipeViewModel
     

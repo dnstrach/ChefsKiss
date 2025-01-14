@@ -33,27 +33,6 @@ struct RecipesView: View {
         .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 
-/*
- struct RecipesView: View {
-     @StateObject var viewModel: ExploreViewModel
-     
-     var body: some View {
-         NavigationStack {
-             RecipesGridView(viewModel: viewModel, recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
-                 .navigationTitle(viewModel.unwrappedNavTitle)
-                 .navigationBarTitleDisplayMode(.inline)
-                 .alert(isPresented: $viewModel.showAlert) {
-                     Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
-                 }
-         }
-     }
- }
 
-
- #Preview {
-     RecipesView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: "Cuisine", value: "Asian")))
-         .modelContainer(for: APIRecipe.self, inMemory: true)
- }
- */
 
 

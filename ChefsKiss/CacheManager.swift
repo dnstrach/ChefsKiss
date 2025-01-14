@@ -1,8 +1,8 @@
 //
-//  ClassManager.swift
+//  CacheManager.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 10/3/24.
+//  Created by Dominique Strachan on 1/14/25.
 //
 
 import Foundation

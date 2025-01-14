@@ -15,7 +15,6 @@ struct APITitleView: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                
                 Text(recipe.title)
                     .font(.system(size: 40))
                     .fontDesign(.rounded)

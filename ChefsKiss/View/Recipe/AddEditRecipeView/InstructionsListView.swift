@@ -23,7 +23,6 @@ struct InstructionsListView: View {
             
             PlusButtonView(showSheet: $showAddInstructionSheet)
             
-//            Spacer()
         }
         .sheet(isPresented: $showAddInstructionSheet) {
             AddInstructionView(viewModel: viewModel)
@@ -53,7 +52,6 @@ struct InstructionsListView: View {
             }
             .onMove(perform: viewModel.moveStep)
         }
-      //  .listRowBackground(Color.textfield)
     }
 }
 

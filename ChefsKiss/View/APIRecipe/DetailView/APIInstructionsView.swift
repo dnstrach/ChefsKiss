@@ -25,7 +25,6 @@ struct APIInstructionsView: View {
             }
             
             VStack(alignment: .leading) {
-                // analyzed instructions has more than one steps []
                 if let instructions = recipe.analyzedInstructions, !instructions.isEmpty {
                     ForEach(Array(instructions.flatMap { $0.steps }.enumerated()), id: \.element.step) { index, step in
                         

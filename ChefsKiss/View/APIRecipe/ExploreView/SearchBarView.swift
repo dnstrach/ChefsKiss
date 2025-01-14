@@ -29,7 +29,6 @@ struct SearchBarView: View {
                             UIApplication.shared.endEditing()
                             searchText = ""
                             viewModel.exploreView = .categoryResults
-                           // viewModel.showSearchView = false
                         },
                     alignment: .trailing
                 )

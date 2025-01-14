@@ -38,7 +38,6 @@ struct APIIngredientsView: View {
                                     .contentFont()
                                     .frame(maxHeight: .infinity)
                                     .padding(.bottom, 5)
-                                  //  .padding(.horizontal)
                             }
                         }
                         .padding(.horizontal)
