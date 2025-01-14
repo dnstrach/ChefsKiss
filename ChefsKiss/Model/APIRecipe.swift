@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-class Response: Codable {
+class Response: Decodable {
     var results: [APIRecipe]
     
     enum CodingKeys: String, CodingKey {
@@ -32,7 +32,7 @@ class Response: Codable {
 }
 
 @Model
-class APIRecipe: Codable, Equatable {
+class APIRecipe: Decodable, Equatable {
     // used for saved recipes
     static func == (lhs: APIRecipe, rhs: APIRecipe) -> Bool {
         lhs.id == rhs.id
@@ -260,22 +260,22 @@ class APIRecipe: Codable, Equatable {
         self.analyzedInstructions = try container.decode([Instruction].self, forKey: .analyzedInstructions)
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(title, forKey: .title)
-        try container.encode(summary, forKey: .summary)
-        try container.encode(image, forKey: .image)
-        try container.encode(imageType, forKey: .imageType)
-        try container.encode(isVegetarian, forKey: .isVegetarian)
-        try container.encode(isVegan, forKey: .isVegan)
-        try container.encode(isGlutenFree, forKey: .isGlutenFree)
-        try container.encode(isDairyFree, forKey: .isDairyFree)
-        try container.encode(readyInMinutes, forKey: .readyInMinutes)
-        try container.encode(servings, forKey: .servings)
-        try container.encode(sourceUrl, forKey: .sourceUrl)
-        try container.encode(analyzedInstructions, forKey: .analyzedInstructions)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(title, forKey: .title)
+//        try container.encode(summary, forKey: .summary)
+//        try container.encode(image, forKey: .image)
+//        try container.encode(imageType, forKey: .imageType)
+//        try container.encode(isVegetarian, forKey: .isVegetarian)
+//        try container.encode(isVegan, forKey: .isVegan)
+//        try container.encode(isGlutenFree, forKey: .isGlutenFree)
+//        try container.encode(isDairyFree, forKey: .isDairyFree)
+//        try container.encode(readyInMinutes, forKey: .readyInMinutes)
+//        try container.encode(servings, forKey: .servings)
+//        try container.encode(sourceUrl, forKey: .sourceUrl)
+//        try container.encode(analyzedInstructions, forKey: .analyzedInstructions)
+//    }
 }
 
 class Instruction: Codable {
@@ -294,10 +294,10 @@ class Instruction: Codable {
         self.steps = try container.decode([Step].self, forKey: .steps)
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(steps, forKey: .steps)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(steps, forKey: .steps)
+//    }
 }
 
 class Step: Codable {
@@ -328,13 +328,13 @@ class Step: Codable {
         self.equipment = try container.decode([Equipment].self, forKey: .equipment)
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(number, forKey: .number)
-        try container.encode(step, forKey: .step)
-        try container.encode(ingredients, forKey: .ingredients)
-        try container.encode(equipment, forKey: .equipment)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(number, forKey: .number)
+//        try container.encode(step, forKey: .step)
+//        try container.encode(ingredients, forKey: .ingredients)
+//        try container.encode(equipment, forKey: .equipment)
+//    }
 }
 
 class Ingredient: Codable {
@@ -358,11 +358,11 @@ class Ingredient: Codable {
         self.name = try container.decode(String.self, forKey: .name)
     }
     
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(name, forKey: .name)
-    }
+//    func encode(to encoder: Encoder) throws {
+//        var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(id, forKey: .id)
+//        try container.encode(name, forKey: .name)
+//    }
 }
 
 class Equipment: Codable {
@@ -385,9 +385,9 @@ class Equipment: Codable {
        self.name = try container.decode(String.self, forKey: .name)
    }
    
-   func encode(to encoder: Encoder) throws {
-       var container = encoder.container(keyedBy: CodingKeys.self)
-       try container.encode(id, forKey: .id)
-       try container.encode(name, forKey: .name)
-   }
+//   func encode(to encoder: Encoder) throws {
+//       var container = encoder.container(keyedBy: CodingKeys.self)
+//       try container.encode(id, forKey: .id)
+//       try container.encode(name, forKey: .name)
+//   }
 }

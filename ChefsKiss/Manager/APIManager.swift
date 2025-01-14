@@ -21,17 +21,11 @@ enum SearchTerm {
     case categoryParam(param: String, value: String)
 }
 
-struct CachedResponseEntry {
-    let response: CachedURLResponse
-    let timestamp: Date
-}
-
 struct APIManager {
+    
+    // chefskiss949702970
     private static let apiKey = "cce86962d1e94f68b85f3fad930d6ee6"
-//    private static let apiKey = "26c2395715cb402fa5f0277fa945812e"
-//    private static let apiKey = "e9afb28b488f450699a99c9de92a296e"
     private static let urlCache = URLCache.shared
-    private static var cacheStorage: [URL: CachedResponseEntry] = [:]
 
     static func loadRecipes(searchTerm: SearchTerm) async throws -> [APIRecipe] {
         var components = URLComponents()
@@ -66,22 +60,12 @@ struct APIManager {
         
         let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
         
-        // checking if request is cached
-        if let cachedResponse = cacheStorage[url] {
-            // stores and loads api requests for 1 hour
-            if Date().timeIntervalSince(cachedResponse.timestamp) < 3600 {
-                return try JSONDecoder().decode(Response.self, from: cachedResponse.response.data).results
-            } else {
-                cacheStorage.removeValue(forKey: url)
-            }
-        }
-        
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
             
             //
-            print(data.count)
-            print("Response data:", String(data: data, encoding: .utf8) ?? "")
+           // print(data.count)
+           // print("Response data:", String(data: data, encoding: .utf8) ?? "")
             //
             
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -100,10 +84,6 @@ struct APIManager {
             guard let decodedResponse = try? JSONDecoder().decode(Response.self, from: data) else {
                 throw APIError.unableToDecode
             }
-            
-            // storing response
-            let cachedResponse = CachedURLResponse(response: httpResponse, data: data)
-            cacheStorage[url] = CachedResponseEntry(response: cachedResponse, timestamp: Date())
             
             return decodedResponse.results
         } catch {
