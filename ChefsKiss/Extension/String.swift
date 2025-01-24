@@ -8,11 +8,10 @@
 import Foundation
 
 extension String {
-    func stringByStrippingHTMLTags() -> String {
+    func removeHTMLTags() -> String {
         return self.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression, range: nil)
     }
     
-    // for if I only expect title
     var isReallyEmpty: Bool {
         self.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }

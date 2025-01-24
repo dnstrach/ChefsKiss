@@ -10,6 +10,8 @@ import SwiftUI
 
 extension UIApplication {
     
+    // x button for search bar
+    // ScrollView -> ExploreView
     func endEditing() {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }

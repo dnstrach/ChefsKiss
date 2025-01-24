@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-// CLEAN UP CODE
 struct ExploreRecipesView: View {
-    
     @ObservedObject var viewModel: ExploreViewModel
     
     var body: some View {
@@ -22,6 +20,7 @@ struct ExploreRecipesView: View {
                 case .categoryResults:
                     ForEach(viewModel.categories, id: \.0) { category, searchParam in
                         CategoryGridView(category: category, searchParam: searchParam)
+                        
                     }
                 case .searchResults:
                     RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
@@ -32,6 +31,7 @@ struct ExploreRecipesView: View {
                 case .emptySearch:
                     ContentUnavailableView("No Search Results", systemImage: "magnifyingglass.circle.fill", description: Text("Unable to find \(viewModel.searchText) recipes."))
                         .foregroundStyle(.accent)
+                    
                 }
             }
             .scrollDismissesKeyboard(.immediately)

@@ -234,7 +234,6 @@
 				D82FA4862BBBCB8200077128 /* Extension */,
 				D82FA4782BBBCA9E00077128 /* Preview Content */,
 				D82FA4762BBBCA9E00077128 /* Assets.xcassets */,
-				D8A52BB72D37091400B94F34 /* CacheManager.swift */,
 			);
 			path = ChefsKiss;
 			sourceTree = "<group>";
@@ -253,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				D82FA4872BBBCBBE00077128 /* APIManager.swift */,
+				D8A52BB72D37091400B94F34 /* CacheManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";

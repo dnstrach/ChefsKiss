@@ -52,5 +52,5 @@ struct EditInstructionSheetView: View {
 }
 
 //#Preview {
-//    EditInstructionSheetView()
+//    EditInstructionSheetView(viewModel: AddEditRecipeViewModel(), instruction: <#Recipe.Instruction#>)
 //}

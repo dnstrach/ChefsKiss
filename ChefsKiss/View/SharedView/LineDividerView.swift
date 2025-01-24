@@ -12,8 +12,7 @@ struct LineDividerView: View {
         Rectangle()
             .frame(height: 2)
             .foregroundStyle(Color.accent)
-             .opacity(0.4)
-          //  .shadow(color: Color.secondary, radius: 5)
+            .opacity(0.4)
             .padding(.horizontal)
             .padding(.horizontal)
     }

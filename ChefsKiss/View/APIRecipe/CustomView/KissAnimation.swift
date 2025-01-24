@@ -29,7 +29,6 @@ struct KissView: View {
                 .fill(
                     LinearGradient(colors: [.accent, .accent1, .accent2], startPoint: .top, endPoint: .bottom)
                 )
-            // .foregroundStyle(.accent)
                 .frame(width: 125, height: 125)
                 .rotationEffect(.degrees(degrees))
                 .onAppear(perform: {

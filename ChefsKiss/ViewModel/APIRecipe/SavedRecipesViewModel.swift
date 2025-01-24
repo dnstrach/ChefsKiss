@@ -11,10 +11,6 @@ import SwiftData
 
 @MainActor
 class SavedRecipesViewModel: ObservableObject {
-    let columns = [
-        GridItem(.adaptive(minimum: 150))
-    ]
-    
     func querySavedRecipes(_ savedRecipes: [APIRecipe]) -> [APIRecipe] {
         var recipes = [APIRecipe]()
         

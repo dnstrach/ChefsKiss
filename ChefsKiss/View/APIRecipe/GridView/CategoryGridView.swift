@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// ExploreViewModel initialized in this view
 struct CategoryGridView: View {
     
     let category: CategoryTitle
@@ -81,7 +82,7 @@ struct CategoryLabel: View {
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                 .background(
                     RoundedRectangle(cornerRadius: 10)
-                        .fill(.theme)
+                        .fill(.themeWhiteBlack)
                         .shadow(
                             color: .gray.opacity(0.5),
                             radius: 10, x: 0, y: 0

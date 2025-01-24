@@ -38,7 +38,7 @@ struct SearchBarView: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 25)
-                .fill(.theme)
+                .fill(.themeWhiteBlack)
                 .shadow(
                     color: .gray.opacity(0.5),
                     radius: 10, x: 0, y: 0
@@ -51,7 +51,6 @@ struct SearchBarView: View {
 #Preview {
     Group {
         SearchBarView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: "", value: "")), searchText: .constant(""))
-          //  .previewLayout(.sizeThatFits)
             .preferredColorScheme(.dark)
     }
 }

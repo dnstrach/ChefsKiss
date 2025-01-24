@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct APIInstructionsView: View {
-    @Environment(\.openURL) var openURL
-    
     let recipe: APIRecipe
     
     var body: some View {
@@ -28,6 +26,7 @@ struct APIInstructionsView: View {
                 if let instructions = recipe.analyzedInstructions, !instructions.isEmpty {
                     ForEach(Array(instructions.flatMap { $0.steps }.enumerated()), id: \.element.step) { index, step in
                         
+                        // line above first set of instructions
                         if index == 0 {
                             LineDividerView()
                         }
@@ -68,13 +67,13 @@ struct APIInstructionsView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let preview = try APIRecipePreview()
-//
-//        return APIInstructionsView(recipe: preview.recipe)
-//            .modelContainer(preview.container)
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//}
+#Preview {
+    do {
+        let preview = try APIRecipePreview()
+
+        return APIInstructionsView(recipe: preview.recipe)
+            .modelContainer(preview.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+}

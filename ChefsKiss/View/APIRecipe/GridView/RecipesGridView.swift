@@ -41,7 +41,7 @@ struct RecipesGridView: View {
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+                                                    HeartButtonView(recipe: recipe)
                                                 }
 
                                             Text(recipe.title)
@@ -55,7 +55,7 @@ struct RecipesGridView: View {
                                                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.secondary))
                                                 .shadow(color: Color.shadow, radius: 5)
                                                 .overlay(alignment: .bottomTrailing) {
-                                                    HeartButtonView(viewModel: savedRecipesViewModel, recipe: recipe)
+                                                    HeartButtonView(recipe: recipe)
                                                 }
 
                                             Text(recipe.title)

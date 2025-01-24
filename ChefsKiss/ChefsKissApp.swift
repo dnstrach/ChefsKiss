@@ -12,8 +12,6 @@ import SwiftUI
 struct ChefsKissApp: App {
     @StateObject var viewModel = SavedRecipesViewModel()
     
-    @State var showLaunchAnimation = true
-    
     var body: some Scene {
         WindowGroup {
             ZStack {

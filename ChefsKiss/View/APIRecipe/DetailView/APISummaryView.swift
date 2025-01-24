@@ -13,7 +13,7 @@ struct APISummaryView: View {
     @State private var isFullSummary: Bool = false
     
     var body: some View {
-        Text(recipe.summary.stringByStrippingHTMLTags())
+        Text(recipe.summary.removeHTMLTags())
             .contentFont()
             .lineLimit(isFullSummary ? nil : 4)
             .overlay(alignment: .bottomTrailing) {
@@ -27,13 +27,13 @@ struct APISummaryView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let preview = try APIRecipePreview()
-//
-//        return APISummaryView(recipe: preview.recipe)
-//            .modelContainer(preview.container)
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//}
+#Preview {
+    do {
+        let preview = try APIRecipePreview()
+
+        return APISummaryView(recipe: preview.recipe)
+            .modelContainer(preview.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+}

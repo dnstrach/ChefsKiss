@@ -156,13 +156,13 @@ struct AddEditRecipeView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let previewer = try RecipePreview()
-//
-//        return AddEditRecipeView(recipe: previewer.recipe)
-//            .modelContainer(previewer.container)
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//}
+#Preview {
+    do {
+        let previewer = try RecipePreview()
+
+        return AddEditRecipeView(recipe: previewer.recipe)
+            .modelContainer(previewer.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+}

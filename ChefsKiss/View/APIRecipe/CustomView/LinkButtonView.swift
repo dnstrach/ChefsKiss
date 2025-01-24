@@ -27,13 +27,13 @@ struct LinkButtonView: View {
     }
 }
 
-//#Preview {
-//    do {
-//        let preview = try APIRecipePreview()
-//
-//        return LinkButtonView(recipe: preview.recipe)
-//            .modelContainer(preview.container)
-//    } catch {
-//        fatalError("Failed to create preview container.")
-//    }
-//}
+#Preview {
+    do {
+        let preview = try APIRecipePreview()
+
+        return LinkButtonView(recipe: preview.recipe)
+            .modelContainer(preview.container)
+    } catch {
+        fatalError("Failed to create preview container.")
+    }
+}

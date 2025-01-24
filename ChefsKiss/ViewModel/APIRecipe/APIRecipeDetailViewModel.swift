@@ -16,24 +16,6 @@ class APIRecipeDetailViewModel: ObservableObject {
         GridItem(.flexible(minimum: 40, maximum: 200))
     ]
     
-    func navigationTitle(recipe: APIRecipe) -> String {
-        let title = recipe.title
-        let titleWords = title.split(separator: " ")
-        let threeWords = titleWords.prefix(3)
-        let navigationTitle = threeWords.joined(separator: " ")
-        
-        return navigationTitle
-    }
-    
-    func remainingTitle(recipe: APIRecipe) -> String {
-        let title = recipe.title
-        let titleWords = title.split(separator: " ")
-        let remainingWords = titleWords.dropFirst(3)
-        let remainingTitle = remainingWords.joined(separator: " ")
-        
-        return remainingTitle
-    }
-    
     func removeDuplicateIngredients(from ingredients: [Ingredient]) -> [Ingredient] {
         var ingredientSet = Set<String>()
         var uniqueIngredients = [Ingredient]()
