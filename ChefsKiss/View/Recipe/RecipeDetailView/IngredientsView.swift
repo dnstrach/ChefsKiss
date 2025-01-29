@@ -28,11 +28,29 @@ struct IngredientsView: View {
                             HStack(spacing: 5) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(Color.accent)
+                                    .padding(.trailing, 5)
                                 
-                                Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
-                                    .contentFont()
-                                    .frame(maxHeight: .infinity)
-                                    .padding(.bottom, 5)
+//                                Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted()) \(ingredient.measurementType) \(ingredient.name)")
+//                                    .contentFont()
+//                                    .frame(maxHeight: .infinity)
+//                                    .padding(.bottom, 5)
+                                
+                                VStack(alignment: .leading) {
+                                    HStack(alignment: .top) {
+                                        Text("\(ingredient.measurement == 0 ? "" : ingredient.measurement.formatted())")
+                                        
+                                        Text("\(ingredient.measurementType)")
+                                            .bold()
+            
+                                    }
+                                    
+                                    Text("\(ingredient.name)")
+                                      //  .frame(minWidth: 100)
+                                    
+                                }
+                                .contentFont()
+                                .frame(maxHeight: .infinity)
+                                //                                    .padding(.bottom, 5)
                             }
                         }
                         .padding(.horizontal)

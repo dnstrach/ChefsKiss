@@ -16,10 +16,12 @@ struct ChefsKissApp: App {
         WindowGroup {
             ZStack {
                 TabBarView()
+                // SwiftData containers
                 .modelContainer(for: [
                     Recipe.self,
                     APIRecipe.self
                 ])
+                // all views will have access to SavedRecipesViewModel when declared with @EnvironmentObject macro
                 .environmentObject(viewModel)
             }
         }

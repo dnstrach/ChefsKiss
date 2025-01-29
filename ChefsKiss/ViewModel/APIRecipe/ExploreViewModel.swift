@@ -21,7 +21,7 @@ enum ExploreView {
 
 @MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
-    @Published var cachedRecipes: [APIRecipe] = []
+   // @Published var cachedRecipes: [APIRecipe] = []
     @Published var shouldShowSpinner: Bool = true
     @Published var showAlert = false
     @Published var alertMessage = ""
@@ -30,7 +30,7 @@ enum ExploreView {
     @Published var exploreView = ExploreView.categoryResults
     
     private let searchTerm: SearchTerm
-    private let manager = CacheManager.instance
+   // private let manager = CacheManager.instance
     
     let categories: [(CategoryTitle, CategoryParam)] = [
         (.cuisine, .cuisine),
@@ -80,13 +80,14 @@ enum ExploreView {
     
     func searchRecipes(query: String) async {
         
-        cachedRecipes.removeAll()
+        // cachedRecipes.removeAll()
         
         do {
             let fetchedRecipes = try await APIManager.loadRecipes(searchTerm: .query(query))
             shouldShowSpinner = false
-            manager.add(recipes: fetchedRecipes, search: query)
-            cachedRecipes = manager.get(search: query) ?? []
+            recipes = fetchedRecipes
+            // manager.add(recipes: fetchedRecipes, search: query)
+            // cachedRecipes = manager.get(search: query) ?? []
             
             if fetchedRecipes.isEmpty {
                 exploreView = .emptySearch

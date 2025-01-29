@@ -10,6 +10,7 @@ import Foundation
 enum APIError: String, Error {
     case invalidURL
     case invalidResponse
+    // raw value will be used for alert message
     case exceededCallLimit = "Exceeded daily limit of network calls."
     case unableToDecode
 }
@@ -17,15 +18,15 @@ enum APIError: String, Error {
 enum SearchTerm {
     // search recipe
     case query(String)
-    // cuisine, meal type, diet, intolerance
+    // cuisine, meal type, diet, intolerance categories
+    // ex: categoryParam(param: "cuisine", value: "Italian")
     case categoryParam(param: String, value: String)
 }
 
 struct APIManager {
-    
-    // chefskiss949702970
+    // chefskiss949702970   //$9
     private static let apiKey = "cce86962d1e94f68b85f3fad930d6ee6"
-    private static let urlCache = URLCache.shared
+   // private static let urlCache = URLCache.shared
 
     static func loadRecipes(searchTerm: SearchTerm) async throws -> [APIRecipe] {
         var components = URLComponents()
@@ -35,12 +36,11 @@ struct APIManager {
         components.queryItems = [
             URLQueryItem(name: "apiKey", value: "\(apiKey)"),
             URLQueryItem(name: "addRecipeInformation", value: "true"),
-            // instructionsRequired
             URLQueryItem(name: "addRecipeInstructions", value: "true"),
             URLQueryItem(name: "number", value: "100")
         ]
         
-        // endpoint for search or category
+        // endpoint values for search or category parameters
         switch searchTerm {
         case let .query(queryValue):
             components.queryItems?.append(
@@ -74,6 +74,7 @@ struct APIManager {
             
             // status code 200 = OK Status
             guard httpResponse.statusCode == 200 else {
+                // status 402 Payment Required
                 if httpResponse.statusCode == 402 {
                     throw APIError.exceededCallLimit
                 } else {

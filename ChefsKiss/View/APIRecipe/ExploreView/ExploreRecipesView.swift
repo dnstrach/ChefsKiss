@@ -23,7 +23,7 @@ struct ExploreRecipesView: View {
                         
                     }
                 case .searchResults:
-                    RecipesGridView(recipes: viewModel.cachedRecipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+                    RecipesGridView(recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
                         .alert(isPresented: $viewModel.showAlert) {
                             Alert(title: Text("Network"), message: Text(viewModel.alertMessage))
                             

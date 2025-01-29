@@ -69,7 +69,7 @@ enum DishType: String, CaseIterable {
 }
 
 enum Diet: String, CaseIterable {
-    // wrote values for all cases because unique case - Low FODMAP - can't use .capitalized
+    // defined raw values for all cases because unique case - Low FODMAP title - can't use .capitalized
     case glutenFree = "Gluten Free"
     case ketogenic = "Ketogenic"
     case lactoVegetarian = "Lacto-Vegetarian"

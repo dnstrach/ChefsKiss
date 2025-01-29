@@ -19,29 +19,26 @@ class Response: Decodable {
         self.results = results
     }
     
+    // conforming to decodable protocol
     required init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.results = try container.decode([APIRecipe].self, forKey: .results)
     }
     
-    
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(results, forKey: .results)
-//    }
 }
 
+// SwiftData Model to save recipes
 @Model
 class APIRecipe: Decodable, Equatable {
-    // used for saved recipes
+    // used to compare recipes for saving and unsaving
     static func == (lhs: APIRecipe, rhs: APIRecipe) -> Bool {
         lhs.id == rhs.id
     }
     
     // used for saved recipes
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
+//    func hash(into hasher: inout Hasher) {
+//        hasher.combine(id)
+//    }
     
     var id: Int
     var title: String
@@ -80,8 +77,7 @@ class APIRecipe: Decodable, Equatable {
                             ingredients: [
                                 Ingredient(
                                     id: 1,
-                                    name: "Ingredient 1 Ingredient" //,
-                                    // image: "ingredient_image"
+                                    name: "Ingredient 1 Ingredient"
                                 )
                             ],
                             equipment: [
@@ -118,8 +114,7 @@ class APIRecipe: Decodable, Equatable {
                             ingredients: [
                                 Ingredient(
                                     id: 1,
-                                    name: "Ingredient 1" //,
-                                    // image: "ingredient_image"
+                                    name: "Ingredient 1"
                                 )
                             ],
                             equipment: [
@@ -156,8 +151,7 @@ class APIRecipe: Decodable, Equatable {
                             ingredients: [
                                 Ingredient(
                                     id: 1,
-                                    name: "Ingredient 1" //,
-                                    // image: "ingredient_image"
+                                    name: "Ingredient 1"
                                 )
                             ],
                             equipment: [
@@ -194,8 +188,7 @@ class APIRecipe: Decodable, Equatable {
                             ingredients: [
                                 Ingredient(
                                     id: 1,
-                                    name: "Ingredient 1"//,
-                                    // image: "ingredient_image"
+                                    name: "Ingredient 1"
                                 )
                             ],
                             equipment: [
@@ -260,22 +253,6 @@ class APIRecipe: Decodable, Equatable {
         self.analyzedInstructions = try container.decode([Instruction].self, forKey: .analyzedInstructions)
     }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(title, forKey: .title)
-//        try container.encode(summary, forKey: .summary)
-//        try container.encode(image, forKey: .image)
-//        try container.encode(imageType, forKey: .imageType)
-//        try container.encode(isVegetarian, forKey: .isVegetarian)
-//        try container.encode(isVegan, forKey: .isVegan)
-//        try container.encode(isGlutenFree, forKey: .isGlutenFree)
-//        try container.encode(isDairyFree, forKey: .isDairyFree)
-//        try container.encode(readyInMinutes, forKey: .readyInMinutes)
-//        try container.encode(servings, forKey: .servings)
-//        try container.encode(sourceUrl, forKey: .sourceUrl)
-//        try container.encode(analyzedInstructions, forKey: .analyzedInstructions)
-//    }
 }
 
 class Instruction: Codable {
@@ -294,10 +271,6 @@ class Instruction: Codable {
         self.steps = try container.decode([Step].self, forKey: .steps)
     }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(steps, forKey: .steps)
-//    }
 }
 
 class Step: Codable {
@@ -328,19 +301,11 @@ class Step: Codable {
         self.equipment = try container.decode([Equipment].self, forKey: .equipment)
     }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(number, forKey: .number)
-//        try container.encode(step, forKey: .step)
-//        try container.encode(ingredients, forKey: .ingredients)
-//        try container.encode(equipment, forKey: .equipment)
-//    }
 }
 
 class Ingredient: Codable {
     let id: Int
     let name: String
-   // let image: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -358,11 +323,6 @@ class Ingredient: Codable {
         self.name = try container.decode(String.self, forKey: .name)
     }
     
-//    func encode(to encoder: Encoder) throws {
-//        var container = encoder.container(keyedBy: CodingKeys.self)
-//        try container.encode(id, forKey: .id)
-//        try container.encode(name, forKey: .name)
-//    }
 }
 
 class Equipment: Codable {
@@ -384,10 +344,5 @@ class Equipment: Codable {
        self.id = try container.decode(Int.self, forKey: .id)
        self.name = try container.decode(String.self, forKey: .name)
    }
-   
-//   func encode(to encoder: Encoder) throws {
-//       var container = encoder.container(keyedBy: CodingKeys.self)
-//       try container.encode(id, forKey: .id)
-//       try container.encode(name, forKey: .name)
-//   }
+    
 }

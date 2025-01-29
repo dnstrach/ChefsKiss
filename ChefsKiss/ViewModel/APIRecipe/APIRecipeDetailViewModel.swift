@@ -16,6 +16,7 @@ class APIRecipeDetailViewModel: ObservableObject {
         GridItem(.flexible(minimum: 40, maximum: 200))
     ]
     
+    // API contains duplicates
     func removeDuplicateIngredients(from ingredients: [Ingredient]) -> [Ingredient] {
         var ingredientSet = Set<String>()
         var uniqueIngredients = [Ingredient]()
@@ -23,6 +24,7 @@ class APIRecipeDetailViewModel: ObservableObject {
         for ingredient in ingredients {
             if !ingredientSet.contains(ingredient.name) {
                 uniqueIngredients.append(ingredient)
+                // will only insert ingredient if set does not already contain ingredient
                 ingredientSet.insert(ingredient.name)
             }
         }
@@ -37,6 +39,7 @@ class APIRecipeDetailViewModel: ObservableObject {
         for equipment in equipment {
             if !equipmentSet.contains(equipment.name) {
                 uniqueEquipment.append(equipment)
+                // will only insert equipment if set does not already contain equipment
                 equipmentSet.insert(equipment.name)
             }
         }
