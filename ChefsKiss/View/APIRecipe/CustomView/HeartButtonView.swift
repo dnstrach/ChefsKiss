@@ -13,7 +13,7 @@ struct HeartButtonView: View {
     @Query var savedRecipes: [APIRecipe]
     
     @EnvironmentObject var viewModel: SavedRecipesViewModel
- //   let viewModel: SavedRecipesViewModel
+ 
     let recipe: APIRecipe
     
     var body: some View {

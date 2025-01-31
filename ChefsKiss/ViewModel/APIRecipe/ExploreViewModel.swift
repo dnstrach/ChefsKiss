@@ -29,7 +29,7 @@ enum ExploreView {
     @Published var searchText: String = ""
     @Published var exploreView = ExploreView.categoryResults
     
-    private let searchTerm: SearchTerm
+    private let searchTerm: SearchTerm?
    // private let manager = CacheManager.instance
     
     let categories: [(CategoryTitle, CategoryParam)] = [
@@ -54,11 +54,13 @@ enum ExploreView {
         navigationTitle ?? ""
     }
     
-    init(searchTerm: SearchTerm) {
+    init(searchTerm: SearchTerm? = nil) {
         self.searchTerm = searchTerm
         
         Task {
-            await self.loadCategoryRecipes(searchTerm: searchTerm)
+            if let searchTerm = searchTerm {
+                await self.loadCategoryRecipes(searchTerm: searchTerm)
+            }
         }
     }
     

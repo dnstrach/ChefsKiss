@@ -29,7 +29,7 @@ struct RecipesView: View {
 
 
 #Preview {
-    RecipesView(viewModel: ExploreViewModel(searchTerm: .query("")))
+    RecipesView(viewModel: ExploreViewModel())
         .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 

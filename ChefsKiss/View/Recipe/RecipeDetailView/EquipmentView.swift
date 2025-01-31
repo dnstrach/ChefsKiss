@@ -28,6 +28,7 @@ struct EquipmentView: View {
                             HStack(spacing: 5) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(Color.accent)
+                                    .padding(.trailing, 5)
                                 
                                 Text(equipment.name)
                                     .contentFont()

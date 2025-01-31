@@ -237,5 +237,20 @@ enum ImageState {
         print("end")
         
     }
+    
+    func clearIngredient(){
+        ingredientName = ""
+        measurement = nil
+        measurementType = ""
+    }
+    
+    func clearEquipment() {
+        equipmentName = ""
+    }
+    
+    func clearStep() {
+        step = ""
+    }
+    
 }
 

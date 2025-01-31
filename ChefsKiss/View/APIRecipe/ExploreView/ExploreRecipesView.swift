@@ -51,7 +51,7 @@ struct ExploreRecipesView: View {
 }
 
 #Preview {
-    ExploreRecipesView(viewModel: ExploreViewModel(searchTerm: .query("")))
+    ExploreRecipesView(viewModel: ExploreViewModel())
         .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 

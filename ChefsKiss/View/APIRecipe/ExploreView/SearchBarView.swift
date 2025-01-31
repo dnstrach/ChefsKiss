@@ -50,7 +50,7 @@ struct SearchBarView: View {
 
 #Preview {
     Group {
-        SearchBarView(viewModel: ExploreViewModel(searchTerm: .categoryParam(param: "", value: "")), searchText: .constant(""))
+        SearchBarView(viewModel: ExploreViewModel(), searchText: .constant(""))
             .preferredColorScheme(.dark)
     }
 }

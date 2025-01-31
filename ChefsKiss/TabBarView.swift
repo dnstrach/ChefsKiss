@@ -11,7 +11,7 @@ import SwiftData
 struct TabBarView: View {
     var body: some View {
         TabView {
-            ExploreRecipesView(viewModel: ExploreViewModel(searchTerm: .query("")))
+            ExploreRecipesView(viewModel: ExploreViewModel())
                 .tabItem {
                     Label("Explore", systemImage: "magnifyingglass.circle")
                 }

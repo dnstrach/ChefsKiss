@@ -34,6 +34,9 @@ struct AddInstructionView: View {
             }
             .disabled(viewModel.disableStep)
         }
+        .onDisappear {
+            viewModel.clearStep()
+        }
         .padding(.vertical)
     }
 }

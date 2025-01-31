@@ -28,6 +28,9 @@ struct AddEquipmentView: View {
             }
             .disabled(viewModel.disableEquip)
         }
+        .onDisappear {
+            viewModel.clearEquipment()
+        }
         .padding(.vertical)
     }
 }

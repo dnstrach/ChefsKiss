@@ -39,6 +39,9 @@ struct AddIngredientView: View {
             }
             .disabled(viewModel.disableIngredient)
         }
+        .onDisappear {
+            viewModel.clearIngredient()
+        }
         .padding(.vertical)
     }
 }

@@ -12,6 +12,7 @@ enum APIError: String, Error {
     case invalidResponse
     // raw value will be used for alert message
     case exceededCallLimit = "Exceeded daily limit of network calls."
+    case badStatusCode
     case unableToDecode
 }
 
@@ -26,7 +27,6 @@ enum SearchTerm {
 struct APIManager {
     // chefskiss949702970   //$9
     private static let apiKey = "cce86962d1e94f68b85f3fad930d6ee6"
-   // private static let urlCache = URLCache.shared
 
     static func loadRecipes(searchTerm: SearchTerm) async throws -> [APIRecipe] {
         var components = URLComponents()
@@ -58,7 +58,8 @@ struct APIManager {
             throw APIError.invalidURL
         }
         
-        let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
+       // let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 60.0)
+        let request = URLRequest(url: url)
         
         do {
             let (data, response) = try await URLSession.shared.data(for: request)
@@ -78,7 +79,7 @@ struct APIManager {
                 if httpResponse.statusCode == 402 {
                     throw APIError.exceededCallLimit
                 } else {
-                    throw APIError.invalidResponse
+                    throw APIError.badStatusCode
                 }
             }
             
