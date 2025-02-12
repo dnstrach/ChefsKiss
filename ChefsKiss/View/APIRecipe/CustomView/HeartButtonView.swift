@@ -52,6 +52,7 @@ struct HeartButtonView: View {
 
         return HeartButtonView(recipe: preview.recipe)
             .modelContainer(preview.container)
+            .environmentObject(SavedRecipesViewModel())
     } catch {
         fatalError("Failed to create preview container.")
     }
