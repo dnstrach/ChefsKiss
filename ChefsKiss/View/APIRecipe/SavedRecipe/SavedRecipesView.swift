@@ -16,8 +16,6 @@ struct SavedRecipesView: View {
         order: .forward
     ) var savedRecipes: [APIRecipe]
     
-    @EnvironmentObject var viewModel: SavedRecipesViewModel
-    
     var body: some View {
         NavigationStack {
             Group {

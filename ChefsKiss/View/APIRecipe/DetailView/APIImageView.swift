@@ -46,7 +46,6 @@ struct APIImageView: View {
         return APIImageView(recipe: preview.recipe)
             .frame(width: 200, height: 200)
             .modelContainer(preview.container)
-            .environmentObject(SavedRecipesViewModel())
     } catch {
         fatalError("Failed to create preview container.")
     }

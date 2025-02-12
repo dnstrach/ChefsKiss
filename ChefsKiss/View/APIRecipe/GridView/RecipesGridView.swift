@@ -11,7 +11,7 @@ import SwiftUI
 struct RecipesGridView: View {
     @Environment(\.modelContext) var modelContext
     @Query var savedRecipes: [APIRecipe]
-    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
+  //  @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
 
     let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -92,7 +92,7 @@ struct RecipesGridView: View {
         let container = try ModelContainer(for: APIRecipe.self, configurations: config)
         
         return RecipesGridView(recipes: APIRecipe.dummyRecipes, shouldShowSpinner: false)
-            .environmentObject(SavedRecipesViewModel())
+           // .environmentObject(SavedRecipesViewModel())
     } catch {
         return Text("Failed to create container \(error.localizedDescription)")
     }

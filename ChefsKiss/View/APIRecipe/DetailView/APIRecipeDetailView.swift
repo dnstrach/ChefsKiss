@@ -12,8 +12,6 @@ struct APIRecipeDetailView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) private var dismiss
-    
-    @EnvironmentObject var savedRecipesViewModel: SavedRecipesViewModel
 
     @StateObject var viewModel = APIRecipeDetailViewModel()
     
@@ -69,7 +67,6 @@ struct APIRecipeDetailView: View {
 
         return APIRecipeDetailView(recipe: preview.recipe)
             .modelContainer(preview.container)
-            .environmentObject(SavedRecipesViewModel())
     } catch {
         fatalError("Failed to create preview container.")
     }
