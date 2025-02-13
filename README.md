@@ -1,4 +1,11 @@
 # ChefsKiss
 
-## Technologies
---------------
+## REST API
+
+## SwiftData (APIRecipe)
+
+## SwiftData (MyRecipe)
+CRUD
+
+## PhotosUI
+
