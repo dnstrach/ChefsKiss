@@ -1,5 +1,7 @@
 # ChefsKiss
 
+## MVVM
+
 ## REST API
 
 ## SwiftData (APIRecipe)
