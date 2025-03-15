@@ -3,7 +3,7 @@
 ## MVVM
 The APIRecipe model contains properties and coding keys to be decoded from the Spoonacular API. Those properties are used to show recipe data in the explore and saved recipes view.
 
-The APIRecipe viewmodel is broken up into 3 files, ExploreViewModel and APIRecipeDetailViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove from duplicate ingredients and equipment from nested objects in each step. 
+The APIRecipe viewmodel is broken up into 3 files, ExploreViewModel and APIRecipeDetailViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove duplicate ingredients and equipment from nested objects in each step. 
 
 ```
 "analyzedInstructions": [
@@ -126,12 +126,13 @@ The APIRecipe viewmodel is broken up into 3 files, ExploreViewModel and APIRecip
             ]
 ```
 
-The APIRecipe view folder contains composed views for the Explore, Saved amd APIRecipe Detail view. Grid views are reused for the search and category view.
+The APIRecipe view folder contains composed and custom views for the Explore, Saved amd APIRecipe Detail view. Grid views are reused for the search and category view.
 
+The MyRecipe model contains a MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
 
-Recipe Model
-MyRecipeViewModel
-MyRecipe View
+The MyRecipe view model contains two files to construct the add/edit and detail view. The AddEditRecipeViewModel contains CRUD methods and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
+
+The MyRecipe view contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
 ## REST API
 
