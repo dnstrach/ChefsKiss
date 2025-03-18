@@ -43,7 +43,8 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 | number  | 100  |
 | query  | cake  |
 
-### JSON Response from receipe category (https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian)
+### JSON Response from receipe category showing first recipe object in results 
+(https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian)
 ```
 {
     "results": [
@@ -220,6 +221,7 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 ```
 
 ## SwiftData (APIRecipe)
+The model container modifier is added to the WindowGroup view to initialize a container and context for APIRecipe and give it access to the entire app. The APIRecipe class calls the @Model macro, so that recipes persist when they are saved from the grid or detail views. It also conforms to the Equatable protocol so that recipe ids can be compared when unsaving a recipe. The modelContext property is intialized with the @Environment macro in the HeartButtonView where the button toggles the save button to insert and delete recipes. The savedRecipes property is initialized in the SavedRecipesView and HeartButtonView with the @Query macro to access persisted recipes. The APIRecipe model, HeartButtonView, and SavedRecipesView files require importing SwiftData.
 
 ## SwiftData (MyRecipe)
 CRUD
