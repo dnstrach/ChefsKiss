@@ -1,19 +1,47 @@
 # ChefsKiss
 
 ## MVVM
+
+### Model
 The APIRecipe model contains properties and coding keys to be decoded from the Spoonacular API. Those properties are used to show recipe data in the explore and saved recipes view.
 
-The APIRecipe viewmodel is broken up into 3 files, ExploreViewModel and APIRecipeDetailViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove duplicate ingredients and equipment from nested objects in each step. 
+### View Model
+The APIRecipe viewmodel folder is broken up into 3 files: APIRecipeDetailViewModel, ExploreViewModel, and SavedRecipesViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove duplicate ingredients and equipment from nested objects in each step. 
 
-The APIRecipe view folder contains composed and custom views for the Explore, Saved amd APIRecipe Detail view. Grid views are reused for the search and category view.
+### View 
+The APIRecipe view folder contains composed and custom views for the explore, saved, and detail views. Grid views are reused for the search and category views.
 
+### Model
 The MyRecipe model contains a MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
 
-The MyRecipe view model contains two files to construct the add/edit and detail view. The AddEditRecipeViewModel contains CRUD methods and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
+### View Model
+The MyRecipe view model folder contains two files to construct the add/edit and detail views. The AddEditRecipeViewModel contains CRUD methods for MyRecipe and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
 
-The MyRecipe view contains composed and custom views to make up the add/edit, detail, and sheet views. 
+### View 
+The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
 ## REST API
+The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe. To decode the api response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. The APIManager struct loads recipes asynchronously to return an array of APIRecipe objects. To switch URLs for category and query endpoints, the loadRecipe function is defined with a SearchTerm input parameter. SearchTerm is defined as an enumeration with 2 parameter cases. To throw possible errors, APIError is defined with invalidURL, invalidResponse, exceededCallLimit, badStatusCode, and unableToDecode cases. 
+
+### recipe category URL Components 
+https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian
+
+| Key  | Value |
+| ------------- | ------------- |
+| addRecipeInformation  | true  |
+| addRecipeInstructions  | true  |
+| number  | 100  |
+| cuisine  | italian  |
+
+### recipe query URL Components 
+https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&query=cake
+
+| Key  | Value |
+| ------------- | ------------- |
+| addRecipeInformation  | true  |
+| addRecipeInstructions  | true  |
+| number  | 100  |
+| query  | cake  |
 
 ```
 {
