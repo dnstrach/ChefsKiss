@@ -12,7 +12,7 @@ The APIRecipe viewmodel folder is broken up into 3 files: APIRecipeDetailViewMod
 The APIRecipe view folder contains composed and custom views for the explore, saved, and detail views. Grid views are reused for the search and category views.
 
 ### Model
-The MyRecipe model contains a MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
+The MyRecipe model contains MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
 
 ### View Model
 The MyRecipe view model folder contains two files to construct the add/edit and detail views. The AddEditRecipeViewModel contains CRUD methods for MyRecipe and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
@@ -21,7 +21,7 @@ The MyRecipe view model folder contains two files to construct the add/edit and 
 The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
 ## REST API
-The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe. To decode the api response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. The APIManager struct loads recipes asynchronously to return an array of APIRecipe objects. To switch URLs for category and query endpoints, the loadRecipe function is defined with a SearchTerm input parameter. SearchTerm is defined as an enumeration with 2 parameter cases. To throw possible errors, APIError is defined with invalidURL, invalidResponse, exceededCallLimit, badStatusCode, and unableToDecode cases. 
+The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe. To decode the API response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. The APIManager struct loads recipes asynchronously to return an array of APIRecipe objects. To switch URLs for category and query endpoints, the loadRecipe function is defined with a SearchTerm input parameter. SearchTerm is defined as an enumeration with 2 parameter cases. To throw possible errors, APIError is defined with invalidURL, invalidResponse, exceededCallLimit, badStatusCode, and unableToDecode cases. 
 
 ### recipe category URL Components 
 https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian
@@ -221,10 +221,13 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 ```
 
 ## SwiftData (APIRecipe)
-The model container modifier is added to the WindowGroup view to initialize a container and context for APIRecipe and give it access to the entire app. The APIRecipe class calls the @Model macro, so that recipes persist when they are saved from the grid or detail views. It also conforms to the Equatable protocol so that recipe ids can be compared when unsaving a recipe. The modelContext property is intialized with the @Environment macro in the HeartButtonView where the button toggles the save button to insert and delete recipes. The savedRecipes property is initialized in the SavedRecipesView and HeartButtonView with the @Query macro to access persisted recipes. The APIRecipe model, HeartButtonView, and SavedRecipesView files require importing SwiftData.
+SwiftData is integrated with ChefsKiss to save recipes to the saved recipes TabView as persisted data. The APIRecipe model, HeartButtonView, and SavedRecipesView files require importing SwiftData. The model container modifier is added to the WindowGroup view to create a container and context for APIRecipe. Adding modelContainer(for:inMemory:isAutosaveEnabled:isUndoEnabled:onSetup:)
+to a SwiftUI app's Window Group gives the container & context access to the entire app. The APIRecipe class calls the @Model macro, so recipes persist when saved from the grid or detail views. It also conforms to the Equatable protocol so that recipe ids can be compared when saving a recipe. The modelContext property is instantiated with the @Environment macro in the HeartButtonView. When the save button toggles, its action is to insert and delete recipes from the context. The savedRecipes property is instantiated in the SavedRecipesView and HeartButtonView with the @Query macro to access persisted recipes. 
 
 ## SwiftData (MyRecipe)
-CRUD
+SwiftData is also imported, so that users can create, read, update, and delete recipes. 
 
 ## PhotosUI
+
+## Improvements
 
