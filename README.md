@@ -24,6 +24,7 @@ The MyRecipe view model folder contains two files to construct the add/edit and 
 ### View
 The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
+
 ## REST API
 The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe. To decode the API response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. The APIManager struct loads recipes asynchronously to return an array of APIRecipe objects. To switch URLs for category and query endpoints, the loadRecipe function is defined with a SearchTerm input parameter. SearchTerm is defined as an enumeration with 2 parameter cases. To throw possible errors, APIError is defined with invalidURL, invalidResponse, exceededCallLimit, badStatusCode, and unableToDecode cases. 
 
@@ -224,6 +225,7 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
     { // following recipe in JSON }
 ```
 
+
 # SwiftData 
 SwiftData is integrated with ChefsKiss to save recipes from the REST API and for users to create recipes. The model container modifier is added to the WindowGroup view to create a container and context for APIRecipe and MyRecipe. Adding modelContainer(for:inMemory:isAutosaveEnabled:isUndoEnabled:onSetup:) to a SwiftUI app's Window Group gives the container & context access to the entire app.
 
@@ -235,7 +237,9 @@ Users can create, read, update, and delete recipes in the My Recipes TabView. Th
 
 The AddEditRecipeView is a form where ingredients, equipment, and instructions are made up of a list view. A sheet will appear when tapping its plus button to input necessary data for each object. Once an item is added, the user can tap on its list row view to edit the item. Step items in the InstructionsListView can be moved in any particular order with the onMove(perform:) modifier. Each step will automatically update its index number accordingly.
 
+
 # PhotosUI
+
 
 # Improvements
 
