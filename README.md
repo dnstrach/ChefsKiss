@@ -1,4 +1,5 @@
-# ChefsKiss
+# [ChefsKiss](https://apps.apple.com/us/app/chefskiss/id6738972491)
+ChefsKiss is a mobile recipe app built for users who love to cook! Key features include exploring 365,000+ recipes, saving favorite recipes, and creating a personal cookbook. Check out my [portfolio](dominiquestrachan.squarespace.com) to see features.
 
 # MVVM
 
