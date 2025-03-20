@@ -25,7 +25,7 @@ The MyRecipe view model folder contains two files to construct the add/edit and 
 The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
 
-## REST API
+# REST API
 The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe. To decode the API response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. The APIManager struct loads recipes asynchronously to return an array of APIRecipe objects. To switch URLs for category and query endpoints, the loadRecipe function is defined with a SearchTerm input parameter. SearchTerm is defined as an enumeration with 2 parameter cases. To throw possible errors, APIError is defined with invalidURL, invalidResponse, exceededCallLimit, badStatusCode, and unableToDecode cases. 
 
 ### recipe category URL Components 
