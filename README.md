@@ -2,22 +2,26 @@
 
 ## MVVM
 
-### Model
+### APIRecipe
+
+**Model**
 The APIRecipe model contains properties and coding keys to be decoded from the Spoonacular API. Those properties are used to show recipe data in the explore and saved recipes view.
 
-### View Model
+**View Model**
 The APIRecipe viewmodel folder is broken up into 3 files: APIRecipeDetailViewModel, ExploreViewModel, and SavedRecipesViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove duplicate ingredients and equipment from nested objects in each step. 
 
-### View 
+**View**
 The APIRecipe view folder contains composed and custom views for the explore, saved, and detail views. Grid views are reused for the search and category views.
 
-### Model
+### MyRecipe
+
+**Model**
 The MyRecipe model contains MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
 
-### View Model
+**View Model**
 The MyRecipe view model folder contains two files to construct the add/edit and detail views. The AddEditRecipeViewModel contains CRUD methods for MyRecipe and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
 
-### View 
+**View** 
 The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
 
 ## REST API
