@@ -223,10 +223,10 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 ## SwiftData 
 SwiftData is integrated with ChefsKiss to save recipes from the REST API and for users to create recipes. The model container modifier is added to the WindowGroup view to create a container and context for APIRecipe and MyRecipe. Adding modelContainer(for:inMemory:isAutosaveEnabled:isUndoEnabled:onSetup:) to a SwiftUI app's Window Group gives the container & context access to the entire app.
 
-###API Recipe
+API Recipe
 Saved recipes appear in the saved recipes TabView as persisted data. The APIRecipe model, HeartButtonView, and SavedRecipesView files require importing SwiftData. The APIRecipe class calls the @Model macro, so recipes persist when saved from its grid or detail views. It also conforms to the Equatable protocol so that recipe ids can be compared to insert or delete a recipe from the model context. The modelContext property is instantiated with the @Environment macro in the HeartButtonView. When the save button toggles, its action is to insert and delete recipes from the model context. The savedRecipes property is instantiated in the SavedRecipesView and HeartButtonView with the @Query macro to access persisted recipes.
 
-###MyRecipe
+MyRecipe
 Users can create, read, update, and delete recipes in the My Recipes TabView. The MyRecipe model and MyRecipeListView files require importing SwiftData. The MyRecipe model schema is constructed with Ingredient, Equipment, and Instruction classes as nested objects each conforming to the @Model macro. To access persisted data inside the MyRecipe model container, the recipes property is instantiated inside the MyRecipeListView with the @Query macro. Recipes are read from a list in the my recipe TabView as custom row items. When creating or updating a recipe, the recipe is passed to the same view. Swiping left on a recipe in the list view will delete a recipe from the model context.
 
 The AddEditRecipeView is a form where ingredients, equipment, and instructions are made up of a list view. A sheet will appear when tapping its plus button to input necessary data for each object. Once an item is added, the user can tap on its list row view to edit the item. Step items in the InstructionsListView can be moved in any particular order with the onMove(perform:) modifier. Each step will automatically update its index number accordingly.
