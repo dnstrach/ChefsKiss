@@ -29,7 +29,7 @@ struct XButtonView: View {
 
 #Preview {
     do {
-        let preview = try RecipePreview()
+        let preview = try MyRecipePreview()
         return XButtonView(viewModel: AddEditRecipeViewModel(), recipe: preview.recipe, imageState: .empty)
             .modelContainer(preview.container)
     } catch {

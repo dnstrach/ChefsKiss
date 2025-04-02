@@ -5,7 +5,7 @@
 //  Created by Dominique Strachan on 11/27/24.
 //
 
-import SwiftData
+// import SwiftData
 import SwiftUI
 
 // CLEAN UP CODE - view may not be necessary
@@ -30,7 +30,7 @@ struct RecipesView: View {
 
 #Preview {
     RecipesView(viewModel: ExploreViewModel())
-        .modelContainer(for: APIRecipe.self, inMemory: true)
+       // .modelContainer(for: APIRecipe.self, inMemory: true)
 }
 
 

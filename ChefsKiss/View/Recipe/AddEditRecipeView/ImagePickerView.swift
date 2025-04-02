@@ -130,7 +130,7 @@ struct ImagePickerView: View {
 
 #Preview {
     do {
-        let preview = try RecipePreview()
+        let preview = try MyRecipePreview()
 
         return ImagePickerView(viewModel: AddEditRecipeViewModel(), recipe: preview.recipe)
             .modelContainer(preview.container)

@@ -83,7 +83,7 @@ struct NavigationBarView: View {
 
 #Preview {
     do {
-        let previewer = try RecipePreview()
+        let previewer = try MyRecipePreview()
 
         return NavigationBarView(viewModel: AddEditRecipeViewModel(), recipe: previewer.recipe)
             .modelContainer(previewer.container)

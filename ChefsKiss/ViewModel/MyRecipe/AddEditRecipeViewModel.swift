@@ -120,8 +120,10 @@ enum ImageState {
             DispatchQueue.main.async {
                 guard selectedImage == self.selectedPhoto else { return }
                 switch result {
+                    // user does not add image to recipe
                 case .success(nil):
                     self.imageState = .empty
+                    // if there is a selectedImage from PhotosPicker than success and selectedCameraImage is nil
                 case .success(let imageData?):
                     self.imageState = .success(imageData)
                     self.selectedCameraImage = nil
@@ -133,9 +135,10 @@ enum ImageState {
     }
     
     func saveImage(_ recipe: Recipe) {
-        // check if there's a camera image
+        // check if there's a camera image and converts UIImage to Data
         if let selectedImage = selectedCameraImage {
-            if let imageData = selectedImage.jpegData(compressionQuality: 0.8) {
+            // compresses data to best quality
+            if let imageData = selectedImage.jpegData(compressionQuality: 1.0) {
                 recipe.image = imageData
             }
         }
@@ -143,13 +146,16 @@ enum ImageState {
         else if let selectedPhoto {
             Task {
                 do {
+                    // converts PhotoPickerItem to Data
                     let data = try await selectedPhoto.loadTransferable(type: Data.self)
                     
+                    // converts Data to UIImage
                     guard let data, let uiImage = UIImage(data: data) else {
                         throw PhotoError.badConversion
                     }
                     
-                    if let imageData = uiImage.jpegData(compressionQuality: 0.8) {
+                    // compresses data to best quality
+                    if let imageData = uiImage.jpegData(compressionQuality: 1.0) {
                         recipe.image = imageData
                     }
                     

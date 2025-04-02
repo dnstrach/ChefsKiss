@@ -12,8 +12,6 @@ import SwiftUI
 // testing
 @main
 struct ChefsKissApp: App {
-    @StateObject var viewModel = SavedRecipesViewModel()
-    
     var body: some Scene {
         WindowGroup {
             ZStack {
@@ -23,8 +21,6 @@ struct ChefsKissApp: App {
                     Recipe.self,
                     APIRecipe.self
                 ])
-                // all views will have access to SavedRecipesViewModel when declared with @EnvironmentObject macro
-                .environmentObject(viewModel)
             }
         }
     }

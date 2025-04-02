@@ -12,22 +12,22 @@ struct HeartButtonView: View {
     @Environment(\.modelContext) var modelContext
     @Query var savedRecipes: [APIRecipe]
     
-    @EnvironmentObject var viewModel: SavedRecipesViewModel
+  //  @EnvironmentObject var viewModel: SavedRecipesViewModel
  
     let recipe: APIRecipe
     
     var body: some View {
         Button {
-            let recipes = viewModel.querySavedRecipes(savedRecipes)
+          //  let recipes = viewModel.querySavedRecipes(savedRecipes)
             
-            if recipes.contains(where: { $0.id == recipe.id }) {
+            if savedRecipes.contains(where: { $0.id == recipe.id }) {
                 modelContext.delete(recipe)
             } else {
                 modelContext.insert(recipe)
             }
             
         } label: {
-            let recipes = viewModel.querySavedRecipes(savedRecipes)
+           // let recipes = viewModel.querySavedRecipes(savedRecipes)
             
             ZStack {
                 Image(systemName: "circle.fill")
@@ -36,7 +36,7 @@ struct HeartButtonView: View {
                     .frame(width: 35, height: 35)
                     .opacity(0.4)
                 
-                Image(systemName: recipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
+                Image(systemName: savedRecipes.contains(where: { $0.id == recipe.id }) ? "heart.fill" : "heart")
                     .foregroundStyle(.accent)
                     .imageScale(.large)
             }
@@ -52,7 +52,7 @@ struct HeartButtonView: View {
 
         return HeartButtonView(recipe: preview.recipe)
             .modelContainer(preview.container)
-            .environmentObject(SavedRecipesViewModel())
+          //  .environmentObject(SavedRecipesViewModel())
     } catch {
         fatalError("Failed to create preview container.")
     }

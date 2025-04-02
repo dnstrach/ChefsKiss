@@ -10,7 +10,7 @@ import SwiftData
 import UIKit
 
 @MainActor
-struct RecipePreview {
+struct MyRecipePreview {
     let container: ModelContainer
     let recipe: Recipe
 

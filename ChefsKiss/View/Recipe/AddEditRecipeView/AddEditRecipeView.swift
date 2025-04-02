@@ -158,7 +158,7 @@ struct AddEditRecipeView: View {
 
 #Preview {
     do {
-        let previewer = try RecipePreview()
+        let previewer = try MyRecipePreview()
 
         return AddEditRecipeView(recipe: previewer.recipe)
             .modelContainer(previewer.container)

@@ -62,7 +62,7 @@ struct RecipeDetailView: View {
 
 #Preview {
     do {
-        let preview = try RecipePreview()
+        let preview = try MyRecipePreview()
 
         return RecipeDetailView(recipe: preview.recipe)
             .modelContainer(preview.container)
