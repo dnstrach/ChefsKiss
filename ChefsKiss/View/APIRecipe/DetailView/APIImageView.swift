@@ -9,6 +9,8 @@ import SwiftData
 import SwiftUI
 
 struct APIImageView: View {
+    @Environment(\.modelContext) var modelContext
+    
     let recipe: APIRecipe
     
     var body: some View {

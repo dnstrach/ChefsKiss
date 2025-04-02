@@ -8,10 +8,6 @@
 import Foundation
 import SwiftData
 
-/**  This is the documentation for APIRecipe,
-
-    including property names.
-*/
 class Response: Decodable {
     var results: [APIRecipe]
     
