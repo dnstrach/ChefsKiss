@@ -17,7 +17,7 @@ The APIRecipe view folder contains composed and custom views for the explore, sa
 ## MyRecipe
 
 ### Model
-The MyRecipe model contains MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class so that they are identifiable in a list.
+The MyRecipe model contains MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class to be identifiable in a list.
 
 ### View Model
 The MyRecipe view model folder contains two files to construct the add/edit and detail views. The AddEditRecipeViewModel contains CRUD methods for MyRecipe and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
