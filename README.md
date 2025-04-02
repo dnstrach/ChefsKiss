@@ -244,4 +244,8 @@ PhotosUI is imported to render and save a photo from the user’s album to be di
 When the user taps the PhotosPicker view and selects a photo asset, the selectedPhoto/PhotosPickerItem is determined by a computed property and converted to Data by the loadTransferable(from:) function. The function determines whether Progress is a success or failure case. The user also has the option to upload an image from the camera by tapping the on CameraButtonView. The button toggles and presents the CameraView with a .fullScreenCover modifier. To integrate UIImagePickerController from UIKit into SwiftUI, CameraView conforms to UIViewControllerRepresentable.
 
 # Improvements
+ChefsKiss currently has two bugs. The first bug occurs when unsaving a recipe from the ExploreView. When the user reloads the app, saved recipes are unable to be unsaved when tapping the heart button inside the grid view and image view. However, recipes can be unsaved inside the SavedRecipesView. A possible solution could be having SwiftData follow MVVM so that the model context is updated in the view model rather than each view. 
 
+The second bug occurs after saving a recipe. Once the user taps the heart button and proceeds to the SavedRecipesView, the AsyncImage does not fully load and indicates an error by displaying the placeholder image. However, when the user reloads the app, the recipe image appears.  
+
+Additional improvements include adding a filter and sort button to the navigation bar inside the MyRecipesView. After adding vegan, vegetarian, gluten-free, and dairy-free options to the AddEditRecipeView form, the filter button would categorize recipes by those dietary restrictions. The sort button action would be to sort recipes by ascending or descending alphabetical order. 
