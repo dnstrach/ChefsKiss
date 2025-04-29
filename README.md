@@ -203,8 +203,9 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 | addRecipeInformation  | true  |
 | addRecipeInstructions  | true  |
 | number  | 100  |
-| cuisine  | italian  |<br>
-
+| cuisine  | italian  |
+<br>
+<br>
 ### query = cake
 https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&query=cake
 
@@ -214,8 +215,8 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 | addRecipeInformation  | true  |
 | addRecipeInstructions  | true  |
 | number  | 100  |
-| query  | cake  |<br>
-
+| query  | cake  |
+<br>
 To throw possible errors, the APIError enum is defined with invalidURL, invalidResponse, exceededCallLimit (402 status code), badStatusCode, and unableToDecode cases. 
 
 # MVVM
