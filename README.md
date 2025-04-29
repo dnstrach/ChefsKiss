@@ -4,8 +4,11 @@ ChefsKiss is a mobile recipe app built for users who love to cook! Key features 
 # REST API
 The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search a recipe by its query. To decode the API response, the APIRecipe model is separated by Response and APIRecipe classes since the JSON object contains a nested object. 
 
-### JSON Response from receipe Italian category showing first recipe object in results object
+## JSON Response
 (https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian)
+
+The response below shows the results object containing the first nested recipe object when "cuisine" key is equal to "italian" value.
+
 ```
 {
     "results": [
@@ -180,7 +183,7 @@ The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Compl
 
     { // following recipe in JSON }
 ```
-
+## APIManager 
 The APIManager struct performs a network request to load recipes asynchronously and return an array of APIRecipe objects. To switch URLs by category and query endpoints, the loadRecipe function is requires a SearchTerm input parameter. SearchTerm is defined as an enumeration with a query and categoryParam case. The URL is created based on a switch case to determine whether the user is searching a recipe versus looking through recipe categories.
 
 ```
