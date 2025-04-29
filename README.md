@@ -204,8 +204,7 @@ https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fa
 | addRecipeInstructions  | true  |
 | number  | 100  |
 | cuisine  | italian  |
-<br>
-<br>
+
 ### query = cake
 https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&query=cake
 
