@@ -226,10 +226,10 @@ To throw possible errors, the APIError enum is defined with invalidURL, invalidR
 ## APIRecipe
 
 ### Model
-The APIRecipe model contains properties and coding keys to be decoded from the Spoonacular API. Those properties are used to show recipe data in the explore and saved recipes view.
+The Response and APIRecipe classes conform to Decodable and contain properties and coding keys to be decoded from the Spoonacular API. Those properties show recipe data in the ExploreRecipesView and SavedRecipesView tab views.
 
 ### View Model
-The APIRecipe viewmodel folder is broken up into 3 files: APIRecipeDetailViewModel, ExploreViewModel, and SavedRecipesViewModel. The ExploreViewModel class contains methods that load recipes by category and search recipes by name. It also contains boolean values to show an alert when the API has exceeded its call limit and to switch between the category and search views. The APIRecipeDetailViewModel contains methods to remove duplicate ingredients and equipment from nested objects in each step. 
+The ViewModel/APIRecipe pathway is broken up into 2 classes: APIRecipeDetailViewModel and ExploreViewModel. The ExploreViewModel class contains 2 asynchronous methods that load recipes by category and search recipes by name. Both  **loadCategoryRecipes(searchTerm: SearchTerm) async** and **searchRecipes(query: String) async** methods require SearchTerm as an input parameter to determine whether the network is a recipe category or recipe search query. Once the network call successfully loads, the loading animation is set to false. The view will then be assigned to category results, search results, or an empty search case. The catch statement will either show an alert to notify the user that the API has exceeded its call limit if the status code is 402 or all other possible errors. The APIRecipeDetailViewModel class determines the grid view and removes duplicate ingredients and equipment from each nested step object.
 
 ### View
 The APIRecipe view folder contains composed and custom views for the explore, saved, and detail views. Grid views are reused for the search and category views.
