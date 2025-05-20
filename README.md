@@ -296,7 +296,11 @@ To add ingredients, equipment, and instructions in a List, AddEditRecipeViewMode
 RecipeDetailViewModel contains properties to show the edit sheet and input GridItem.Size. Its methods return Bool values to determine when to show servings, prep time, and cook time.
 
 ### View
-The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
+Recipes are accessible by a List view in the MyRecipes tab view. Once the user taps on a recipe, a navigation link will present its detail view. To add or edit a recipe, AddEditRecipeView is reused and presented as a sheet. To select a recipe image, the user must tap on the ImagePickerView section. ImagePickerView contains PhotosPicker layered in front of a HStack with the **overlay(alignment:content:)** modifier. The selected image is displayed by ImageState with a switch statement to show empty, loading, savedImage, photoImage, cameraImage, and failure case values.
+
+The user can also select an image from their built-in camera. The button above PhotosPicker will present the Camera app as a modal view. CameraView conforms to UIViewControllerRepresentable to manage UIImagePickerController in a SwiftUI interface. 
+
+To add ingredients, equipment, and instructions, the user must tap on a plus button to present a sheet that take ups 25% of the screen. An item can be edited by tapping on the list item to present the edit sheet.
 
 # SwiftData 
 SwiftData is integrated with ChefsKiss to save recipes from the REST API and allow users to create recipes. The model container modifier is added to the WindowGroup view to create a container and context for APIRecipe and MyRecipe. Adding modelContainer(for:inMemory:isAutosaveEnabled:isUndoEnabled:onSetup:) to a SwiftUI app's Window Group gives the container & context access to the entire app. Views that contain an APIRecipe or MyRecipe object require creating ModelContainer inside the preview or else the preview will crash. Since many views in the app pass these objects, there are reusable structs for previews. The APIRecipePreview and MyRecipePreview files create a sample container and recipe for previews to display. 
