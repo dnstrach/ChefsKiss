@@ -239,10 +239,61 @@ The APIRecipeDetailView is composed of 10 views. Some unique design decisions in
 ## MyRecipe
 
 ### Model
-The MyRecipe model contains MyRecipe, Ingredient, Equipment, and Instruction classes for a user to create their own personal cookbook. Ingredient, Equipment, and Instruction objects are initialized separately from the MyRecipe class to be identifiable in a list.
+The MyRecipe model is constructed with nested Ingredient, Equipment, and Instruction classes all conforming to Identifiable. 
 
-### View Model
-The MyRecipe view model folder contains two files to construct the add/edit and detail views. The AddEditRecipeViewModel contains CRUD methods for MyRecipe and other methods to upload an image. The RecipeDetailViewModel contains methods to display the navigation title and prep/cook times.  
+### ViewModel
+The ViewModel/MyRecipe pathway is made up of AddEditRecipeViewModel and RecipeDetailViewModel classes. The AddEditRecipeViewModel contains properties and methods to collect and maintain recipe data submitted by a Form. 
+
+When selecting a photo from PhotosPicker, the **loadTransferable(from:)**  method will return a Progress object. Progress is determined by **loadTransferable<T>(
+    type: T.Type,
+    completionHandler: @escaping (Result<T?, any Error>) -> Void
+) -> Progress where T: Transferable** to load PhotosPickerItem as Data to and convert it as UIImage in ImagePickerView. Success values from Result determine if there is a selected image or if there is a selected image from Photos. The **loadTransferable(from:)** method is called from a **var selectedPhoto: PhotosPickerItem? { get set }** with a didSet property observer that will determine the Progress object and the **ImageState**.
+
+To add ingredients, equipment, and instructions in a List, AddEditRecipeViewModel will initialize the Ingredients, Equipment, and Instruction objects and append them to an array. Steps are moved by the **moveStep(index:destination:)** method. The step’s number will automatically update when being moved in either direction of the list. 
+```
+    func moveStep(index: IndexSet, destination: Int) {
+        var sorted = sortedInstructions
+        
+        sorted.move(fromOffsets: index, toOffset: destination)
+
+        for index in index {
+            print("index: \(index)")
+            print("destination: \(destination)")
+            
+            // if + number then item is being moved forward
+            if index - destination > 0 {
+                // range is from destination index to included original index
+                for i in destination..<index + 1 {
+                        sorted[i].index += 1
+                    }
+                
+                // update destination index since it's included in range
+                sorted[destination].index = destination
+                
+            // if - number then item is being moved backwards
+            } else if index - destination < 0 {
+                // range - original index to destination index
+                // note: destination is index + 1
+                for i in index..<destination {
+                        sorted[i].index -= 1
+                    }
+                
+                // update destination index since it's included in range
+                sorted[destination - 1].index = destination - 1
+            }
+            
+            instructions = sorted
+        }
+        
+        for step in instructions {
+            print("index: \(step.index) step: \(step.step)")
+        }
+        
+        print("end")
+        
+    }
+```
+RecipeDetailViewModel contains properties to show the edit sheet and input GridItem.Size. Its methods return Bool values to determine when to show servings, prep time, and cook time.
 
 ### View
 The MyRecipe view folder contains composed and custom views to make up the add/edit, detail, and sheet views. 
