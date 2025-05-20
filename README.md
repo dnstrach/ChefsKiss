@@ -316,4 +316,4 @@ ChefsKiss currently has two bugs. The first bug occurs when unsaving a recipe fr
 
 The second bug occurs after saving a recipe. Once the user taps the heart button and proceeds to the SavedRecipesView, the AsyncImage does not fully load and displays the placeholder image. However, when the user reloads the app, the recipe image appears.  
 
-Additional improvements include adding a filter and sort button to the navigation bar inside the MyRecipesView. After adding vegan, vegetarian, gluten-free, and dairy-free options to the AddEditRecipeView form, the filter button would categorize recipes by those dietary restrictions. The sort button action would be to sort recipes by ascending or descending alphabetical order. 
+Additional improvements include adding a filter and sort button to the navigation bar inside the MyRecipesView. After adding a vegan, vegetarian, gluten-free, and dairy-free picker to the AddEditRecipeView, the filter button would categorize recipes by those dietary restrictions. The sort button action would be to sort recipes by ascending or descending alphabetical order. 
