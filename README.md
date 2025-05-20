@@ -244,10 +244,7 @@ The MyRecipe model is constructed with nested Ingredient, Equipment, and Instruc
 ### ViewModel
 The ViewModel/MyRecipe pathway is made up of AddEditRecipeViewModel and RecipeDetailViewModel classes. The AddEditRecipeViewModel contains properties and methods to collect and maintain recipe data submitted by a Form. 
 
-When selecting a photo from PhotosPicker, the **loadTransferable(from:)**  method will return a Progress object. Progress is determined by **loadTransferable<T>(
-    type: T.Type,
-    completionHandler: @escaping (Result<T?, any Error>) -> Void
-) -> Progress where T: Transferable** to load PhotosPickerItem as Data to and convert it as UIImage in ImagePickerView. Success values from Result determine if there is a selected image or if there is a selected image from Photos. The **loadTransferable(from:)** method is called from a **var selectedPhoto: PhotosPickerItem? { get set }** with a didSet property observer that will determine the Progress object and the **ImageState**.
+When selecting a photo from PhotosPicker, the **loadTransferable(from:)**  method will return a Progress object. Progress is determined by **loadTransferable(type:completionHandler:)** to load PhotosPickerItem as Data to be converted to UIImage in ImagePickerView. Success values from Result determine if there is a selected image or if there is a selected image from Photos. The **loadTransferable(from:)** method is called from a **var selectedPhoto: PhotosPickerItem? { get set }** with a didSet property observer that will determine the Progress object and the ImageState.
 
 To add ingredients, equipment, and instructions in a List, AddEditRecipeViewModel will initialize the Ingredients, Equipment, and Instruction objects and append them to an array. Steps are moved by the **moveStep(index:destination:)** method. The step’s number will automatically update when being moved in either direction of the list. 
 ```
