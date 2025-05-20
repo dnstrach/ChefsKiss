@@ -7,7 +7,7 @@ The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Compl
 ## JSON Response
 (https://api.spoonacular.com/recipes/complexSearch?apiKey=cce86962d1e94f68b85f3fad930d6ee6&addRecipeInformation=true&addRecipeInstructions=true&number=100&cuisine=italian)
 
-The response below shows the results object containing the first nested recipe object when "cuisine" key is equal to "italian" value.
+The response below shows the results object containing the first nested recipe object when the "cuisine" key is equal to the "italian" value.
 
 ```
 {
