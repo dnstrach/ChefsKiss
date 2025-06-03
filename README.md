@@ -295,7 +295,7 @@ RecipeDetailViewModel contains properties to show the edit sheet and input GridI
 ### View
 Recipes are accessible in the MyRecipesListView. Once the user taps on a recipe, a navigation link will present its detail view. To add or edit a recipe, AddEditRecipeView is presented as a sheet. To select a recipe image, the user must tap on the ImagePickerView section. ImagePickerView contains **PhotosPicker** layered in front of a HStack by the **overlay(alignment:content:)** modifier. The selected image is displayed by ImageState with a switch statement to show empty, loading, savedImage, photoImage, cameraImage, and failure case values.
 
-The user can also select an image from their built-in camera. The button above **PhotosPicker** will present the Camera app as a modal view by the **fullScreenCover(isPresented:onDismiss:content:)** modifier. CameraView conforms to UIViewControllerRepresentable to manage **UIImagePickerController** in a SwiftUI interface. 
+The user can also select an image from their built-in camera. The button above **PhotosPicker** will present the Camera app as a modal view by the **fullScreenCover(isPresented:onDismiss:content:)** modifier. CameraView conforms to **UIViewControllerRepresentable** to manage **UIImagePickerController** in a SwiftUI interface. 
 
 To add ingredients, equipment, and instructions, the user must tap on a plus button to present a sheet that take ups 25% of the screen. An item can be edited by tapping on the list item to present the edit sheet.
 
