@@ -12,16 +12,16 @@ import UIKit
 @MainActor
 struct MyRecipePreview {
     let container: ModelContainer
-    let recipe: Recipe
+    let recipe: MyRecipe
 
     init() throws {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        container = try ModelContainer(for: Recipe.self, configurations: config)
+        container = try ModelContainer(for: MyRecipe.self, configurations: config)
         
         let image = UIImage(named: "italian")
         let imageData = image?.jpegData(compressionQuality: 1.0)
 
-        recipe = Recipe(
+        recipe = MyRecipe(
             title: "Pesto Lemon Pasta with Vegetables",
             summary: "This is recipe summary.",
             image: imageData,
@@ -29,18 +29,18 @@ struct MyRecipePreview {
             prepTime: 30,
             cookTime: 2,
             ingredients: [
-                Recipe.Ingredient(
+                MyRecipe.Ingredient(
                     name: "basil",
                     measurement: 1,
                     measurementType: "cup"
                 )],
             steps: [
-                Recipe.Instruction(
+                MyRecipe.Instruction(
                     index: 0,
                     step: "chop basil leaves"
                 )],
             appliances: [
-                Recipe.Equipment(
+                MyRecipe.Equipment(
                     name: "bowl"
                 )]
         )

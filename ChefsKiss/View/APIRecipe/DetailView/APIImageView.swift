@@ -41,14 +41,14 @@ struct APIImageView: View {
     }
 }
 
-#Preview {
-    do {
-        let preview = try APIRecipePreview()
-
-        return APIImageView(recipe: preview.recipe)
-            .frame(width: 200, height: 200)
-            .modelContainer(preview.container)
-    } catch {
-        fatalError("Failed to create preview container.")
-    }
-}
+//#Preview {
+//    do {
+//        let preview = try APIRecipePreview()
+//
+//        return APIImageView(recipe: preview.recipe)
+//            .frame(width: 200, height: 200)
+//            .modelContainer(preview.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

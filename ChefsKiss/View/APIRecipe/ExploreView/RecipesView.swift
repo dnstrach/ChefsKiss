@@ -17,7 +17,7 @@ struct RecipesView: View {
     
     var body: some View {
         NavigationStack {
-            RecipesGridView(recipes: viewModel.recipes, shouldShowSpinner: viewModel.shouldShowSpinner)
+            RecipesGridView(recipes: viewModel.recipes, shouldShowSpinner: viewModel.showLoadingAnimation)
                 .navigationTitle(viewModel.unwrappedNavTitle)
                 .navigationBarTitleDisplayMode(.inline)
                 .alert(isPresented: $viewModel.showAlert) {

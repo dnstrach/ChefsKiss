@@ -20,45 +20,45 @@ class RecipeDetailViewModel: ObservableObject {
     ]
     
     // characters instead
-    func navigationTitle(recipe: Recipe) -> String {
-        let title = recipe.title
-        let titleWords = title.split(separator: " ")
-        let threeWords = titleWords.prefix(3)
-        let navigationTitle = threeWords.joined(separator: " ")
-        
-        return navigationTitle
-    }
+//    func navigationTitle(recipe: MyRecipe) -> String {
+//        let title = recipe.title
+//        let titleWords = title.split(separator: " ")
+//        let threeWords = titleWords.prefix(3)
+//        let navigationTitle = threeWords.joined(separator: " ")
+//        
+//        return navigationTitle
+//    }
+//    
+//    func remainingTitle(recipe: MyRecipe) -> String {
+//        let title = recipe.title
+//        let titleWords = title.split(separator: " ")
+//        let remainingWords = titleWords.dropFirst(3)
+//        let remainingTitle = remainingWords.joined(separator: " ")
+//        
+//        return remainingTitle
+//    }
     
-    func remainingTitle(recipe: Recipe) -> String {
-        let title = recipe.title
-        let titleWords = title.split(separator: " ")
-        let remainingWords = titleWords.dropFirst(3)
-        let remainingTitle = remainingWords.joined(separator: " ")
-        
-        return remainingTitle
-    }
-    
-    func isServingsZero(recipe: Recipe) -> Bool {
+    func isServingsZero(recipe: MyRecipe) -> Bool {
         recipe.servings == 0
     }
     
-    func isPrepTimeZero(recipe: Recipe) -> Bool {
+    func isPrepTimeZero(recipe: MyRecipe) -> Bool {
         recipe.prepTime == 0
     }
     
-    func isCookTimeZero(recipe: Recipe) -> Bool {
+    func isCookTimeZero(recipe: MyRecipe) -> Bool {
         recipe.cookTime == 0
     }
 
-    func showServings(recipe: Recipe) -> Bool {
+    func showServings(recipe: MyRecipe) -> Bool {
         !isServingsZero(recipe: recipe)
     }
     
-    func showPrepTime(recipe: Recipe) -> Bool {
+    func showPrepTime(recipe: MyRecipe) -> Bool {
         !isPrepTimeZero(recipe: recipe)
     }
     
-    func showCookTime(recipe: Recipe) -> Bool {
+    func showCookTime(recipe: MyRecipe) -> Bool {
         !isCookTimeZero(recipe: recipe)
     }
 }

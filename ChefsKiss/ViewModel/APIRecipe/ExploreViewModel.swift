@@ -8,9 +8,9 @@
 import Foundation
 import SwiftData
 
-enum ExploreView {
-    case categoryResults
-    case searchResults
+enum ExploreViewResults {
+    case category
+    case search
     case emptySearch
 }
 
@@ -22,17 +22,17 @@ enum ExploreView {
 @MainActor class ExploreViewModel: ObservableObject {
     @Published var recipes: [APIRecipe] = []
    // @Published var cachedRecipes: [APIRecipe] = []
-    @Published var shouldShowSpinner: Bool = true
+    @Published var showLoadingAnimation: Bool = true
     @Published var showAlert = false
     @Published var alertMessage = ""
     @Published var showSearchView = false
     @Published var searchText: String = ""
-    @Published var exploreView = ExploreView.categoryResults
+    @Published var exploreView = ExploreViewResults.category
     
     private let searchTerm: SearchTerm?
    // private let manager = CacheManager.instance
     
-    let categories: [(CategoryTitle, CategoryParam)] = [
+    let categories: [(CategoryTitle, CategoryKey)] = [
         (.cuisine, .cuisine),
         (.dishType, .dishType),
         (.diet, .diet),
@@ -67,8 +67,8 @@ enum ExploreView {
     private func loadCategoryRecipes(searchTerm: SearchTerm) async {
         do {
             recipes = try await APIManager.loadRecipes(searchTerm: searchTerm)
-            shouldShowSpinner = false
-            exploreView = .categoryResults
+            showLoadingAnimation = false
+            exploreView = .category
         } catch {
             if let apiError = error as? APIError, case.exceededCallLimit = apiError {
                 showAlert = true
@@ -86,7 +86,7 @@ enum ExploreView {
         
         do {
             let fetchedRecipes = try await APIManager.loadRecipes(searchTerm: .query(query))
-            shouldShowSpinner = false
+            showLoadingAnimation = false
             recipes = fetchedRecipes
             // manager.add(recipes: fetchedRecipes, search: query)
             // cachedRecipes = manager.get(search: query) ?? []
@@ -94,7 +94,7 @@ enum ExploreView {
             if fetchedRecipes.isEmpty {
                 exploreView = .emptySearch
             } else if !fetchedRecipes.isEmpty {
-                exploreView = .searchResults
+                exploreView = .search
             }
             
         } catch {
@@ -107,4 +107,15 @@ enum ExploreView {
             }
         }
     }
+    
+    // repetitive code
+//    func handleLoadRecipesError(error: APIError) {
+//        if let apiError = error as? APIError, case.exceededCallLimit = apiError {
+//            showAlert = true
+//            alertMessage = APIError.exceededCallLimit.rawValue
+//            print("Status code 402: \(error)")
+//        } else {
+//            print("Handle Error: \(error)")
+//        }
+//    }
 }

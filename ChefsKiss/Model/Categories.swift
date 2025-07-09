@@ -14,7 +14,7 @@ enum CategoryTitle: String {
     case intolerance = "Intolerances"
 }
 
-enum CategoryParam: String, CaseIterable {
+enum CategoryKey: String, CaseIterable {
     case cuisine = "cuisine"
     case dishType = "type"
     case diet = "diet"

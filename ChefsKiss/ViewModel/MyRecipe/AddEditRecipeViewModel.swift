@@ -18,7 +18,7 @@ enum PhotoError: Error {
 enum ImageState {
     case empty
     case loading(Progress)
-    case success(Data)
+    case photoImage(Data)
     case cameraImage
     case savedImage
     case failure(Error)
@@ -26,7 +26,7 @@ enum ImageState {
 
 @MainActor
 @Observable final class AddEditRecipeViewModel: ObservableObject {
-    let recipe: Recipe? = nil
+    let recipe: MyRecipe? = nil
     
     var title: String = ""
     var summary: String = ""
@@ -51,7 +51,7 @@ enum ImageState {
         }
     }
     
-    var savedImage: UIImage? = nil
+   // var savedImage: UIImage? = nil
     
     var servings: Double = 4
     var servingsGreaterThanMinimum: Bool {
@@ -64,31 +64,31 @@ enum ImageState {
     var cookTime: Int = 0
     let cookTimeRange = 0..<1500
     
-    var ingredients: [Recipe.Ingredient] = []
+    var ingredients: [MyRecipe.Ingredient] = []
     var ingredientName: String = ""
     var measurement: Double? = nil
     var amountDouble: Double?
     var measurementType: String = ""
-    var selectedIngredient: Recipe.Ingredient?
+    var selectedIngredient: MyRecipe.Ingredient?
     let measureTypes = ["tsp", "tbsp", "c", "pt", "qt", "gal", "oz", "fl oz", "lb", "mL", "L", "g", "kg"]
-    var sortedIngredients: [Recipe.Ingredient] {
+    var sortedIngredients: [MyRecipe.Ingredient] {
         ingredients.sorted(by: {$0.name < $1.name}) }
     
     var disableIngredient: Bool {
         ingredientName.isReallyEmpty
     }
     
-    var appliances: [Recipe.Equipment] = []
+    var appliances: [MyRecipe.Equipment] = []
     var equipmentName: String = ""
-    var selectedEquipment: Recipe.Equipment?
-    var sortedEquipment: [Recipe.Equipment] { appliances.sorted(by: {$0.name < $1.name}) }
+    var selectedEquipment: MyRecipe.Equipment?
+    var sortedEquipment: [MyRecipe.Equipment] { appliances.sorted(by: {$0.name < $1.name}) }
     var disableEquip: Bool { equipmentName.isReallyEmpty }
     
-    var instructions: [Recipe.Instruction] = []
+    var instructions: [MyRecipe.Instruction] = []
     var stepNumber: Int = 0
     var step: String = ""
-    var selectedInstruction: Recipe.Instruction?
-    var sortedInstructions: [Recipe.Instruction] { instructions.sorted(by: {$0.index < $1.index}) }
+    var selectedInstruction: MyRecipe.Instruction?
+    var sortedInstructions: [MyRecipe.Instruction] { instructions.sorted(by: {$0.index < $1.index}) }
     var disableStep: Bool { step.isReallyEmpty }
     
     var disableForm: Bool {
@@ -108,7 +108,7 @@ enum ImageState {
         }
     }
         
-    func clearPhoto(recipe: Recipe?) {
+    func clearPhoto(recipe: MyRecipe?) {
         imageState = .empty
         selectedPhoto = nil
         selectedCameraImage = nil
@@ -125,7 +125,7 @@ enum ImageState {
                     self.imageState = .empty
                     // if there is a selectedImage from PhotosPicker than success and selectedCameraImage is nil
                 case .success(let imageData?):
-                    self.imageState = .success(imageData)
+                    self.imageState = .photoImage(imageData)
                     self.selectedCameraImage = nil
                 case .failure(let error):
                     self.imageState = .failure(error)
@@ -134,8 +134,7 @@ enum ImageState {
         }
     }
     
-    func saveImage(_ recipe: Recipe) {
-        // check if there's a camera image and converts UIImage to Data
+    func saveImage(_ recipe: MyRecipe) {
         if let selectedImage = selectedCameraImage {
             // compresses data to best quality
             if let imageData = selectedImage.jpegData(compressionQuality: 1.0) {
@@ -167,34 +166,34 @@ enum ImageState {
     }
     
     func addIngredient() {
-        let newIngredient = Recipe.Ingredient(name: ingredientName, measurement: measurement ?? 0, measurementType: measurementType)
+        let newIngredient = MyRecipe.Ingredient(name: ingredientName, measurement: measurement ?? 0, measurementType: measurementType)
         ingredients.append(newIngredient)
         ingredientName = ""
         measurement = nil
         measurementType = ""
     }
     
-    func deleteIngredient(_ ingredient: Recipe.Ingredient) {
+    func deleteIngredient(_ ingredient: MyRecipe.Ingredient) {
         ingredients.removeAll(where: { $0.id == ingredient.id })
     }
     
     func addEquipment() {
-        let newEquipment = Recipe.Equipment(name: equipmentName)
+        let newEquipment = MyRecipe.Equipment(name: equipmentName)
         appliances.append(newEquipment)
         equipmentName = ""
     }
     
-    func deleteEquipment(_ equipment: Recipe.Equipment) {
+    func deleteEquipment(_ equipment: MyRecipe.Equipment) {
         appliances.removeAll(where: { $0.id == equipment.id })
     }
     
     func addStep(at index: Int) {
-        let newStep = Recipe.Instruction(index: index, step: step)
+        let newStep = MyRecipe.Instruction(index: index, step: step)
         instructions.append(newStep)
         step = ""
     }
     
-    func deleteStep(_ step: Recipe.Instruction) {
+    func deleteStep(_ step: MyRecipe.Instruction) {
         instructions.removeAll(where: { $0.id == step.id })
         
         for (index, step) in instructions.enumerated() {

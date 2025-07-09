@@ -2,22 +2,18 @@
 //  RecipeDetailView.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 3/14/24.
+//  Created by Dominique Strachan on 4/3/24.
 //
 
 import SwiftData
 import SwiftUI
 
-struct APIRecipeDetailView: View {
-    @Environment(\.openURL) var openURL
-    @Environment(\.modelContext) var modelContext
-    @Environment(\.dismiss) private var dismiss
-
-    @StateObject var viewModel = APIRecipeDetailViewModel()
+struct RecipeDetailView: View {
+    @StateObject var viewModel = RecipeDetailViewModel()
     
     @State private var showScrollToTopButton = false
     
-    let recipe: APIRecipe
+    @Bindable var recipe: MyRecipe
     
     var body: some View {
         NavigationStack {
@@ -25,30 +21,30 @@ struct APIRecipeDetailView: View {
                 GeometryReader { geo in
                     ScrollView {
                         LazyVStack {
-                            APITitleView(recipe: recipe)
+                            TitleView(recipe: recipe)
                             
-                            IconView(recipe: recipe)
+                            DurationServingsView(viewModel: viewModel, recipe: recipe)
                             
-                            APIServingsDurationView(recipe: recipe)
+                            SummaryView(recipe: recipe)
                             
-                            APISummaryView(recipe: recipe)
+                            IngredientsView(viewModel: viewModel, recipe: recipe)
                             
-                            APIIngredientsView(viewModel: viewModel, recipe: recipe)
+                            EquipmentView(viewModel: viewModel, recipe: recipe)
                             
-                            APIEquipmentView(viewModel: viewModel, recipe: recipe)
+                            InstructionsView(recipe: recipe)
                             
-                            APIInstructionsView(recipe: recipe)
-                            
-                            LinkButtonView(recipe: recipe)
                         }
                         .safeAreaInset(edge: .top) {
-                            APIImageView(recipe: recipe)
+                            ImageView(recipe: recipe, geo: geo)
+                                .overlay(alignment: .topTrailing) {
+                                    EditButtonView(viewModel: viewModel)
+                                }
+                                .id(1)
                                 .overlay(alignment: .topLeading) {
                                     BackButtonView()
                                 }
-                                .id(1)
                         }
-                        .ignoresSafeArea(.all, edges: .all)
+                        .ignoresSafeArea(.container, edges: .top)
                         .showScrollButton($showScrollToTopButton, geoProxy: geo)
                     }
                     .scrollButton($showScrollToTopButton, scrollProxy: value)
@@ -57,19 +53,20 @@ struct APIRecipeDetailView: View {
             .ignoresSafeArea(.all, edges: .top)
             .toolbar(.hidden, for: .navigationBar)
             .statusBarHidden(true)
+            .sheet(isPresented: $viewModel.isEditViewPresented) {
+                AddEditRecipeView(recipe: recipe)
+            }
         }
     }
 }
 
 //#Preview {
 //    do {
-//        let preview = try APIRecipePreview()
+//        let preview = try MyRecipePreview()
 //
-//        return APIRecipeDetailView(recipe: preview.recipe)
+//        return RecipeDetailView(recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {
 //        fatalError("Failed to create preview container.")
 //    }
 //}
-
-

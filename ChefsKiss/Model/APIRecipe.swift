@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 class Response: Decodable {
-    var results: [APIRecipe]
+    let results: [APIRecipe]
     
     enum CodingKeys: String, CodingKey {
         case results
@@ -51,7 +51,7 @@ class APIRecipe: Decodable, Equatable {
     var isDairyFree: Bool
     var readyInMinutes: Int
     var servings: Int
-    var sourceUrl: String
+    var spoonacularSourceUrl: String
     var analyzedInstructions: [Instruction]?
     
     static let dummyRecipes = [
@@ -232,7 +232,7 @@ class APIRecipe: Decodable, Equatable {
         self.isDairyFree = isDairyFree
         self.readyInMinutes = readyInMinutes
         self.servings = servings
-        self.sourceUrl = sourceUrl
+        self.spoonacularSourceUrl = sourceUrl
         self.analyzedInstructions = analyzedInstructions
     }
     
@@ -249,7 +249,7 @@ class APIRecipe: Decodable, Equatable {
         self.isDairyFree = try container.decode(Bool.self, forKey: .isDairyFree)
         self.readyInMinutes = try container.decode(Int.self, forKey: .readyInMinutes)
         self.servings = try container.decode(Int.self, forKey: .servings)
-        self.sourceUrl = try container.decode(String.self, forKey: .sourceUrl)
+        self.spoonacularSourceUrl = try container.decode(String.self, forKey: .sourceUrl)
         self.analyzedInstructions = try container.decode([Instruction].self, forKey: .analyzedInstructions)
     }
     

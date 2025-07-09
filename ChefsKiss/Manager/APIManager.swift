@@ -18,10 +18,11 @@ enum APIError: String, Error {
 
 enum SearchTerm {
     // search recipe
+    // ex: query("cake")
     case query(String)
     // cuisine, meal type, diet, intolerance categories
     // ex: categoryParam(param: "cuisine", value: "Italian")
-    case categoryParam(param: String, value: String)
+    case categoryParam(key: String, value: String)
 }
 
 struct APIManager {

@@ -1,0 +1,40 @@
+//
+//  SummaryView.swift
+//  ChefsKiss
+//
+//  Created by Dominique Strachan on 9/17/24.
+//
+
+import SwiftUI
+
+struct SummaryView: View {
+    let recipe: MyRecipe
+    
+    @State private var isFullSummary: Bool = false
+    
+    var body: some View {
+        if !recipe.summary.isEmpty {
+            Text(recipe.summary)
+                .contentFont()
+                .lineLimit(isFullSummary ? nil : 2)
+                .overlay(alignment: .bottomTrailing) {
+                    ExpandButtonView(isFullSummary: $isFullSummary)
+                }
+                .padding(.horizontal)
+                .padding(.horizontal)
+                .padding(.horizontal)
+                .padding(.vertical)
+        }
+    }
+}
+
+//#Preview {
+//    do {
+//        let preview = try RecipePreview()
+//
+//        return SummaryView(recipe: preview.recipe)
+//            .modelContainer(preview.container)
+//    } catch {
+//        fatalError("Failed to create preview container.")
+//    }
+//}

@@ -1,16 +1,16 @@
 //
-//  APIEquipmentView.swift
+//  EquipmentView.swift
 //  ChefsKiss
 //
-//  Created by Dominique Strachan on 9/16/24.
+//  Created by Dominique Strachan on 9/17/24.
 //
 
 import SwiftUI
 
-struct APIEquipmentView: View {
-    @ObservedObject var viewModel: APIRecipeDetailViewModel
+struct EquipmentView: View {
+    @ObservedObject var viewModel: RecipeDetailViewModel
     
-    let recipe: APIRecipe
+    let recipe: MyRecipe
     
     var body: some View {
         ZStack {
@@ -22,16 +22,13 @@ struct APIEquipmentView: View {
                     .padding(.leading)
                     .padding(.top)
                 
-                let allEquipment = recipe.analyzedInstructions?.flatMap { $0.steps.flatMap { $0.equipment } }
-                
-                let uniqueEquipment = viewModel.removeDuplicateEquipment(from: allEquipment ?? [])
-                
-                if !uniqueEquipment.isEmpty {
+                if !recipe.sortedEquipment.isEmpty {
                     LazyVGrid(columns: viewModel.columns, alignment: .leading, spacing: 10) {
-                        ForEach(uniqueEquipment, id: \.name) { equipment in
-                            HStack(alignment: .top, spacing: 5) {
+                        ForEach(recipe.sortedEquipment, id:\.id) { equipment in
+                            HStack(spacing: 5) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundStyle(Color.accent)
+                                    .padding(.trailing, 5)
                                 
                                 Text(equipment.name)
                                     .contentFont()
@@ -42,6 +39,7 @@ struct APIEquipmentView: View {
                         }
                     }
                     .padding(.leading)
+                    
                 } else {
                     HStack {
                         Text("No equipment listed")
@@ -62,9 +60,9 @@ struct APIEquipmentView: View {
 
 //#Preview {
 //    do {
-//        let preview = try APIRecipePreview()
+//        let preview = try RecipePreview()
 //
-//        return APIEquipmentView(viewModel: APIRecipeDetailViewModel(), recipe: preview.recipe)
+//        return EquipmentView(viewModel: RecipeDetailViewModel(), recipe: preview.recipe)
 //            .modelContainer(preview.container)
 //    } catch {
 //        fatalError("Failed to create preview container.")

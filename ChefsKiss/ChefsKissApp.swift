@@ -18,7 +18,7 @@ struct ChefsKissApp: App {
                 TabBarView()
                 // SwiftData containers
                 .modelContainer(for: [
-                    Recipe.self,
+                    MyRecipe.self,
                     APIRecipe.self
                 ])
             }
