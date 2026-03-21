@@ -8,8 +8,7 @@
 import SwiftData
 import SwiftUI
 
-// testing
-// testing
+// git commit test
 @main
 struct ChefsKissApp: App {
     var body: some Scene {
