@@ -1,6 +1,21 @@
 # [ChefsKiss](https://apps.apple.com/us/app/chefskiss/id6738972491)
 ChefsKiss is a full-featured iOS recipe application built with SwiftUI, enabling users to discover, save, and create personalized recipes using real-time API data and local persistence.
 
+## Tech Stack
+- Swift, SwiftUI
+- MVVM Architecture
+- SwiftData (local persistence)
+- REST API integration (Spoonacular)
+- PhotosUI & UIImagePickerController
+- Async/Await networking
+
+## Key Features
+- Search and explore 365K+ recipes via Spoonacular API
+- Save and manage recipes with persistent storage (SwiftData)
+- Create custom recipes with ingredients, steps, and images
+- Upload photos using PhotosUI and Camera integration
+- Dynamic filtering by cuisine, diet, and meal type
+
 # REST API
 The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search for a recipe by its query. To decode the API response, the APIRecipe model is separated into Response and APIRecipe classes since the JSON object contains nested objects. 
 
