@@ -1,5 +1,5 @@
 # [ChefsKiss](https://apps.apple.com/us/app/chefskiss/id6738972491)
-ChefsKiss is a mobile recipe app built for users who love to cook! Key features include exploring 365,000+ recipes, saving favorite recipes, and creating a personal cookbook. Check out my [portfolio](https://dominiquestrachan.squarespace.com) to see features.
+ChefsKiss is a full-featured iOS recipe application built with SwiftUI, enabling users to discover, save, and create personalized recipes using real-time API data and local persistence.
 
 # REST API
 The [Spoonacular API](https://spoonacular.com/food-api/docs#Search-Recipes-Complex) is integrated with ChefsKiss to show recipes by categories or search for a recipe by its query. To decode the API response, the APIRecipe model is separated into Response and APIRecipe classes since the JSON object contains nested objects. 
