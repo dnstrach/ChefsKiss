@@ -42,9 +42,9 @@ struct NavigationBarView: View {
                     dismiss()
                 }
             } label: {
-                Image(systemName: "square.and.arrow.down.fill")
-                    .foregroundStyle(.accent1)
-                    .scaleEffect(1.5)
+                Text("Save")
+                 //   .foregroundStyle(.accent1)
+                 //   .scaleEffect(1.5)
             }
             .padding(.trailing)
         }
