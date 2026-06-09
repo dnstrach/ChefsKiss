@@ -21,9 +21,7 @@ struct NavigationBarView: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "x.square.fill")
-                    .foregroundStyle(.accent1)
-                    .scaleEffect(1.5)
+                Text("Cancel")
             }
             .padding(.leading)
             
@@ -43,8 +41,6 @@ struct NavigationBarView: View {
                 }
             } label: {
                 Text("Save")
-                 //   .foregroundStyle(.accent1)
-                 //   .scaleEffect(1.5)
             }
             .padding(.trailing)
         }
