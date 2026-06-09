@@ -21,9 +21,9 @@ struct NavigationBarView: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "x.square.fill")
-                    .foregroundStyle(.accent1)
-                    .scaleEffect(1.5)
+                Text("Cancel")
+                  //  .foregroundStyle(.accent1)
+                  //  .scaleEffect(1.5)
             }
             .padding(.leading)
             
@@ -31,7 +31,7 @@ struct NavigationBarView: View {
             
             Text(recipe == nil ? "Add Recipe" : "Edit Recipe")
                 .foregroundStyle(.accent1)
-                .font(.title2)
+                //.font(.title2)
                 .fontWeight(.bold)
             
             Spacer()
@@ -42,9 +42,9 @@ struct NavigationBarView: View {
                     dismiss()
                 }
             } label: {
-                Image(systemName: "square.and.arrow.down.fill")
-                    .foregroundStyle(.accent1)
-                    .scaleEffect(1.5)
+                Text("Save")
+                 //   .foregroundStyle(.accent1)
+                 //   .scaleEffect(1.5)
             }
             .padding(.trailing)
         }
