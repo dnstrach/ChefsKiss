@@ -61,6 +61,7 @@ struct MyRecipeListView: View {
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .scaleEffect(1.5)
+                            .foregroundStyle(.accent1)
                     }
                 }
                 
