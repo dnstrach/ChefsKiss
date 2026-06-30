@@ -16,7 +16,18 @@ struct MyRecipeListView: View {
     
     @Environment(\.modelContext) var modelContext
     
+    @State private var searchText = ""
     @State private var isAddViewPresented = false
+    
+    private var filteredRecipes: [MyRecipe] {
+        if searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return recipes
+        }
+
+        return recipes.filter {
+            $0.title.localizedCaseInsensitiveContains(searchText)
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -31,7 +42,7 @@ struct MyRecipeListView: View {
                     
                 } else {
                     List {
-                        ForEach(recipes, id: \.id) { recipe in
+                        ForEach(filteredRecipes, id: \.id) { recipe in
                             NavigationLink {
                                 RecipeDetailView(recipe: recipe)
                             } label: {
@@ -44,6 +55,11 @@ struct MyRecipeListView: View {
                 }
             }
             .navigationTitle("My Recipes")
+            .searchable(
+                text: $searchText,
+                placement: .navigationBarDrawer(displayMode: .automatic),
+                prompt: "Search recipes"
+            )
             .toolbar {
                 
 //                if !recipes.isEmpty {
@@ -75,7 +91,7 @@ struct MyRecipeListView: View {
     
     func deleteRecipe(at offsets: IndexSet) {
         for offset in offsets {
-            let recipe = recipes[offset]
+            let recipe = filteredRecipes[offset]
             modelContext.delete(recipe)
         }
     }
