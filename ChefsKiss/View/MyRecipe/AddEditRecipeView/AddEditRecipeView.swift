@@ -113,7 +113,7 @@ struct AddEditRecipeView: View {
                 .listRowBackground(Color.textfield)
             }
             .scrollContentBackground(.hidden)
-            .background(.accent1)
+           // .background(.accent)
             .onAppear {
                 if let recipe {
                     viewModel.title = recipe.title
@@ -144,7 +144,7 @@ struct AddEditRecipeView: View {
                     .presentationDetents([.fraction(0.40)])
             }
         }
-        .background(.textfield)
+       // .background(.textfield)
     }
     
     func showSavedImage() {
